@@ -429,6 +429,128 @@ table tbody tr td {
     line-height: 1.55;
 }
 
+.about-story {
+    width: min(100% - 48px, 1280px);
+    margin: 0 auto 72px;
+    color: #193b2a;
+}
+
+.about-story__intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(360px, .95fr);
+    align-items: center;
+    gap: clamp(28px, 6vw, 84px);
+    margin-bottom: 36px;
+}
+
+.about-story__copy {
+    max-width: 600px;
+}
+
+.about-story__eyebrow {
+    margin: 0 0 5px;
+    color: #387344;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: .12em;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.about-story__title {
+    margin: 0 0 14px;
+    color: #173a2b;
+    font-size: clamp(28px, 3vw, 42px);
+    font-weight: 900;
+    letter-spacing: -.035em;
+    line-height: 1.12;
+}
+
+.about-story__description {
+    max-width: 590px;
+    margin: 0;
+    color: #59645d;
+    font-size: 15px;
+    font-weight: 550;
+    line-height: 1.55;
+}
+
+.about-story__image-wrap {
+    position: relative;
+    min-width: 0;
+    padding: 0 0 0 22px;
+}
+
+.about-story__image-wrap::before {
+    position: absolute;
+    z-index: 0;
+    top: 14%;
+    bottom: 10%;
+    left: 0;
+    width: 34%;
+    border-radius: 22px;
+    background: #dce9c9;
+    content: "";
+}
+
+.about-story__image {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: clamp(220px, 25vw, 310px);
+    border-radius: 18px 0 0 18px;
+    object-fit: cover;
+    object-position: center 52%;
+}
+
+.about-story__values {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.about-story__value {
+    display: grid;
+    grid-template-columns: 76px minmax(0, 1fr);
+    align-items: center;
+    gap: 20px;
+    min-height: 146px;
+    padding: 24px 28px;
+    border-radius: 12px;
+}
+
+.about-story__value--vision {
+    background: #f0f6eb;
+}
+
+.about-story__value--mission {
+    background: #fcf5e8;
+}
+
+.about-story__value-icon {
+    width: 64px;
+    height: 64px;
+    color: #426d2b;
+}
+
+.about-story__value h3 {
+    margin: 0 0 4px;
+    color: #28603a;
+    font-size: 19px;
+    font-weight: 900;
+    letter-spacing: -.015em;
+    line-height: 1.25;
+}
+
+.about-story__value p {
+    margin: 0;
+    color: #58645a;
+    font-size: 14px;
+    font-weight: 550;
+    line-height: 1.5;
+}
+
 @media (max-width: 767px) {
     .about-hero {
         width: 100%;
@@ -465,6 +587,55 @@ table tbody tr td {
 
     .about-hero__description {
         font-size: 15px;
+    }
+
+    .about-story {
+        width: calc(100% - 36px);
+        margin-bottom: 48px;
+    }
+
+    .about-story__intro {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+        margin-bottom: 24px;
+    }
+
+    .about-story__title {
+        font-size: clamp(27px, 7.6vw, 36px);
+    }
+
+    .about-story__desktop-break {
+        display: none;
+    }
+
+    .about-story__image-wrap {
+        padding-left: 14px;
+    }
+
+    .about-story__image-wrap::before {
+        border-radius: 16px;
+    }
+
+    .about-story__image {
+        height: clamp(210px, 62vw, 300px);
+        border-radius: 14px 0 0 14px;
+    }
+
+    .about-story__values {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+    }
+
+    .about-story__value {
+        grid-template-columns: 56px minmax(0, 1fr);
+        gap: 14px;
+        min-height: 0;
+        padding: 20px;
+    }
+
+    .about-story__value-icon {
+        width: 52px;
+        height: 52px;
     }
 }
 
