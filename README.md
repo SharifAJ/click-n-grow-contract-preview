@@ -86,6 +86,18 @@ php artisan optimize:clear
 
 ---
 
+# Temporary Render Preview
+
+The repository includes a `render.yaml` blueprint and `Dockerfile` for a free Render preview:
+
+1. Push these deployment files to the private GitHub repository.
+2. In Render, create a new Blueprint and connect the private repository.
+3. Review the service settings and deploy. Render generates the `APP_KEY`; the app builds its frontend and runs database migrations on startup.
+
+This setup uses SQLite on Render's ephemeral filesystem. It is intended for temporary previews only: the free service can sleep when idle, and database changes or uploaded files can be lost when it restarts or redeploys. The deployed URL is public even though the source repository remains private. Do not add production payment credentials or secrets to the repository.
+
+---
+
 # Pipeline Code for Reference
 
 ```yml
