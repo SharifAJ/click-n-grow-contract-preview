@@ -370,11 +370,10 @@ table tbody tr td {
 .about-hero {
     position: relative;
     isolation: isolate;
-    width: min(100% - 40px, 1440px);
+    width: 100%;
     min-height: clamp(300px, 34vw, 470px);
-    margin: 24px auto 56px;
+    margin: 24px 0 56px;
     overflow: hidden;
-    border-radius: 18px;
     background: #e8f0e4;
 }
 
@@ -432,10 +431,9 @@ table tbody tr td {
 
 @media (max-width: 767px) {
     .about-hero {
-        width: calc(100% - 28px);
+        width: 100%;
         min-height: 440px;
-        margin: 14px auto 36px;
-        border-radius: 14px;
+        margin: 14px 0 36px;
     }
 
     .about-hero__image {

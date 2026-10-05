@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-guest-layout brand="click-n-grow">
     <section class="about-hero" aria-labelledby="about-hero-title">
         <img class="about-hero__image" src="{{ asset('images/home_banner.png') }}"
             alt="Farmer tending herbal crops in a green field" fetchpriority="high">

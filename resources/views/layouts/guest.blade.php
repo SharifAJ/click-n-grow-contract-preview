@@ -1,4 +1,4 @@
-@props(['contract_var' => null])
+@props(['contract_var' => null, 'brand' => 'kisansat'])
 
 <!DOCTYPE html>
 <html data-theme="emerald" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -71,10 +71,11 @@
 
 					@php
 						$isContract = ($contract_var ?? null) === 'contract_page';
+						$usesClickNGrowBrand = $isContract || $brand === 'click-n-grow';
 					@endphp
 
 					<a class="text-xl font-bold" href="{{ route('home') }}">
-						@if ($isContract)
+						@if ($usesClickNGrowBrand)
 							<img class="w-20" src="{{ asset('images/Click N Grow Final Logo.jpg') }}" alt="Contract Logo">
 						@elseif (!empty($setting->application_logo) && file_exists(public_path('storage/' . $setting->application_logo)))
 							<img class="w-20" src="{{ asset('storage/' . $setting->application_logo) }}" alt="KisanSAT Logo">
