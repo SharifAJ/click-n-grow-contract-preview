@@ -146,4 +146,38 @@
             </div>
         </div>
     </section>
+
+    <section class="about-partners" aria-labelledby="about-partners-title">
+        <header class="about-partners__header">
+            <p class="about-partners__eyebrow">Our Partners</p>
+            <h2 class="about-partners__title" id="about-partners-title">Working Together for a Stronger Tomorrow</h2>
+            <p class="about-partners__description">
+                We collaborate with farmers, FPOs, herbal companies, industry experts and business associates to create a
+                sustainable and profitable herbal farming value chain.
+            </p>
+        </header>
+
+        <div class="about-partners__grid">
+            <article class="about-partners__card">
+                <span class="about-partners__icon"><i class="fas fa-user-tie" aria-hidden="true"></i></span>
+                <h3>Farmers &amp; FPOs</h3>
+                <p>Our core partners in<br>cultivation and growth</p>
+            </article>
+            <article class="about-partners__card">
+                <span class="about-partners__icon"><i class="fas fa-industry" aria-hidden="true"></i></span>
+                <h3>Herbal Companies</h3>
+                <p>Reliable buyers of<br>high-quality raw materials</p>
+            </article>
+            <article class="about-partners__card">
+                <span class="about-partners__icon"><i class="fas fa-handshake" aria-hidden="true"></i></span>
+                <h3>Business Associates</h3>
+                <p>Representing and<br>expanding our reach</p>
+            </article>
+            <article class="about-partners__card">
+                <span class="about-partners__icon"><i class="fas fa-chart-simple" aria-hidden="true"></i></span>
+                <h3>Investors</h3>
+                <p>Supporting the growth of<br>the herbal farming industry</p>
+            </article>
+        </div>
+    </section>
 </x-guest-layout>
