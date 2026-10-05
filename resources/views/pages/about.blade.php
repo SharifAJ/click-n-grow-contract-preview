@@ -111,4 +111,39 @@
             </li>
         </ol>
     </section>
+
+    <section class="about-experience" aria-labelledby="about-experience-title">
+        <img class="about-experience__image" src="{{ asset('images/crops.jpg') }}"
+            alt="" aria-hidden="true" loading="lazy">
+        <div class="about-experience__wash" aria-hidden="true"></div>
+        <div class="about-experience__content">
+            <div class="about-experience__copy">
+                <p class="about-experience__eyebrow">Our Experience</p>
+                <h2 class="about-experience__title" id="about-experience-title">Experience That<br>Creates Impact</h2>
+                <p class="about-experience__description">
+                    With years of expertise in herbal crop cultivation and strong industry linkages, we have built a
+                    trusted network of farmers and partners across India.
+                </p>
+            </div>
+
+            <div class="about-experience__stats" aria-label="Click-N-Grow impact">
+                <div class="about-experience__stat">
+                    <span class="about-experience__icon"><i class="fas fa-user-tie" aria-hidden="true"></i></span>
+                    <span><strong>500+</strong><small>Farmers</small></span>
+                </div>
+                <div class="about-experience__stat">
+                    <span class="about-experience__icon"><i class="fas fa-seedling" aria-hidden="true"></i></span>
+                    <span><strong>1,000+</strong><small>Acres</small></span>
+                </div>
+                <div class="about-experience__stat">
+                    <span class="about-experience__icon"><i class="fas fa-location-dot" aria-hidden="true"></i></span>
+                    <span><strong>10+</strong><small>States</small></span>
+                </div>
+                <div class="about-experience__stat">
+                    <span class="about-experience__icon"><i class="fas fa-leaf" aria-hidden="true"></i></span>
+                    <span><strong>14+</strong><small>Herbal Crops</small></span>
+                </div>
+            </div>
+        </div>
+    </section>
 </x-guest-layout>

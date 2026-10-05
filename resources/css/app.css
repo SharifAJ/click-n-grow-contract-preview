@@ -636,10 +636,145 @@ table tbody tr td {
     font-size: 15px;
 }
 
+.about-experience {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    min-height: 280px;
+    align-items: center;
+    overflow: hidden;
+    background: #dce8d5;
+}
+
+.about-experience__image,
+.about-experience__wash {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.about-experience__image {
+    z-index: -2;
+    object-fit: cover;
+    object-position: center 54%;
+}
+
+.about-experience__wash {
+    z-index: -1;
+    background: linear-gradient(90deg, rgba(248, 250, 239, .9) 0%, rgba(248, 250, 239, .82) 38%, rgba(248, 250, 239, .42) 62%, rgba(248, 250, 239, .12) 100%);
+}
+
+.about-experience__content {
+    display: grid;
+    width: min(100% - 48px, 1280px);
+    grid-template-columns: minmax(0, 1fr) minmax(370px, .9fr);
+    align-items: center;
+    gap: clamp(30px, 7vw, 100px);
+    margin: 0 auto;
+    padding: 34px 0;
+}
+
+.about-experience__copy {
+    max-width: 560px;
+}
+
+.about-experience__eyebrow {
+    margin: 0 0 4px;
+    color: #387344;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: .12em;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.about-experience__title {
+    margin: 0 0 10px;
+    color: #173a2b;
+    font-size: clamp(30px, 3.4vw, 44px);
+    font-weight: 900;
+    letter-spacing: -.035em;
+    line-height: 1.12;
+}
+
+.about-experience__description {
+    max-width: 540px;
+    margin: 0;
+    color: #34443a;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.about-experience__stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: hidden;
+    border: 1px solid rgba(54, 85, 48, .12);
+    border-radius: 14px;
+    background: rgba(250, 251, 244, .9);
+    box-shadow: 0 12px 34px rgba(31, 58, 32, .12);
+    backdrop-filter: blur(8px);
+}
+
+.about-experience__stat {
+    display: flex;
+    min-height: 82px;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+}
+
+.about-experience__stat:nth-child(even) {
+    border-left: 1px solid rgba(54, 85, 48, .12);
+}
+
+.about-experience__stat:nth-child(n + 3) {
+    border-top: 1px solid rgba(54, 85, 48, .12);
+}
+
+.about-experience__icon {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    place-items: center;
+    border-radius: 50%;
+    background: #edf4e5;
+    color: #4b7e2d;
+    font-size: 20px;
+}
+
+.about-experience__stat strong,
+.about-experience__stat small {
+    display: block;
+}
+
+.about-experience__stat strong {
+    color: #1d3627;
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 1.15;
+}
+
+.about-experience__stat small {
+    margin-top: 3px;
+    color: #536057;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
 @media (max-width: 900px) {
     .about-approach__steps {
         grid-template-columns: repeat(4, minmax(0, 1fr));
         row-gap: 24px;
+    }
+
+    .about-experience__content {
+        grid-template-columns: minmax(0, 1fr) minmax(320px, .95fr);
+        gap: 28px;
     }
 
     .about-approach__arrow {
@@ -762,6 +897,53 @@ table tbody tr td {
 
     .about-approach__arrow {
         display: none;
+    }
+
+    .about-experience {
+        min-height: 0;
+    }
+
+    .about-experience__image {
+        object-position: center;
+    }
+
+    .about-experience__wash {
+        background: rgba(248, 250, 239, .78);
+    }
+
+    .about-experience__content {
+        width: calc(100% - 36px);
+        grid-template-columns: minmax(0, 1fr);
+        gap: 22px;
+        padding: 34px 0;
+    }
+
+    .about-experience__title {
+        font-size: clamp(30px, 8vw, 38px);
+    }
+
+    .about-experience__stats {
+        width: 100%;
+    }
+
+    .about-experience__stat {
+        min-height: 76px;
+        padding: 12px;
+    }
+
+    .about-experience__icon {
+        width: 38px;
+        height: 38px;
+        flex-basis: 38px;
+        font-size: 18px;
+    }
+
+    .about-experience__stat strong {
+        font-size: 18px;
+    }
+
+    .about-experience__stat small {
+        font-size: 11px;
     }
 }
 
