@@ -1,8 +1,11 @@
 <x-guest-layout :contract_var="'contract_page'">
 
     <section class="contract-home-hero">
-        <img class="contract-home-hero__image" src="{{ asset('images/home_banner.png') }}"
-            alt="Farmer holding fresh herbs in a green field" fetchpriority="high">
+        <picture>
+            <source media="(max-width: 767px)" srcset="{{ asset('images/mobile_banner.png') }}">
+            <img class="contract-home-hero__image" src="{{ asset('images/home_banner.png') }}"
+                alt="Farmer holding fresh herbs in a green field" fetchpriority="high">
+        </picture>
         <div class="contract-home-hero__wash" aria-hidden="true"></div>
         <div class="contract-home-hero__content">
             <p class="contract-home-hero__eyebrow">From Farm to Future</p>
