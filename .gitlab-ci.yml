@@ -1,0 +1,15 @@
+# DEPLOY STATIC FILES AND ALSO RUN MIGRATION AND SEEDERS TO THE DATABASE
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  script:
+    # Install necessary dependencies
+    - apt-get update -y && apt-get install -y lftp ssh
+    - lftp -c "set ssl:verify-certificate no; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -R --verbose --exclude=vendor --exclude=.env --exclude=.htaccess --only-newer ./ . --parallel=2"
+    
+  environment:
+    name: production
+  only:
+    - master # Trigger on the master branch

@@ -1,0 +1,1 @@
+<?php /**PATH C:\Users\jab\Desktop\Contract\resources\views\dashboard\index.blade.php ENDPATH**/ ?>

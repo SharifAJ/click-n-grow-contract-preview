@@ -1,0 +1,152 @@
+<?php if (isset($component)) { $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54 = $attributes; } ?>
+<?php $component = App\View\Components\AppLayout::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('app-layout'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\App\View\Components\AppLayout::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+    <?php if (isset($component)) { $__componentOriginala9460c3f03249ecfefb27342dfe2f2cc = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginala9460c3f03249ecfefb27342dfe2f2cc = $attributes; } ?>
+<?php $component = App\View\Components\HeaderTitle::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('header-title'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\App\View\Components\HeaderTitle::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['title' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(__('Add Payment Details'))]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginala9460c3f03249ecfefb27342dfe2f2cc)): ?>
+<?php $attributes = $__attributesOriginala9460c3f03249ecfefb27342dfe2f2cc; ?>
+<?php unset($__attributesOriginala9460c3f03249ecfefb27342dfe2f2cc); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginala9460c3f03249ecfefb27342dfe2f2cc)): ?>
+<?php $component = $__componentOriginala9460c3f03249ecfefb27342dfe2f2cc; ?>
+<?php unset($__componentOriginala9460c3f03249ecfefb27342dfe2f2cc); ?>
+<?php endif; ?>
+
+    <?php if(session('error')): ?>
+        <div class="alert alert-danger">
+            <?php echo e(session('error')); ?>
+
+        </div>
+    <?php endif; ?>
+
+
+    <div class=" mt-5">
+        <form method="POST" action="<?php echo e(route('payment.store')); ?>">
+            <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                <div class="flex justify-between items-center p-4">
+                    <h4 class="text-lg font-semibold">Payment Details</h4>
+                </div>
+
+                <?php echo csrf_field(); ?>
+                <div class="w-1/2 p-5">
+                    <div class="form-control mb-4">
+                        <label class="label">
+                            <span class="label-text">Farmer</span>
+                        </label>
+                        <input type="text" value="<?php echo e($farmers->name); ?>" readonly
+                            class="input input-bordered w-full" />
+                    </div>
+                    <div class="form-control mb-4">
+                        <label class="label">
+                            <span class="label-text">Farmer ID</span>
+                        </label>
+                        <input type="text" value="<?php echo e($farmers->farmer_id); ?>" readonly
+                            class="input input-bordered w-full" />
+                    </div>
+                    <div class="form-control mb-4">
+                        <label class="label">
+                            <span class="label-text">Mobile</span>
+                        </label>
+                        <input type="text" value="<?php echo e($farmers->mobile); ?>" readonly
+                            class="input input-bordered w-full" />
+                    </div>
+                    <div class="form-control mb-4">
+                        <label class="label">
+                            <span class="label-text">Email</span>
+                        </label>
+                        <input type="text" value="<?php echo e($farmers->email); ?>" readonly
+                            class="input input-bordered w-full" />
+                    </div>
+
+
+                    <?php
+                        $date = date('Y-M-d');
+                    ?>
+                    <div class="form-control mb-4">
+                        <label class="label">
+                            <span class="label-text">Payment Date <span class="text-red-500">*</span></span>
+                        </label>
+                        <input type="date" name="reg_date"
+                            value="<?php echo e(old('reg_date', $date ? date('Y-m-d', strtotime($date)) : '')); ?>"
+                            class="input input-bordered w-full" required>
+                        <?php $__errorArgs = ['reg_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <span class="text-red-500 text-sm"><?php echo e($message); ?></span>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                    </div>
+
+                    <div class="form-control mb-4">
+                        <label class="label">
+                            <span class="label-text">Payment Status <span class="text-red-500">*</span></span>
+                        </label>
+                        <select class="select select-bordered w-full" name="payment_status[]" required>
+                            <option value="" selected disabled>Select Payment Status</option>
+                            <option value="upi">UPI</option>
+                            <option value="bank-transfer">Bank Transfer</option>
+                            <option value="card">Card</option>
+                            <option value="cash">Cash</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-control mb-4">
+                        <label class="label">
+                            <span class="label-text">Remark <span class="text-red-500">*</span></span>
+                        </label>
+                        <textarea name="" rows="5" cols="4" class="textarea textarea-bordered w-full"></textarea>
+                    </div>
+
+
+                </div>
+
+
+                
+                <div class="flex items-center p-4 justify-end space-x-4">
+                    <a href="<?php echo e(route('payment.index')); ?>" class="btn btn-neutral">Back</a>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+
+    <script>
+        function validateMobile(input) {
+            input.value = input.value.replace(/\D/g, '').slice(0, 10);
+        }
+    </script>
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $attributes = $__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__attributesOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
+<?php $component = $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
+<?php unset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
+<?php endif; ?>
+<?php /**PATH C:\Users\jab\Desktop\Contract\resources\views\dashboard\payment\create.blade.php ENDPATH**/ ?>
