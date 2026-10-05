@@ -59,4 +59,56 @@
             </article>
         </div>
     </section>
+
+    <section class="about-approach" aria-labelledby="about-approach-title">
+        <div class="about-approach__header">
+            <p class="about-approach__eyebrow">Our Approach</p>
+            <h2 class="about-approach__title" id="about-approach-title">From Farm to Herbal Industry</h2>
+            <p class="about-approach__description">
+                We provide end-to-end support to ensure successful cultivation, quality production and direct market access for farmers.
+            </p>
+        </div>
+
+        <ol class="about-approach__steps">
+            <li class="about-approach__step">
+                <span class="about-approach__icon"><i class="fas fa-hand-holding-seedling" aria-hidden="true"></i></span>
+                <span class="about-approach__label">Crop<br>Selection</span>
+                <span class="about-approach__arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
+            </li>
+            <li class="about-approach__step">
+                <span class="about-approach__icon"><i class="fas fa-seedling" aria-hidden="true"></i></span>
+                <span class="about-approach__label">Cultivation</span>
+                <span class="about-approach__arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
+            </li>
+            <li class="about-approach__step">
+                <span class="about-approach__icon"><i class="fas fa-user" aria-hidden="true"></i></span>
+                <span class="about-approach__label">Field Support<br>for Cultivation</span>
+                <span class="about-approach__arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
+            </li>
+            <li class="about-approach__step">
+                <span class="about-approach__icon"><i class="fas fa-wheat-awn" aria-hidden="true"></i></span>
+                <span class="about-approach__label">Harvest</span>
+                <span class="about-approach__arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
+            </li>
+            <li class="about-approach__step">
+                <span class="about-approach__icon"><i class="fas fa-circle-check" aria-hidden="true"></i></span>
+                <span class="about-approach__label">Quality<br>Assessment</span>
+                <span class="about-approach__arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
+            </li>
+            <li class="about-approach__step">
+                <span class="about-approach__icon"><i class="fas fa-gears" aria-hidden="true"></i></span>
+                <span class="about-approach__label">Processing /<br>Grading</span>
+                <span class="about-approach__arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
+            </li>
+            <li class="about-approach__step">
+                <span class="about-approach__icon"><i class="fas fa-truck" aria-hidden="true"></i></span>
+                <span class="about-approach__label">Raw Material<br>Supply</span>
+                <span class="about-approach__arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
+            </li>
+            <li class="about-approach__step">
+                <span class="about-approach__icon"><i class="fas fa-industry" aria-hidden="true"></i></span>
+                <span class="about-approach__label">Herbal<br>Industry</span>
+            </li>
+        </ol>
+    </section>
 </x-guest-layout>

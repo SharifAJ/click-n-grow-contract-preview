@@ -551,6 +551,102 @@ table tbody tr td {
     line-height: 1.5;
 }
 
+.about-approach {
+    width: min(100% - 48px, 1280px);
+    margin: 0 auto 72px;
+    color: #193b2a;
+}
+
+.about-approach__header {
+    max-width: 720px;
+    margin-bottom: 28px;
+}
+
+.about-approach__eyebrow {
+    margin: 0 0 4px;
+    color: #387344;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: .12em;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.about-approach__title {
+    margin: 0 0 5px;
+    color: #173a2b;
+    font-size: clamp(27px, 3vw, 38px);
+    font-weight: 900;
+    letter-spacing: -.035em;
+    line-height: 1.15;
+}
+
+.about-approach__description {
+    max-width: 620px;
+    margin: 0;
+    color: #59645d;
+    font-size: 15px;
+    font-weight: 550;
+    line-height: 1.5;
+}
+
+.about-approach__steps {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.about-approach__step {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.about-approach__icon {
+    display: grid;
+    width: 70px;
+    height: 70px;
+    place-items: center;
+    border-radius: 50%;
+    background: #eff6e9;
+    color: #4b7e2d;
+    font-size: 27px;
+}
+
+.about-approach__label {
+    display: block;
+    margin-top: 9px;
+    color: #233d2e;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.about-approach__arrow {
+    position: absolute;
+    top: 24px;
+    right: -8px;
+    color: #347542;
+    font-size: 15px;
+}
+
+@media (max-width: 900px) {
+    .about-approach__steps {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        row-gap: 24px;
+    }
+
+    .about-approach__arrow {
+        display: none;
+    }
+}
+
 @media (max-width: 767px) {
     .about-hero {
         width: 100%;
@@ -636,6 +732,36 @@ table tbody tr td {
     .about-story__value-icon {
         width: 52px;
         height: 52px;
+    }
+
+    .about-approach {
+        width: calc(100% - 36px);
+        margin-bottom: 48px;
+    }
+
+    .about-approach__header {
+        margin-bottom: 22px;
+    }
+
+    .about-approach__steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        row-gap: 22px;
+    }
+
+    .about-approach__icon {
+        width: 62px;
+        height: 62px;
+        font-size: 24px;
+    }
+
+    .about-approach__label {
+        max-width: 145px;
+        margin-top: 7px;
+        font-size: 12px;
+    }
+
+    .about-approach__arrow {
+        display: none;
     }
 }
 
