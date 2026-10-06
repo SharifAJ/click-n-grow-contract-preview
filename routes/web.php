@@ -137,6 +137,7 @@ Route::view('/privacy-policy', 'pages/privacy-policy')->name('privacy-policy');
 Route::view('/refund-policy', 'pages/refund-policy')->name('refund-policy');
 Route::view('/terms-and-conditions', 'pages/terms-and-conditions')->name('terms-and-conditions');
 Route::view('/about', 'pages/about')->name('about');
+Route::view('/expert-visit-registration', 'pages/expert-visit-registration')->name('expert-visit-registration');
 // Show contact form
 Route::get('/contact-us', [ContactUsController::class, 'create'])->name('contact-us');
 // Route::view('/contact-us', 'pages/contact-us')->name('contact-us');
