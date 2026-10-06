@@ -26,6 +26,7 @@ use App\Http\Controllers\ContractFarming\EnquiryController;
 use App\Http\Controllers\ContractFarming\BusinessAssociateController;
 use App\Http\Controllers\ContractFarming\FPOController;
 use App\Http\Controllers\ContractFarming\FarmersController;
+use App\Http\Controllers\ExpertVisitRegistrationController;
 
 
 
@@ -137,7 +138,14 @@ Route::view('/privacy-policy', 'pages/privacy-policy')->name('privacy-policy');
 Route::view('/refund-policy', 'pages/refund-policy')->name('refund-policy');
 Route::view('/terms-and-conditions', 'pages/terms-and-conditions')->name('terms-and-conditions');
 Route::view('/about', 'pages/about')->name('about');
-Route::view('/expert-visit-registration', 'pages/expert-visit-registration')->name('expert-visit-registration');
+Route::get('/expert-visit-registration', [ExpertVisitRegistrationController::class, 'create'])
+    ->name('expert-visit-registration');
+Route::post('/expert-visit-registration', [ExpertVisitRegistrationController::class, 'store'])
+    ->middleware('throttle:5,1')
+    ->name('expert-visit-registration.store');
+Route::post('/expert-visit-registration/payment/verify', [ExpertVisitRegistrationController::class, 'verifyPayment'])
+    ->middleware('throttle:10,1')
+    ->name('expert-visit-registration.payment.verify');
 // Show contact form
 Route::get('/contact-us', [ContactUsController::class, 'create'])->name('contact-us');
 // Route::view('/contact-us', 'pages/contact-us')->name('contact-us');

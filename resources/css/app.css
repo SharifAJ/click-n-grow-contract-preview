@@ -503,6 +503,472 @@ table tbody tr td {
     line-height: 1.55;
 }
 
+.expert-registration {
+    width: min(100% - 40px, 1440px);
+    margin: 32px auto 72px;
+}
+
+.expert-registration__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(300px, .9fr);
+    align-items: start;
+    gap: 24px;
+}
+
+.expert-registration__form,
+.expert-registration__side-card {
+    min-width: 0;
+    border: 1px solid #e6ece5;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(29, 56, 36, .05);
+}
+
+.expert-registration__form {
+    padding: 20px;
+}
+
+.expert-registration__form-header {
+    margin-bottom: 18px;
+}
+
+.expert-registration__form-header h2 {
+    margin: 0 0 2px;
+    color: #1b3828;
+    font-size: clamp(19px, 2vw, 24px);
+    font-weight: 900;
+    letter-spacing: -.025em;
+    line-height: 1.25;
+}
+
+.expert-registration__form-header p {
+    margin: 0;
+    color: #68736c;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.expert-registration__section {
+    margin: 0 0 16px;
+    padding: 0;
+    border: 0;
+}
+
+.expert-registration__section > h3,
+.expert-registration__section-heading {
+    display: flex;
+    min-height: 34px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 0 10px;
+    padding: 6px 10px;
+    border-radius: 5px;
+    background: #eef5eb;
+    color: #21422e;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.3;
+}
+
+.expert-registration__section > h3 span {
+    margin-right: 4px;
+    color: #138044;
+}
+
+.expert-registration__section-heading h3 {
+    margin: 0;
+    color: #21422e;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.3;
+}
+
+.expert-registration__section-heading h3 span {
+    margin-right: 4px;
+    color: #138044;
+}
+
+.expert-registration__fields {
+    display: grid;
+    gap: 10px 12px;
+}
+
+.expert-registration__fields--three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.expert-registration__fields--two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.expert-registration__field {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 4px;
+    color: #2d3e32;
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.expert-registration__field input,
+.expert-registration__field select {
+    width: 100%;
+    min-width: 0;
+    height: 36px;
+    padding: 0 10px;
+    border: 1px solid #dfe5df;
+    border-radius: 5px;
+    outline: none;
+    background: #fff;
+    color: #293b30;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.expert-registration__field input::placeholder {
+    color: #9aa39c;
+}
+
+.expert-registration__field input:focus,
+.expert-registration__field select:focus {
+    border-color: #438c55;
+    box-shadow: 0 0 0 3px rgba(67, 140, 85, .12);
+}
+
+.expert-registration__add-farm,
+.expert-registration__remove-farm {
+    display: inline-flex;
+    min-height: 30px;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 4px;
+    background: #0d7540;
+    color: #fff;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.expert-registration__farm {
+    position: relative;
+    margin: 0 0 10px;
+    padding: 12px;
+    border: 1px solid #e2e9e1;
+    border-radius: 8px;
+}
+
+.expert-registration__farm legend {
+    padding: 0 8px;
+    color: #285f3a;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.expert-registration__remove-farm {
+    position: absolute;
+    top: 3px;
+    right: 8px;
+    width: 28px;
+    min-height: 26px;
+    padding: 0;
+    background: #f7e9e6;
+    color: #9d3f2f;
+}
+
+.expert-registration__remove-farm:disabled {
+    display: none;
+}
+
+.expert-registration__total-area {
+    margin: 0;
+    color: #58645a;
+    font-size: 12px;
+}
+
+.expert-registration__total-area strong {
+    color: #21422e;
+}
+
+.expert-registration__payment {
+    margin-bottom: 0;
+    padding: 12px;
+    border: 1px solid #e6ece5;
+    border-radius: 8px;
+    background: #fbfcfa;
+}
+
+.expert-registration__consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0 0 12px;
+    color: #48584d;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.expert-registration__consent input {
+    width: 15px;
+    height: 15px;
+    flex: 0 0 15px;
+    margin: 1px 0 0;
+    accent-color: #08733d;
+}
+
+.expert-registration__payment > h3 {
+    margin: -12px -12px 12px;
+}
+
+.expert-registration__payment-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.expert-registration__field-label,
+.expert-registration__fee,
+.expert-registration__payment-row small {
+    display: block;
+}
+
+.expert-registration__field-label {
+    color: #516056;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.expert-registration__fee {
+    margin: 1px 0;
+    color: #173a2b;
+    font-size: 21px;
+    font-weight: 900;
+    line-height: 1.2;
+}
+
+.expert-registration__payment-row small {
+    color: #778078;
+    font-size: 10px;
+}
+
+.expert-registration__pay-button {
+    display: inline-flex;
+    min-height: 42px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 6px;
+    background: #08733d;
+    color: #fff;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+.expert-registration__pay-button:disabled {
+    cursor: not-allowed;
+    opacity: .55;
+}
+
+.expert-registration__secure {
+    margin: 6px 0 0;
+    color: #367148;
+    font-size: 10px;
+    text-align: right;
+}
+
+.expert-registration__setup-note,
+.expert-registration__message {
+    margin: 10px 0 0;
+    padding: 9px 10px;
+    border-radius: 5px;
+    background: #fff4df;
+    color: #704a12;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.expert-registration__message:empty {
+    display: none;
+}
+
+.expert-registration__message.is-success {
+    background: #eaf5e9;
+    color: #206138;
+}
+
+.expert-registration__message.is-error {
+    background: #fff0ed;
+    color: #963c2e;
+}
+
+.expert-registration__receipt {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 10px 0 0;
+    padding: 8px 10px;
+    border-radius: 5px;
+    background: #eff6ed;
+    color: #4f6053;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.expert-registration__receipt i {
+    color: #19804a;
+    font-size: 15px;
+}
+
+.expert-registration__sidebar {
+    display: grid;
+    gap: 16px;
+}
+
+.expert-registration__side-card {
+    padding: 16px;
+}
+
+.expert-registration__side-card > h2 {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0 0 12px;
+    color: #24432f;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.3;
+}
+
+.expert-registration__side-card > h2 i {
+    flex: 0 0 auto;
+    color: #328047;
+    font-size: 16px;
+}
+
+.expert-registration__fee-table-wrap {
+    overflow-x: auto;
+}
+
+.expert-registration__fee-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.expert-registration__fee-table th {
+    padding: 7px 6px;
+    border-bottom: 1px solid #e5ebe4;
+    color: #46554a;
+    font-size: 10px;
+    font-weight: 900;
+    text-align: left;
+}
+
+.expert-registration__fee-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #edf0ec;
+    color: #314338;
+    font-size: 11px;
+    vertical-align: top;
+}
+
+.expert-registration__fee-table td:last-child {
+    width: 104px;
+    color: #193b29;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+.expert-registration__fee-table td strong,
+.expert-registration__fee-table td small {
+    display: block;
+}
+
+.expert-registration__fee-table td strong {
+    font-size: 11px;
+    line-height: 1.3;
+}
+
+.expert-registration__fee-table td small {
+    margin-top: 2px;
+    color: #707a72;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.35;
+    white-space: normal;
+}
+
+.expert-registration__fee-rule {
+    margin: 10px 0 0;
+    color: #647067;
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+.expert-registration__notes > h2 i {
+    color: #b68c20;
+}
+
+.expert-registration__notes ol {
+    display: grid;
+    gap: 11px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: expert-note;
+}
+
+.expert-registration__notes li {
+    position: relative;
+    min-height: 30px;
+    padding-left: 29px;
+    counter-increment: expert-note;
+}
+
+.expert-registration__notes li::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: grid;
+    width: 20px;
+    height: 20px;
+    place-items: center;
+    border-radius: 50%;
+    background: #16804a;
+    color: #fff;
+    content: counter(expert-note);
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.expert-registration__notes li strong,
+.expert-registration__notes li span {
+    display: block;
+}
+
+.expert-registration__notes li strong {
+    margin-bottom: 1px;
+    color: #2b4934;
+    font-size: 11px;
+    font-weight: 900;
+    line-height: 1.3;
+}
+
+.expert-registration__notes li span {
+    color: #626e65;
+    font-size: 10px;
+    line-height: 1.4;
+}
+
 .about-story {
     width: min(100% - 48px, 1280px);
     margin: 0 auto 72px;
@@ -933,6 +1399,15 @@ table tbody tr td {
 }
 
 @media (max-width: 900px) {
+    .expert-registration__layout {
+        grid-template-columns: minmax(0, 1fr) minmax(270px, .8fr);
+        gap: 16px;
+    }
+
+    .expert-registration__form {
+        padding: 16px;
+    }
+
     .about-approach__steps {
         grid-template-columns: repeat(4, minmax(0, 1fr));
         row-gap: 24px;
@@ -953,6 +1428,42 @@ table tbody tr td {
 }
 
 @media (max-width: 767px) {
+    .expert-registration {
+        width: calc(100% - 28px);
+        margin: 22px auto 48px;
+    }
+
+    .expert-registration__layout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+    }
+
+    .expert-registration__form,
+    .expert-registration__side-card {
+        padding: 14px;
+    }
+
+    .expert-registration__fields--three {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .expert-registration__form-header h2 {
+        font-size: 18px;
+    }
+
+    .expert-registration__payment-row {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .expert-registration__pay-button {
+        width: 100%;
+    }
+
+    .expert-registration__secure {
+        text-align: center;
+    }
+
     .expert-visit-hero {
         min-height: 500px;
         align-items: flex-start;
@@ -1242,6 +1753,19 @@ table tbody tr td {
 }
 
 @media (max-width: 420px) {
+    .expert-registration__fields--three,
+    .expert-registration__fields--two {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .expert-registration__section-heading {
+        align-items: flex-start;
+    }
+
+    .expert-registration__add-farm {
+        flex: 0 0 auto;
+    }
+
     .contract-home-hero {
         min-height: 820px;
     }

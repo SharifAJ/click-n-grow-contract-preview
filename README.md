@@ -96,6 +96,24 @@ The repository includes a `render.yaml` blueprint and `Dockerfile` for a free Re
 
 This setup uses SQLite on Render's ephemeral filesystem. It is intended for temporary previews only: the free service can sleep when idle, and database changes or uploaded files can be lost when it restarts or redeploys. The deployed URL is public even though the source repository remains private. Do not add production payment credentials or secrets to the repository.
 
+## Expert Visit Registration Data and Payments
+
+Expert Visit Registration is stored separately from the preview site's temporary SQLite database, in the configured MySQL database:
+
+- `expert_visit_registrations` stores applicant and residential details, selected date/days, calculated fee, and payment status/order identifiers.
+- `expert_visit_farms` stores one row per farm address, linked to its registration.
+- The browser never determines the payable amount. Laravel calculates the highest farm-state daily tier and multiplies it by the selected visit days, then creates and verifies the Razorpay order server-side.
+
+Before enabling checkout, set these variables in the Render service's **Environment** settings. Never commit or paste secret values into Git:
+
+- `REGISTRATION_DB_HOST`, `REGISTRATION_DB_PORT`, `REGISTRATION_DB_DATABASE`, `REGISTRATION_DB_USERNAME`, `REGISTRATION_DB_PASSWORD`
+- `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`
+- `REGISTRATION_DB_SSL_CA` only if your MySQL provider requires a custom CA certificate.
+
+Use Razorpay test credentials first. On service startup, Laravel runs the dedicated Expert Visit migration against the configured MySQL database. The registration form stays unavailable until both the database and Razorpay credentials are configured. Existing application data remains on its current database connection.
+
+The state fee tiers are ₹5,000/day for Maharashtra; ₹7,000/day for Madhya Pradesh, Chhattisgarh, Gujarat, Karnataka, and Telangana; and ₹10,000/day for all other states and Union Territories. For registrations with farms in multiple states, the highest tier applies per selected visit day.
+
 ---
 
 # Pipeline Code for Reference

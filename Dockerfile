@@ -59,4 +59,4 @@ RUN mkdir -p \
 
 EXPOSE 10000
 
-CMD ["sh", "-c", "touch database/database.sqlite && php artisan migrate --force --no-interaction && exec php artisan serve --host=0.0.0.0 --port=${PORT:-10000}"]
+CMD ["sh", "-c", "touch database/database.sqlite && php artisan migrate --force --no-interaction && if [ -n \"$REGISTRATION_DB_URL\" ] || { [ -n \"$REGISTRATION_DB_HOST\" ] && [ -n \"$REGISTRATION_DB_DATABASE\" ] && [ -n \"$REGISTRATION_DB_USERNAME\" ]; }; then php artisan migrate --database=expert_visits --path=database/migrations/expert_visits --force --no-interaction; else printf '%s\\n' 'Expert visit registration database is not configured; registration checkout remains unavailable.' >&2; fi && exec php artisan serve --host=0.0.0.0 --port=${PORT:-10000}"]
