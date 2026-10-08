@@ -818,6 +818,95 @@ table tbody tr td {
     text-align: center;
 }
 
+.trading-export-process {
+    padding: 32px 0 36px;
+    background: linear-gradient(110deg, #eef6ec 0%, #f4f8f0 52%, #eaf3e7 100%);
+}
+
+.trading-export-process__inner {
+    width: min(100% - 48px, 1280px);
+    margin: 0 auto;
+}
+
+.trading-export-process__header {
+    margin-bottom: 22px;
+}
+
+.trading-export-process__eyebrow {
+    margin: 0 0 4px;
+    color: #43834d;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: .07em;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.trading-export-process__title {
+    margin: 0 0 5px;
+    color: #153a2b;
+    font-size: clamp(26px, 3vw, 36px);
+    font-weight: 900;
+    letter-spacing: -.035em;
+    line-height: 1.15;
+}
+
+.trading-export-process__intro {
+    margin: 0;
+    color: #4e5d52;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.trading-export-process__steps {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.trading-export-process__step {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.trading-export-process__step:not(:last-child)::after {
+    position: absolute;
+    top: 29px;
+    right: -9px;
+    color: #43834d;
+    content: "\f061";
+    font-family: "Font Awesome 6 Free";
+    font-size: 15px;
+    font-weight: 900;
+}
+
+.trading-export-process__icon {
+    display: grid;
+    width: 58px;
+    height: 58px;
+    margin-bottom: 9px;
+    place-items: center;
+    border: 1px solid rgba(67, 131, 77, .08);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .72);
+    box-shadow: 0 4px 12px rgba(48, 87, 49, .06);
+    color: #4c8a35;
+    font-size: 25px;
+}
+
+.trading-export-process__label {
+    color: #283b2f;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.35;
+}
+
 .expert-registration {
     width: min(100% - 40px, 1440px);
     margin: 32px auto 72px;
@@ -1840,6 +1929,27 @@ table tbody tr td {
 
     .trading-export-product__link {
         left: 10px;
+    }
+
+    .trading-export-process {
+        padding: 26px 0 30px;
+    }
+
+    .trading-export-process__inner {
+        width: calc(100% - 32px);
+    }
+
+    .trading-export-process__steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px 14px;
+    }
+
+    .trading-export-process__step:not(:last-child)::after {
+        display: none;
+    }
+
+    .trading-export-process__label {
+        font-size: 12px;
     }
 
     .expert-registration {

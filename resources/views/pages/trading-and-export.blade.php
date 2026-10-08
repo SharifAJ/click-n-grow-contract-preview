@@ -121,4 +121,57 @@
             </p>
         @endif
     </section>
+
+    <section class="trading-export-process" aria-labelledby="trading-export-process-title">
+        <div class="trading-export-process__inner">
+            <header class="trading-export-process__header">
+                <p class="trading-export-process__eyebrow">Our Process</p>
+                <h2 class="trading-export-process__title" id="trading-export-process-title">
+                    From Farm to Global Markets
+                </h2>
+                <p class="trading-export-process__intro">
+                    A transparent and reliable supply chain that ensures quality, traceability and timely delivery.
+                </p>
+            </header>
+
+            <ol class="trading-export-process__steps">
+                <li class="trading-export-process__step">
+                    <span class="trading-export-process__icon" aria-hidden="true">
+                        <i class="fas fa-people-group"></i>
+                    </span>
+                    <span class="trading-export-process__label">Farmer Network<br>&amp; Sourcing</span>
+                </li>
+                <li class="trading-export-process__step">
+                    <span class="trading-export-process__icon" aria-hidden="true">
+                        <i class="fas fa-seedling"></i>
+                    </span>
+                    <span class="trading-export-process__label">Collection &amp;<br>Primary Processing</span>
+                </li>
+                <li class="trading-export-process__step">
+                    <span class="trading-export-process__icon" aria-hidden="true">
+                        <i class="fas fa-certificate"></i>
+                    </span>
+                    <span class="trading-export-process__label">Quality<br>Assessment</span>
+                </li>
+                <li class="trading-export-process__step">
+                    <span class="trading-export-process__icon" aria-hidden="true">
+                        <i class="fas fa-gears"></i>
+                    </span>
+                    <span class="trading-export-process__label">Grading &amp;<br>Processing</span>
+                </li>
+                <li class="trading-export-process__step">
+                    <span class="trading-export-process__icon" aria-hidden="true">
+                        <i class="fas fa-box-open"></i>
+                    </span>
+                    <span class="trading-export-process__label">Packaging</span>
+                </li>
+                <li class="trading-export-process__step">
+                    <span class="trading-export-process__icon" aria-hidden="true">
+                        <i class="fas fa-ship"></i>
+                    </span>
+                    <span class="trading-export-process__label">Domestic &amp;<br>International Supply</span>
+                </li>
+            </ol>
+        </div>
+    </section>
 </x-guest-layout>
