@@ -746,7 +746,8 @@ table tbody tr td {
 }
 
 .trading-export-product__image,
-.trading-export-product__placeholder {
+.trading-export-product__placeholder,
+.trading-export-product__sample-art {
     display: block;
     width: 100%;
     height: 132px;
@@ -762,6 +763,67 @@ table tbody tr td {
     background: linear-gradient(135deg, #edf5e9, #dcebd4);
     color: #528449;
     font-size: 34px;
+}
+
+.trading-export-product__sample-art {
+    position: relative;
+    display: grid;
+    overflow: hidden;
+    place-items: center;
+    isolation: isolate;
+    font-size: 54px;
+}
+
+.trading-export-product__sample-art::before,
+.trading-export-product__sample-art::after {
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    content: "";
+}
+
+.trading-export-product__sample-art::before {
+    width: 140px;
+    height: 140px;
+    transform: translate(36px, 34px);
+    background: rgba(255, 255, 255, .25);
+}
+
+.trading-export-product__sample-art::after {
+    width: 90px;
+    height: 90px;
+    transform: translate(-65px, -55px);
+    background: rgba(255, 255, 255, .2);
+}
+
+.trading-export-product__sample-art--ashwagandha {
+    background: linear-gradient(145deg, #b8cc7b, #668239);
+    color: #fff3d6;
+}
+
+.trading-export-product__sample-art--tulsi {
+    background: linear-gradient(145deg, #a8cb6f, #3c783d);
+    color: #f3ffe2;
+}
+
+.trading-export-product__sample-art--aloe {
+    background: linear-gradient(145deg, #b8dc87, #5c9b51);
+    color: #f3ffe7;
+}
+
+.trading-export-product__sample-art--shatavari {
+    background: linear-gradient(145deg, #e0c783, #ad8746);
+    color: #fff4d9;
+}
+
+.trading-export-product__sample-art--moringa {
+    background: linear-gradient(145deg, #b5cb70, #4d7937);
+    color: #f6ffdd;
+}
+
+.trading-export-product__sample-art--amla {
+    background: linear-gradient(145deg, #c1d77b, #709448);
+    color: #f7ffe0;
 }
 
 .trading-export-product__body {
@@ -1918,7 +1980,8 @@ table tbody tr td {
     }
 
     .trading-export-product__image,
-    .trading-export-product__placeholder {
+    .trading-export-product__placeholder,
+    .trading-export-product__sample-art {
         height: clamp(110px, 32vw, 150px);
     }
 

@@ -116,9 +116,36 @@
                 @endforeach
             </div>
         @else
-            <p class="trading-export-products__empty">
-                Crop listings are being updated. Please contact us for current availability.
-            </p>
+            @php
+                $sampleProducts = [
+                    ['name' => 'Ashwagandha', 'parts' => 'Root | Dried | Powder', 'icon' => 'fa-seedling', 'style' => 'ashwagandha'],
+                    ['name' => 'Tulsi', 'parts' => 'Leaves | Dried | Powder', 'icon' => 'fa-leaf', 'style' => 'tulsi'],
+                    ['name' => 'Aloe Vera', 'parts' => 'Leaf | Dried | Powder', 'icon' => 'fa-leaf', 'style' => 'aloe'],
+                    ['name' => 'Shatavari', 'parts' => 'Root | Dried | Powder', 'icon' => 'fa-carrot', 'style' => 'shatavari'],
+                    ['name' => 'Moringa', 'parts' => 'Leaves | Dried | Powder', 'icon' => 'fa-mortar-pestle', 'style' => 'moringa'],
+                    ['name' => 'Amla', 'parts' => 'Fruit | Dried | Powder', 'icon' => 'fa-apple-whole', 'style' => 'amla'],
+                ];
+            @endphp
+
+            <div class="trading-export-products__grid">
+                @foreach ($sampleProducts as $product)
+                    <article class="trading-export-product">
+                        <div class="trading-export-product__sample-art trading-export-product__sample-art--{{ $product['style'] }}"
+                            aria-hidden="true">
+                            <i class="fas {{ $product['icon'] }}"></i>
+                        </div>
+                        <div class="trading-export-product__body">
+                            <h3 class="trading-export-product__name">{{ $product['name'] }}</h3>
+                            <p class="trading-export-product__description">{{ $product['parts'] }}</p>
+                            <a class="trading-export-product__link"
+                                href="{{ route('contact-us') }}"
+                                aria-label="Inquire about {{ $product['name'] }}">
+                                <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </article>
+                @endforeach
+            </div>
         @endif
     </section>
 
