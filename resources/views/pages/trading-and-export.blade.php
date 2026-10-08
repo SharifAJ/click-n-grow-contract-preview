@@ -280,6 +280,51 @@
             <h2 class="trading-export-markets__title" id="trading-export-markets-title">
                 Serving the Herbal Industry
             </h2>
+            <p class="trading-export-markets__intro">
+                We supply raw materials to a wide range of industries, both in India and globally.
+            </p>
+
+            <div class="trading-export-markets__grid">
+                <article class="trading-export-market">
+                    <span class="trading-export-market__icon" aria-hidden="true">
+                        <i class="fas fa-leaf"></i>
+                    </span>
+                    <div>
+                        <h3>Herbal &amp; Ayurvedic Companies</h3>
+                        <p>Raw materials for herbal formulations and products.</p>
+                    </div>
+                </article>
+
+                <article class="trading-export-market">
+                    <span class="trading-export-market__icon" aria-hidden="true">
+                        <i class="fas fa-capsules"></i>
+                    </span>
+                    <div>
+                        <h3>Pharmaceutical Industry</h3>
+                        <p>High-quality herbal ingredients for pharmaceutical use.</p>
+                    </div>
+                </article>
+
+                <article class="trading-export-market">
+                    <span class="trading-export-market__icon" aria-hidden="true">
+                        <i class="fas fa-pump-soap"></i>
+                    </span>
+                    <div>
+                        <h3>Cosmetic &amp; Personal Care Industry</h3>
+                        <p>Natural ingredients for skincare and wellness products.</p>
+                    </div>
+                </article>
+
+                <article class="trading-export-market">
+                    <span class="trading-export-market__icon" aria-hidden="true">
+                        <i class="fas fa-mug-hot"></i>
+                    </span>
+                    <div>
+                        <h3>Food &amp; Nutraceutical Industry</h3>
+                        <p>Herbal ingredients for functional foods and supplements.</p>
+                    </div>
+                </article>
+            </div>
         </div>
     </section>
 </x-guest-layout>
