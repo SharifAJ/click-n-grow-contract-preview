@@ -138,6 +138,7 @@ Route::view('/privacy-policy', 'pages/privacy-policy')->name('privacy-policy');
 Route::view('/refund-policy', 'pages/refund-policy')->name('refund-policy');
 Route::view('/terms-and-conditions', 'pages/terms-and-conditions')->name('terms-and-conditions');
 Route::view('/about', 'pages/about')->name('about');
+Route::view('/trading-and-export', 'pages/trading-and-export')->name('trading-export');
 Route::get('/expert-visit-registration', [ExpertVisitRegistrationController::class, 'create'])
     ->name('expert-visit-registration');
 Route::post('/expert-visit-registration', [ExpertVisitRegistrationController::class, 'store'])

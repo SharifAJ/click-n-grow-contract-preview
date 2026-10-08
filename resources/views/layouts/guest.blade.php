@@ -90,6 +90,7 @@
 					<ul class="menu menu-horizontal space-x-4 px-4">
 						<li><a href="{{ route('contract') }}">{{ __('messages.contract') }}</a></li>
 						<li><a href="{{ route('about') }}">{{ __('messages.about_us') }}</a></li>
+						<li><a href="{{ route('trading-export') }}">Trading and Export</a></li>
 						<li><a href="{{ route('expert-visit-registration') }}">Expert Visit Registration</a></li>
 
 						{{--
@@ -336,6 +337,7 @@
 			<ul class="menu min-h-full w-80 bg-base-100 p-4">
 				<li><a href="{{ route('contract') }}"><b>{{ __('messages.contract') }}</b></a></li>
 				<li><a href="{{ route('about') }}"><b>{{ __('messages.about_us') }}</b></a></li>
+				<li><a href="{{ route('trading-export') }}"><b>Trading and Export</b></a></li>
 				<li><a href="{{ route('expert-visit-registration') }}"><b>Expert Visit Registration</b></a></li>
 				{{--
 				<li><a href="#"><b>{{ __('messages.footer.home') }}</b></a></li>
