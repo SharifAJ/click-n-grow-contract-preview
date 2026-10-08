@@ -25,4 +25,11 @@ class PageController extends Controller
         // dd($data);
         return view('pages.contract', compact('datas'));
     }
+
+    public function tradingExport()
+    {
+        $crops = Crop::all();
+
+        return view('pages.trading-and-export', compact('crops'));
+    }
 }

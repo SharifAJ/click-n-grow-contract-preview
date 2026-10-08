@@ -1051,7 +1051,7 @@
 
 
     {{-- Crop --}}
-    <section class="py-16" x-data>
+    <section class="py-16" id="contract-crops" x-data>
         <div class="container max-w-6xl px-4 mx-auto">
             <div class="mt-16 text-center">
                 <h2 class="text-3xl font-bold text-[#3d693c] mb-4">

@@ -70,4 +70,55 @@
             </article>
         </div>
     </section>
+
+    <section class="trading-export-products" aria-labelledby="trading-export-products-title">
+        <header class="trading-export-products__header">
+            <div>
+                <p class="trading-export-products__eyebrow">Our Products</p>
+                <h2 class="trading-export-products__title" id="trading-export-products-title">
+                    High-Quality Herbal Raw Materials
+                </h2>
+                <p class="trading-export-products__intro">
+                    We supply a diverse range of medicinal and aromatic plants, sourced directly from farmers
+                    and processed to meet industry requirements.
+                </p>
+            </div>
+            <a class="trading-export-products__all" href="{{ route('contract') }}#contract-crops">
+                View All Crops <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            </a>
+        </header>
+
+        @if ($crops->isNotEmpty())
+            <div class="trading-export-products__grid">
+                @foreach ($crops->take(6) as $crop)
+                    <article class="trading-export-product">
+                        @if (is_array($crop->images) && !empty($crop->images[0]))
+                            <img class="trading-export-product__image"
+                                src="{{ asset('storage/' . $crop->images[0]) }}"
+                                alt="{{ $crop->name }}" loading="lazy">
+                        @else
+                            <div class="trading-export-product__placeholder" aria-hidden="true">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                        @endif
+                        <div class="trading-export-product__body">
+                            <h3 class="trading-export-product__name">{{ $crop->name }}</h3>
+                            <p class="trading-export-product__description">
+                                Herbal raw material
+                            </p>
+                            <a class="trading-export-product__link"
+                                href="{{ route('contact-us') }}"
+                                aria-label="Inquire about {{ $crop->name }}">
+                                <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </article>
+                @endforeach
+            </div>
+        @else
+            <p class="trading-export-products__empty">
+                Crop listings are being updated. Please contact us for current availability.
+            </p>
+        @endif
+    </section>
 </x-guest-layout>
