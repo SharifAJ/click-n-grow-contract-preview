@@ -613,6 +613,56 @@ table tbody tr td {
     background: #fff;
 }
 
+.trading-export-highlights {
+    width: min(100% - 48px, 1280px);
+    margin: 0 auto 56px;
+    padding: 24px 12px;
+    background: linear-gradient(110deg, #fff 0%, #f7faf5 48%, #fff 100%);
+}
+
+.trading-export-highlights__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.trading-export-highlight {
+    min-width: 0;
+    padding: 0 26px;
+}
+
+.trading-export-highlight + .trading-export-highlight {
+    border-left: 1px solid #e7ede5;
+}
+
+.trading-export-highlight__icon {
+    display: grid;
+    width: 56px;
+    height: 56px;
+    margin-bottom: 10px;
+    place-items: center;
+    border-radius: 50%;
+    background: #edf5e9;
+    color: #3f842e;
+    font-size: 25px;
+}
+
+.trading-export-highlight__title {
+    margin: 0 0 6px;
+    color: #1d2d25;
+    font-size: 17px;
+    font-weight: 850;
+    letter-spacing: -.02em;
+    line-height: 1.25;
+}
+
+.trading-export-highlight__description {
+    max-width: 230px;
+    margin: 0;
+    color: #657066;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
 .expert-registration {
     width: min(100% - 40px, 1440px);
     margin: 32px auto 72px;
@@ -1582,6 +1632,25 @@ table tbody tr td {
 
     .trading-export-hero__button {
         width: min(100%, 280px);
+    }
+
+    .trading-export-highlights {
+        width: calc(100% - 32px);
+        margin-bottom: 40px;
+        padding: 22px 0;
+    }
+
+    .trading-export-highlights__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        row-gap: 24px;
+    }
+
+    .trading-export-highlight {
+        padding: 0 18px;
+    }
+
+    .trading-export-highlight:nth-child(3) {
+        border-left: 0;
     }
 
     .expert-registration {

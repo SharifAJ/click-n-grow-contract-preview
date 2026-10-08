@@ -26,4 +26,48 @@
             </div>
         </div>
     </section>
+
+    <section class="trading-export-highlights" aria-label="Trading and export advantages">
+        <div class="trading-export-highlights__grid">
+            <article class="trading-export-highlight">
+                <span class="trading-export-highlight__icon" aria-hidden="true">
+                    <i class="fas fa-leaf"></i>
+                </span>
+                <h2 class="trading-export-highlight__title">Wide Range of Herbal Crops</h2>
+                <p class="trading-export-highlight__description">
+                    14+ herbal crops sourced from our farmer network.
+                </p>
+            </article>
+
+            <article class="trading-export-highlight">
+                <span class="trading-export-highlight__icon" aria-hidden="true">
+                    <i class="fas fa-certificate"></i>
+                </span>
+                <h2 class="trading-export-highlight__title">Reliable Quality</h2>
+                <p class="trading-export-highlight__description">
+                    Quality checked and processed as per industry standards.
+                </p>
+            </article>
+
+            <article class="trading-export-highlight">
+                <span class="trading-export-highlight__icon" aria-hidden="true">
+                    <i class="fas fa-truck"></i>
+                </span>
+                <h2 class="trading-export-highlight__title">Consistent Supply</h2>
+                <p class="trading-export-highlight__description">
+                    Scalable supply from 500+ farmers across 10+ states.
+                </p>
+            </article>
+
+            <article class="trading-export-highlight">
+                <span class="trading-export-highlight__icon" aria-hidden="true">
+                    <i class="fas fa-globe"></i>
+                </span>
+                <h2 class="trading-export-highlight__title">Domestic &amp; Global Reach</h2>
+                <p class="trading-export-highlight__description">
+                    Supplying to leading herbal companies in India and international markets.
+                </p>
+            </article>
+        </div>
+    </section>
 </x-guest-layout>
