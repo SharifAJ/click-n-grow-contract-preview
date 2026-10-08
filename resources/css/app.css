@@ -969,6 +969,228 @@ table tbody tr td {
     line-height: 1.35;
 }
 
+.trading-export-commitment {
+    padding: 44px 0 28px;
+    background: #fff;
+}
+
+.trading-export-commitment__inner {
+    display: grid;
+    width: min(100% - 48px, 1280px);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 28px;
+    margin: 0 auto;
+}
+
+.trading-export-commitment__header {
+    margin-bottom: 16px;
+}
+
+.trading-export-commitment__eyebrow,
+.trading-export-markets__eyebrow {
+    margin: 0 0 4px;
+    color: #43834d;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: .07em;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.trading-export-commitment__title,
+.trading-export-markets__title {
+    margin: 0 0 5px;
+    color: #153a2b;
+    font-size: clamp(26px, 3vw, 36px);
+    font-weight: 900;
+    letter-spacing: -.035em;
+    line-height: 1.15;
+}
+
+.trading-export-commitment__intro {
+    max-width: 560px;
+    margin: 0;
+    color: #647067;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.trading-export-commitment__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.trading-export-commitment__item {
+    display: grid;
+    min-width: 0;
+    grid-template-columns: 44px minmax(0, 1fr);
+    align-items: start;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid #e7ece8;
+    border-radius: 9px;
+    background: #fff;
+}
+
+.trading-export-commitment__icon {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border-radius: 50%;
+    background: #edf5e9;
+    color: #4d863c;
+    font-size: 20px;
+}
+
+.trading-export-commitment__item h3 {
+    margin: 2px 0 3px;
+    color: #25362c;
+    font-size: 14px;
+    font-weight: 850;
+    line-height: 1.3;
+}
+
+.trading-export-commitment__item p {
+    margin: 0;
+    color: #707a72;
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.trading-export-shipping {
+    position: relative;
+    min-height: 310px;
+    overflow: hidden;
+    isolation: isolate;
+    border-radius: 14px;
+    background: linear-gradient(180deg, #b8d1df 0%, #f8d9ac 55%, #5b8391 56%, #315663 100%);
+}
+
+.trading-export-shipping::before {
+    position: absolute;
+    z-index: -1;
+    right: -8%;
+    bottom: 22%;
+    left: -8%;
+    height: 18%;
+    background: repeating-linear-gradient(174deg, rgba(255, 255, 255, .2) 0 2px, transparent 2px 13px);
+    content: "";
+}
+
+.trading-export-shipping__sun {
+    position: absolute;
+    top: 15%;
+    left: 16%;
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    background: rgba(255, 229, 174, .85);
+    box-shadow: 0 0 56px 22px rgba(255, 220, 156, .42);
+}
+
+.trading-export-shipping__containers {
+    position: absolute;
+    bottom: 44%;
+    left: 15%;
+    display: grid;
+    width: 44%;
+    height: 88px;
+    grid-template-columns: 1.2fr .8fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 4px;
+}
+
+.trading-export-shipping__container {
+    border: 2px solid rgba(255, 255, 255, .18);
+    box-shadow: inset 0 0 0 3px rgba(0, 0, 0, .05);
+}
+
+.trading-export-shipping__container--red {
+    grid-row: span 2;
+    background: repeating-linear-gradient(90deg, #b95739 0 17px, #a94932 17px 19px);
+}
+
+.trading-export-shipping__container--blue {
+    background: repeating-linear-gradient(90deg, #33657a 0 17px, #28566c 17px 19px);
+}
+
+.trading-export-shipping__container--gold {
+    background: repeating-linear-gradient(90deg, #d39a50 0 17px, #bd8340 17px 19px);
+}
+
+.trading-export-shipping__container--navy {
+    position: absolute;
+    top: 44px;
+    left: 100%;
+    width: 48%;
+    height: 44px;
+    background: repeating-linear-gradient(90deg, #294e64 0 17px, #204357 17px 19px);
+}
+
+.trading-export-shipping__ship {
+    position: absolute;
+    bottom: 14%;
+    left: 11%;
+    color: #183b4c;
+    font-size: clamp(120px, 16vw, 210px);
+    line-height: 1;
+    text-shadow: 0 9px 0 rgba(15, 44, 57, .18);
+}
+
+.trading-export-shipping__callouts {
+    position: absolute;
+    top: 13%;
+    right: 5%;
+    display: grid;
+    width: min(48%, 230px);
+    gap: 10px;
+}
+
+.trading-export-shipping__callouts span {
+    display: flex;
+    min-height: 52px;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 12px;
+    border: 1px solid rgba(226, 235, 227, .8);
+    border-radius: 9px;
+    background: rgba(255, 255, 255, .94);
+    box-shadow: 0 6px 20px rgba(35, 55, 45, .12);
+    color: #26372d;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.trading-export-shipping__callouts i {
+    display: grid;
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+    place-items: center;
+    border-radius: 50%;
+    background: #edf5e9;
+    color: #4d863c;
+    font-size: 15px;
+}
+
+.trading-export-markets {
+    padding: 22px 0 56px;
+    background: #fff;
+}
+
+.trading-export-markets__inner {
+    width: min(100% - 48px, 1280px);
+    margin: 0 auto;
+}
+
+.trading-export-markets__title {
+    margin-bottom: 0;
+}
+
 .expert-registration {
     width: min(100% - 40px, 1440px);
     margin: 32px auto 72px;
@@ -2013,6 +2235,84 @@ table tbody tr td {
 
     .trading-export-process__label {
         font-size: 12px;
+    }
+
+    .trading-export-commitment {
+        padding: 34px 0 20px;
+    }
+
+    .trading-export-commitment__inner {
+        width: calc(100% - 32px);
+        grid-template-columns: minmax(0, 1fr);
+        gap: 22px;
+    }
+
+    .trading-export-commitment__grid {
+        gap: 8px;
+    }
+
+    .trading-export-commitment__item {
+        grid-template-columns: 36px minmax(0, 1fr);
+        gap: 8px;
+        padding: 10px;
+    }
+
+    .trading-export-commitment__icon {
+        width: 36px;
+        height: 36px;
+        font-size: 17px;
+    }
+
+    .trading-export-commitment__item h3 {
+        font-size: 13px;
+    }
+
+    .trading-export-commitment__item p {
+        font-size: 11px;
+    }
+
+    .trading-export-shipping {
+        min-height: 280px;
+    }
+
+    .trading-export-shipping__callouts {
+        right: 4%;
+        width: 52%;
+        gap: 7px;
+    }
+
+    .trading-export-shipping__callouts span {
+        min-height: 46px;
+        gap: 8px;
+        padding: 7px;
+        font-size: 11px;
+    }
+
+    .trading-export-shipping__callouts i {
+        width: 28px;
+        height: 28px;
+        flex-basis: 28px;
+        font-size: 13px;
+    }
+
+    .trading-export-shipping__containers {
+        left: 8%;
+        width: 48%;
+        transform: scale(.85);
+        transform-origin: bottom left;
+    }
+
+    .trading-export-shipping__ship {
+        left: 4%;
+        font-size: 140px;
+    }
+
+    .trading-export-markets {
+        padding: 18px 0 40px;
+    }
+
+    .trading-export-markets__inner {
+        width: calc(100% - 32px);
     }
 
     .expert-registration {

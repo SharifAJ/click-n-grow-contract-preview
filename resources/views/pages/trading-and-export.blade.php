@@ -201,4 +201,85 @@
             </ol>
         </div>
     </section>
+
+    <section class="trading-export-commitment" aria-labelledby="trading-export-commitment-title">
+        <div class="trading-export-commitment__inner">
+            <div class="trading-export-commitment__content">
+                <header class="trading-export-commitment__header">
+                    <p class="trading-export-commitment__eyebrow">Our Commitment</p>
+                    <h2 class="trading-export-commitment__title" id="trading-export-commitment-title">
+                        Quality &amp; Traceability
+                    </h2>
+                    <p class="trading-export-commitment__intro">
+                        We maintain strict quality standards and ensure complete traceability from farm to final delivery.
+                    </p>
+                </header>
+
+                <div class="trading-export-commitment__grid">
+                    <article class="trading-export-commitment__item">
+                        <span class="trading-export-commitment__icon" aria-hidden="true">
+                            <i class="fas fa-flask"></i>
+                        </span>
+                        <div>
+                            <h3>Quality Checks</h3>
+                            <p>Moisture, purity, active constituents and more.</p>
+                        </div>
+                    </article>
+                    <article class="trading-export-commitment__item">
+                        <span class="trading-export-commitment__icon" aria-hidden="true">
+                            <i class="fas fa-certificate"></i>
+                        </span>
+                        <div>
+                            <h3>Compliant Processing</h3>
+                            <p>Processed and graded as per industry requirements.</p>
+                        </div>
+                    </article>
+                    <article class="trading-export-commitment__item">
+                        <span class="trading-export-commitment__icon" aria-hidden="true">
+                            <i class="fas fa-file-lines"></i>
+                        </span>
+                        <div>
+                            <h3>Traceable Supply Chain</h3>
+                            <p>From farm to customer with full documentation.</p>
+                        </div>
+                    </article>
+                    <article class="trading-export-commitment__item">
+                        <span class="trading-export-commitment__icon" aria-hidden="true">
+                            <i class="fas fa-leaf"></i>
+                        </span>
+                        <div>
+                            <h3>Sustainable Sourcing</h3>
+                            <p>Ethical and environmentally responsible practices.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="trading-export-shipping" role="img"
+                aria-label="Herbal products prepared for bulk shipping and export">
+                <div class="trading-export-shipping__sun" aria-hidden="true"></div>
+                <div class="trading-export-shipping__containers" aria-hidden="true">
+                    <span class="trading-export-shipping__container trading-export-shipping__container--red"></span>
+                    <span class="trading-export-shipping__container trading-export-shipping__container--blue"></span>
+                    <span class="trading-export-shipping__container trading-export-shipping__container--gold"></span>
+                    <span class="trading-export-shipping__container trading-export-shipping__container--navy"></span>
+                </div>
+                <i class="fas fa-ship trading-export-shipping__ship" aria-hidden="true"></i>
+                <div class="trading-export-shipping__callouts" aria-hidden="true">
+                    <span><i class="fas fa-box"></i>Bulk Supply Capacities</span>
+                    <span><i class="fas fa-boxes-packing"></i>Custom Packaging Options</span>
+                    <span><i class="fas fa-file-lines"></i>Export Documentation Support</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trading-export-markets" aria-labelledby="trading-export-markets-title">
+        <div class="trading-export-markets__inner">
+            <p class="trading-export-markets__eyebrow">Our Markets</p>
+            <h2 class="trading-export-markets__title" id="trading-export-markets-title">
+                Serving the Herbal Industry
+            </h2>
+        </div>
+    </section>
 </x-guest-layout>
