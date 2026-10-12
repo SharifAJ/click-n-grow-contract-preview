@@ -1243,6 +1243,241 @@ table tbody tr td {
     line-height: 1.45;
 }
 
+.trading-enquiry__form-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.trading-enquiry__form-icon {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    place-items: center;
+    border-radius: 50%;
+    background: #e8f4ea;
+    color: #1b7a43;
+    font-size: 18px;
+}
+
+.trading-enquiry__form-header h2 {
+    margin: 0 0 4px;
+    color: #1b7a43;
+    font-size: clamp(18px, 1.8vw, 22px);
+    font-weight: 900;
+    letter-spacing: -.02em;
+    line-height: 1.25;
+}
+
+.trading-enquiry__form-header p {
+    margin: 0;
+    color: #68736c;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.trading-enquiry__field--full {
+    grid-column: 1 / -1;
+}
+
+.expert-registration__field legend {
+    padding: 0;
+    color: #2d3e32;
+}
+
+fieldset.expert-registration__field {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.trading-enquiry__phone {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 8px;
+}
+
+.trading-enquiry__phone input:first-child {
+    text-align: center;
+    font-weight: 800;
+}
+
+.trading-enquiry__purposes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 16px;
+    margin-top: 6px;
+}
+
+.trading-enquiry__purposes label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #314338;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.trading-enquiry__purposes input {
+    width: 15px;
+    height: 15px;
+    flex: 0 0 15px;
+    accent-color: #08733d;
+}
+
+.expert-registration__field textarea {
+    width: 100%;
+    min-height: 96px;
+    padding: 10px;
+    border: 1px solid #dfe5df;
+    border-radius: 5px;
+    outline: none;
+    background: #fff;
+    color: #293b30;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.45;
+    resize: vertical;
+}
+
+.expert-registration__field textarea:focus {
+    border-color: #438c55;
+    box-shadow: 0 0 0 3px rgba(67, 140, 85, .12);
+}
+
+.trading-enquiry__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.trading-enquiry__footer .expert-registration__consent {
+    margin: 0;
+    max-width: 520px;
+}
+
+.trading-enquiry__error {
+    color: #963c2e;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.trading-enquiry__capabilities,
+.trading-enquiry__why,
+.trading-enquiry__contact ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.trading-enquiry__capabilities {
+    display: grid;
+    gap: 12px;
+}
+
+.trading-enquiry__capabilities li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: #5a665d;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.trading-enquiry__capabilities i {
+    display: grid;
+    width: 28px;
+    height: 28px;
+    flex: 0 0 28px;
+    place-items: center;
+    border-radius: 50%;
+    background: #edf6ee;
+    color: #1b7a43;
+    font-size: 12px;
+}
+
+.trading-enquiry__capabilities strong {
+    display: block;
+    color: #24432f;
+    font-size: 13px;
+    font-weight: 850;
+}
+
+.trading-enquiry__photo {
+    overflow: hidden;
+    border: 1px solid #e6ece5;
+    border-radius: 12px;
+    min-height: 170px;
+}
+
+.trading-enquiry__photo .trading-export-shipping {
+    min-height: 170px;
+    height: 170px;
+    border-radius: 0;
+}
+
+.trading-enquiry__why {
+    display: grid;
+    gap: 8px;
+}
+
+.trading-enquiry__why li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: #3d5244;
+    font-size: 13px;
+    font-weight: 650;
+    line-height: 1.4;
+}
+
+.trading-enquiry__why li::before {
+    display: grid;
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+    margin-top: 1px;
+    place-items: center;
+    border-radius: 50%;
+    background: #1b7a43;
+    color: #fff;
+    content: "\2713";
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.trading-enquiry__contact p {
+    margin: 0 0 12px;
+    color: #68736c;
+    font-size: 13px;
+}
+
+.trading-enquiry__contact ul {
+    display: grid;
+    gap: 10px;
+}
+
+.trading-enquiry__contact li,
+.trading-enquiry__contact a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #24432f;
+    font-size: 13px;
+    font-weight: 750;
+    text-decoration: none;
+}
+
+.trading-enquiry__contact i {
+    width: 16px;
+    color: #1b7a43;
+}
+
 .expert-registration {
     width: min(100% - 40px, 1440px);
     margin: 32px auto 72px;
@@ -2422,6 +2657,15 @@ table tbody tr td {
 
     .expert-registration__pay-button {
         width: 100%;
+    }
+
+    .trading-enquiry__footer {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .trading-enquiry__purposes {
+        grid-template-columns: minmax(0, 1fr);
     }
 
     .expert-registration__secure {

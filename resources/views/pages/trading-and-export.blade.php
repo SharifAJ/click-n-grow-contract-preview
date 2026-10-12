@@ -16,11 +16,11 @@
             </p>
             <div class="trading-export-hero__actions">
                 <a class="trading-export-hero__button trading-export-hero__button--primary"
-                    href="{{ route('contact-us') }}">
+                    href="{{ route('trading-enquiry-form') }}">
                     Inquire for Raw Materials <i class="fas fa-arrow-right" aria-hidden="true"></i>
                 </a>
                 <a class="trading-export-hero__button trading-export-hero__button--secondary"
-                    href="{{ route('contact-us') }}">
+                    href="{{ route('trading-enquiry-form') }}">
                     Partner With Us <i class="fas fa-arrow-right" aria-hidden="true"></i>
                 </a>
             </div>

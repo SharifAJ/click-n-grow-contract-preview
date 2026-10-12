@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AdminAuthenticatedSessionController;
 use App\Http\Controllers\FarmMonitoringController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\TradingEnquiryController;
 use App\Http\Controllers\Web\ContactUsController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\FarmerController;
@@ -139,6 +140,10 @@ Route::view('/refund-policy', 'pages/refund-policy')->name('refund-policy');
 Route::view('/terms-and-conditions', 'pages/terms-and-conditions')->name('terms-and-conditions');
 Route::view('/about', 'pages/about')->name('about');
 Route::get('/trading-and-export', [PageController::class, 'tradingExport'])->name('trading-export');
+Route::get('/trading-enquiry-form', [TradingEnquiryController::class, 'create'])->name('trading-enquiry-form');
+Route::post('/trading-enquiry-form', [TradingEnquiryController::class, 'store'])
+    ->middleware('throttle:8,1')
+    ->name('trading-enquiry-form.store');
 Route::get('/expert-visit-registration', [ExpertVisitRegistrationController::class, 'create'])
     ->name('expert-visit-registration');
 Route::post('/expert-visit-registration', [ExpertVisitRegistrationController::class, 'store'])
