@@ -539,6 +539,19 @@ table tbody tr td {
     color: #173a27;
 }
 
+.trading-enquiry-hero .trading-export-hero__image {
+    z-index: 0;
+}
+
+.trading-enquiry-hero .trading-export-hero__wash {
+    z-index: 1;
+}
+
+.trading-enquiry-hero .trading-export-hero__content {
+    position: relative;
+    z-index: 2;
+}
+
 .trading-export-hero__eyebrow {
     margin: 0 0 10px;
     color: #244b38;
