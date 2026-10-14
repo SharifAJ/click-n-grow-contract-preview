@@ -127,9 +127,7 @@
                         <label class="expert-registration__field">Preferred Visit Date *
                             <input name="preferred_visit_date" type="date" min="{{ now()->toDateString() }}" required>
                         </label>
-                        <label class="expert-registration__field">Number of Visit Days *
-                            <input name="visit_days" id="visit-days" type="number" min="1" max="30" value="1" required>
-                        </label>
+                        <input name="visit_days" type="hidden" value="1">
                     </div>
                 </section>
 
@@ -143,7 +141,7 @@
                         <div>
                             <span class="expert-registration__field-label">Registration Fee</span>
                             <strong class="expert-registration__fee" id="registration-fee" aria-live="polite">Select farm state</strong>
-                            <small id="registration-fee-note">The fee is calculated from the highest-rate farm state and visit days.</small>
+                            <small id="registration-fee-note">The fee is based on the highest-rate farm state for one visit day.</small>
                         </div>
                         <button class="expert-registration__pay-button" id="pay-registration" type="submit"
                             @disabled(!$checkoutReady)>
@@ -257,7 +255,6 @@
             const feeOutput = document.getElementById('registration-fee');
             const feeNote = document.getElementById('registration-fee-note');
             const totalAreaOutput = document.getElementById('total-land-area');
-            const visitDaysInput = document.getElementById('visit-days');
             const submitButton = document.getElementById('pay-registration');
             const message = document.getElementById('registration-message');
             const stateRates = @json($stateRates);
@@ -273,13 +270,13 @@
                 const rates = [...farmList.querySelectorAll('.farm-state')]
                     .map(select => stateRates[select.value] || 0)
                     .filter(rate => rate > 0);
-                const days = Number(visitDaysInput.value) || 1;
+                const days = 1;
                 const perDay = rates.length ? Math.max(...rates) : 0;
 
                 feeOutput.textContent = perDay ? money(perDay * days) : 'Select farm state';
                 feeNote.textContent = perDay
-                    ? `${money(perDay)} per day × ${days} ${days === 1 ? 'day' : 'days'}`
-                    : 'The fee is calculated from the highest-rate farm state and visit days.';
+                    ? `${money(perDay)} for one visit day`
+                    : 'The fee is based on the highest-rate farm state for one visit day.';
             };
 
             const updateTotalArea = () => {
@@ -321,8 +318,6 @@
             farmList.addEventListener('input', event => {
                 if (event.target.matches('.farm-area')) updateTotalArea();
             });
-            visitDaysInput.addEventListener('input', updateFee);
-
             form.addEventListener('submit', async event => {
                 event.preventDefault();
                 if (!form.reportValidity()) return;
