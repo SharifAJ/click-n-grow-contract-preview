@@ -88,10 +88,11 @@
 				<div class="navbar-center hidden lg:flex">
 					<!-- Centered Menu -->
 					<ul class="menu menu-horizontal space-x-4 px-4">
-						<li><a href="{{ route('contract') }}">{{ __('messages.contract') }}</a></li>
 						<li><a href="{{ route('about') }}">{{ __('messages.about_us') }}</a></li>
+						<li><a href="{{ route('contract') }}">{{ __('messages.contract') }}</a></li>
 						<li><a href="{{ route('trading-export') }}">Trading and Export</a></li>
 						<li><a href="{{ route('expert-visit-registration') }}">Expert Visit Registration</a></li>
+						<li><a href="{{ url('/blogs') }}">Blogs</a></li>
 
 						{{--
 						<li><a href="#">{{ __('messages.home') }}</a></li>
@@ -143,7 +144,7 @@
 
 						<li><a href="#">{{ __('messages.faq') }}</a></li>
 						--}}
-						<li><a href="#">{{ __('messages.contact_us') }}</a></li>
+						<li><a href="{{ route('contact-us') }}">{{ __('messages.contact_us') }}</a></li>
 
 						<li class="group dropdown dropdown-hover">
 							<label class="flex cursor-pointer items-center space-x-2" tabindex="0">
@@ -335,10 +336,12 @@
 		<div class="drawer-side z-50">
 			<label class="drawer-overlay" for="custom-mobile-menu-drawer" aria-label="close sidebar"></label>
 			<ul class="menu min-h-full w-80 bg-base-100 p-4">
-				<li><a href="{{ route('contract') }}"><b>{{ __('messages.contract') }}</b></a></li>
 				<li><a href="{{ route('about') }}"><b>{{ __('messages.about_us') }}</b></a></li>
+				<li><a href="{{ route('contract') }}"><b>{{ __('messages.contract') }}</b></a></li>
 				<li><a href="{{ route('trading-export') }}"><b>Trading and Export</b></a></li>
 				<li><a href="{{ route('expert-visit-registration') }}"><b>Expert Visit Registration</b></a></li>
+				<li><a href="{{ url('/blogs') }}"><b>Blogs</b></a></li>
+				<li><a href="{{ route('contact-us') }}"><b>{{ __('messages.contact_us') }}</b></a></li>
 				{{--
 				<li><a href="#"><b>{{ __('messages.footer.home') }}</b></a></li>
 
