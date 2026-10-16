@@ -88,13 +88,30 @@
             </a>
         </header>
 
+        @php
+            $productImageByName = [
+                'ashwagandha' => 'images/ashwagandha.webp',
+                'tulsi' => 'images/tulsi.webp',
+                'aloe vera' => 'images/aloe_vera.jpg',
+                'shatavari' => 'images/shatavari.jpg',
+                'moringa' => 'images/moringa.jpg',
+                'amla' => 'images/amla.jpg',
+            ];
+        @endphp
+
         @if ($crops->isNotEmpty())
             <div class="trading-export-products__grid">
                 @foreach ($crops->take(6) as $crop)
                     <article class="trading-export-product">
-                        @if (is_array($crop->images) && !empty($crop->images[0]))
+                        @php
+                            $productImage = $productImageByName[strtolower(trim($crop->name))]
+                                ?? (is_array($crop->images) && !empty($crop->images[0])
+                                    ? 'storage/' . $crop->images[0]
+                                    : null);
+                        @endphp
+                        @if ($productImage)
                             <img class="trading-export-product__image"
-                                src="{{ asset('storage/' . $crop->images[0]) }}"
+                                src="{{ asset($productImage) }}"
                                 alt="{{ $crop->name }}" loading="lazy">
                         @else
                             <div class="trading-export-product__placeholder" aria-hidden="true">
@@ -118,22 +135,21 @@
         @else
             @php
                 $sampleProducts = [
-                    ['name' => 'Ashwagandha', 'parts' => 'Root | Dried | Powder', 'icon' => 'fa-seedling', 'style' => 'ashwagandha'],
-                    ['name' => 'Tulsi', 'parts' => 'Leaves | Dried | Powder', 'icon' => 'fa-leaf', 'style' => 'tulsi'],
-                    ['name' => 'Aloe Vera', 'parts' => 'Leaf | Dried | Powder', 'icon' => 'fa-leaf', 'style' => 'aloe'],
-                    ['name' => 'Shatavari', 'parts' => 'Root | Dried | Powder', 'icon' => 'fa-carrot', 'style' => 'shatavari'],
-                    ['name' => 'Moringa', 'parts' => 'Leaves | Dried | Powder', 'icon' => 'fa-mortar-pestle', 'style' => 'moringa'],
-                    ['name' => 'Amla', 'parts' => 'Fruit | Dried | Powder', 'icon' => 'fa-apple-whole', 'style' => 'amla'],
+                    ['name' => 'Ashwagandha', 'parts' => 'Root | Dried | Powder', 'image' => $productImageByName['ashwagandha']],
+                    ['name' => 'Tulsi', 'parts' => 'Leaves | Dried | Powder', 'image' => $productImageByName['tulsi']],
+                    ['name' => 'Aloe Vera', 'parts' => 'Leaf | Dried | Powder', 'image' => $productImageByName['aloe vera']],
+                    ['name' => 'Shatavari', 'parts' => 'Root | Dried | Powder', 'image' => $productImageByName['shatavari']],
+                    ['name' => 'Moringa', 'parts' => 'Leaves | Dried | Powder', 'image' => $productImageByName['moringa']],
+                    ['name' => 'Amla', 'parts' => 'Fruit | Dried | Powder', 'image' => $productImageByName['amla']],
                 ];
             @endphp
 
             <div class="trading-export-products__grid">
                 @foreach ($sampleProducts as $product)
                     <article class="trading-export-product">
-                        <div class="trading-export-product__sample-art trading-export-product__sample-art--{{ $product['style'] }}"
-                            aria-hidden="true">
-                            <i class="fas {{ $product['icon'] }}"></i>
-                        </div>
+                        <img class="trading-export-product__image"
+                            src="{{ asset($product['image']) }}"
+                            alt="{{ $product['name'] }}" loading="lazy">
                         <div class="trading-export-product__body">
                             <h3 class="trading-export-product__name">{{ $product['name'] }}</h3>
                             <p class="trading-export-product__description">{{ $product['parts'] }}</p>
@@ -255,22 +271,8 @@
                 </div>
             </div>
 
-            <div class="trading-export-shipping" role="img"
-                aria-label="Herbal products prepared for bulk shipping and export">
-                <div class="trading-export-shipping__sun" aria-hidden="true"></div>
-                <div class="trading-export-shipping__containers" aria-hidden="true">
-                    <span class="trading-export-shipping__container trading-export-shipping__container--red"></span>
-                    <span class="trading-export-shipping__container trading-export-shipping__container--blue"></span>
-                    <span class="trading-export-shipping__container trading-export-shipping__container--gold"></span>
-                    <span class="trading-export-shipping__container trading-export-shipping__container--navy"></span>
-                </div>
-                <i class="fas fa-ship trading-export-shipping__ship" aria-hidden="true"></i>
-                <div class="trading-export-shipping__callouts" aria-hidden="true">
-                    <span><i class="fas fa-box"></i>Bulk Supply Capacities</span>
-                    <span><i class="fas fa-boxes-packing"></i>Custom Packaging Options</span>
-                    <span><i class="fas fa-file-lines"></i>Export Documentation Support</span>
-                </div>
-            </div>
+            <img class="trading-export-commitment__image" src="{{ asset('images/tradingexport.jpg') }}"
+                alt="Herbal products prepared for bulk shipping and export" loading="lazy">
         </div>
     </section>
 
