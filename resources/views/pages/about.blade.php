@@ -15,6 +15,37 @@
         </div>
     </section>
 
+    <section class="about-bigger-picture" id="about-bigger-picture" aria-labelledby="about-bigger-picture-title">
+        <div class="about-bigger-picture__inner">
+            <div class="about-bigger-picture__content">
+                <p class="about-bigger-picture__eyebrow"><span aria-hidden="true"></span> THE BIGGER PICTURE</p>
+                <h2 class="about-bigger-picture__title" id="about-bigger-picture-title">
+                    India Has the Potential.<br>
+                    The Gap Is in the Connection.
+                </h2>
+                <p class="about-bigger-picture__description">
+                    India has a rich heritage of medicinal plants and a fast-growing herbal industry. Yet, there is a gap
+                    between farmers who grow these crops and industries that need them. We are working to bridge this gap
+                    through a structured, market-linked approach.
+                </p>
+            </div>
+
+            <div class="about-bigger-picture__visual" aria-hidden="true">
+                <div class="about-bigger-picture__map"></div>
+                <div class="about-bigger-picture__line"></div>
+                <div class="about-bigger-picture__circle about-bigger-picture__circle--crop">
+                    <img src="{{ asset('images/plant.jpg') }}" alt="">
+                </div>
+                <div class="about-bigger-picture__circle about-bigger-picture__circle--processing">
+                    <img src="{{ asset('images/farmer-happy.jpg') }}" alt="">
+                </div>
+                <div class="about-bigger-picture__circle about-bigger-picture__circle--root">
+                    <img src="{{ asset('images/crops.jpg') }}" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="about-farmers" aria-labelledby="about-farmers-title">
         <div class="about-farmers__inner">
             <p class="about-farmers__eyebrow"><span aria-hidden="true"></span> FOR FARMERS &amp; GROWERS</p>
@@ -112,7 +143,38 @@
         </div>
     </section>
 
-    <section class="about-farmers-banner" aria-hidden="true"></section>
+    <section class="about-herbal" aria-labelledby="about-herbal-title">
+        <div class="about-herbal__inner">
+            <p class="about-herbal__eyebrow"><span aria-hidden="true"></span> FOR HERBAL INDUSTRIES &amp; BUYERS</p>
+            <h2 class="about-herbal__title" id="about-herbal-title">A More Reliable and Organized<br>Supply of Medicinal Plant Raw Materials</h2>
+            <p class="about-herbal__description">
+                Herbal industries need consistent availability, assured quality and traceability of raw materials. We work to develop organized cultivation and sourcing networks that can support your procurement and production planning.
+            </p>
+
+            <div class="about-herbal__grid">
+                <article class="about-herbal__item">
+                    <div class="about-herbal__icon about-herbal__icon--organized"><span>✓</span></div>
+                    <h3>Organized<br>Farmer Network</h3>
+                    <p>Coordinated cultivation and supply support.</p>
+                </article>
+                <article class="about-herbal__item">
+                    <div class="about-herbal__icon about-herbal__icon--quality"><span>✓</span></div>
+                    <h3>Quality-Oriented<br>Production</h3>
+                    <p>Quality standards aligned with industry needs.</p>
+                </article>
+                <article class="about-herbal__item">
+                    <div class="about-herbal__icon about-herbal__icon--aggregation"><span>✓</span></div>
+                    <h3>Aggregation<br>&amp; Consolidation</h3>
+                    <p>Larger and consistent volumes for business planning.</p>
+                </article>
+                <article class="about-herbal__item">
+                    <div class="about-herbal__icon about-herbal__icon--partnership"><span>✓</span></div>
+                    <h3>Long-Term<br>Partnerships</h3>
+                    <p>Transparent and mutually beneficial collaboration.</p>
+                </article>
+            </div>
+        </div>
+    </section>
 
     <section class="about-investors" aria-labelledby="about-investors-title">
         <div class="about-investors__inner">
@@ -120,32 +182,30 @@
                 <p class="about-investors__eyebrow"><span aria-hidden="true"></span> FOR INVESTORS &amp; PARTNERS</p>
                 <h2 class="about-investors__title" id="about-investors-title">An Opportunity to Build<br class="about-investors__desktop-break"> a Scalable Agribusiness</h2>
                 <p class="about-investors__description">
-                    The demand for medicinal plant raw materials is growing across Ayurveda, nutraceuticals, herbal wellness and natural products.
-                    Our business model offers opportunities to develop and scale a coordinated value chain through farmer networks, contract farming,
-                    aggregation and market linkages.
+                    The demand for medicinal plant raw materials is growing across Ayurveda, nutraceuticals, herbal wellness and natural products. Our business model offers opportunities to develop and scale a coordinated value chain through farmer networks, contract farming, aggregation and market linkages.
                 </p>
 
                 <div class="about-investors__stats" aria-label="Business value pillars">
                     <div class="about-investors__stat">
-                        <span class="about-investors__icon about-investors__icon--chart" aria-hidden="true">
+                        <span class="about-investors__icon" aria-hidden="true">
                             <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 48.5V20.5M22 48.5V14.5M34 48.5V26.5M46 48.5V18.5M54 48.5V10.5" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M8 52H56" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
                         </span>
                         <span class="about-investors__label">Expanding Market<br>Opportunity</span>
                     </div>
                     <div class="about-investors__stat">
-                        <span class="about-investors__icon about-investors__icon--scale" aria-hidden="true">
+                        <span class="about-investors__icon" aria-hidden="true">
                             <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M32 12v40M18 21h28M18 43h28" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M24 12h16v8H24zm0 22h16v8H24z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M10 18l7-7m30 0 7 7M10 46l7 7m30-7 7 7" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
                         </span>
                         <span class="about-investors__label">Scalable<br>Business Model</span>
                     </div>
                     <div class="about-investors__stat">
-                        <span class="about-investors__icon about-investors__icon--people" aria-hidden="true">
+                        <span class="about-investors__icon" aria-hidden="true">
                             <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="22" cy="24" r="8" stroke="currentColor" stroke-width="3"/><circle cx="42" cy="24" r="8" stroke="currentColor" stroke-width="3"/><path d="M12 48c2-8 8-12 18-12s16 4 18 12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M32 48V36" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
                         </span>
                         <span class="about-investors__label">Collaborations with<br>FPOs &amp; Institutions</span>
                     </div>
                     <div class="about-investors__stat">
-                        <span class="about-investors__icon about-investors__icon--coins" aria-hidden="true">
+                        <span class="about-investors__icon" aria-hidden="true">
                             <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 18c0-4 4-7 8-7s8 3 8 7-4 7-8 7-8-3-8-7Zm0 28c0-4 4-7 8-7s8 3 8 7-4 7-8 7-8-3-8-7ZM16 28c0-4 4-7 8-7s8 3 8 7-4 7-8 7-8-3-8-7Zm24 0c0-4 4-7 8-7s8 3 8 7-4 7-8 7-8-3-8-7Z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M10 22v20c0 4 4 8 8 8h3" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M54 22v20c0 4-4 8-8 8h-3" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
                         </span>
                         <span class="about-investors__label">Value Creation<br>Across the Supply Chain</span>
@@ -170,6 +230,89 @@
                         <span class="about-investors__leaf about-investors__leaf--four"></span>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-approach" aria-labelledby="about-approach-title">
+        <div class="about-approach__inner">
+            <p class="about-approach__eyebrow"><span aria-hidden="true"></span> OUR APPROACH</p>
+            <h2 class="about-approach__title" id="about-approach-title">An End-to-End, Market-Connected Approach</h2>
+            <p class="about-approach__description">We bring together the key elements required to connect cultivation with market needs.</p>
+
+            <div class="about-approach__steps">
+                <div class="about-approach__step">
+                    <div class="about-approach__icon"><span>👥</span></div>
+                    <div class="about-approach__meta">
+                        <strong>01</strong>
+                        <span class="about-approach__arrow">→</span>
+                    </div>
+                    <h3>Farmer<br>Mobilization</h3>
+                </div>
+                <div class="about-approach__step">
+                    <div class="about-approach__icon"><span>🌿</span></div>
+                    <div class="about-approach__meta">
+                        <strong>02</strong>
+                        <span class="about-approach__arrow">→</span>
+                    </div>
+                    <h3>Crop Suitability<br>Assessment</h3>
+                </div>
+                <div class="about-approach__step">
+                    <div class="about-approach__icon"><span>📦</span></div>
+                    <div class="about-approach__meta">
+                        <strong>03</strong>
+                        <span class="about-approach__arrow">→</span>
+                    </div>
+                    <h3>Input<br>Coordination</h3>
+                </div>
+                <div class="about-approach__step">
+                    <div class="about-approach__icon"><span>🧑‍🌾</span></div>
+                    <div class="about-approach__meta">
+                        <strong>04</strong>
+                        <span class="about-approach__arrow">→</span>
+                    </div>
+                    <h3>Technical<br>Support</h3>
+                </div>
+                <div class="about-approach__step">
+                    <div class="about-approach__icon"><span>🏭</span></div>
+                    <div class="about-approach__meta">
+                        <strong>05</strong>
+                        <span class="about-approach__arrow">→</span>
+                    </div>
+                    <h3>Aggregation &amp;<br>Quality Management</h3>
+                </div>
+                <div class="about-approach__step">
+                    <div class="about-approach__icon"><span>🤝</span></div>
+                    <div class="about-approach__meta">
+                        <strong>06</strong>
+                    </div>
+                    <h3>Market Linkages<br>&amp; Procurement</h3>
+                </div>
+            </div>
+
+            <div class="about-approach__bottom">
+                <article class="about-approach__panel">
+                    <div class="about-approach__panel-icon">◎</div>
+                    <h3>Our Mission</h3>
+                    <p>To connect farmers with market-oriented medicinal plant opportunities and help industrial buyers source through structured farming programs, technical coordination and market linkages.</p>
+                </article>
+                <article class="about-approach__panel about-approach__panel--alt">
+                    <div class="about-approach__panel-icon">◎</div>
+                    <h3>Our Vision</h3>
+                    <p>To build a trusted, scalable and sustainable medicinal plants value chain that connects farmers’ agricultural potential with the evolving needs of the herbal industry.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-cta" aria-labelledby="about-cta-title">
+        <div class="about-cta__inner">
+            <h2 class="about-cta__title" id="about-cta-title">Let’s Build the Future of Medicinal Plants Together.</h2>
+            <p class="about-cta__description">Whether you are a farmer, an herbal industry buyer, an FPO, or an investor, we welcome opportunities for collaboration.</p>
+            <div class="about-cta__actions">
+                <a href="/contact" class="about-cta__button about-cta__button--primary">Explore Contract Farming <span aria-hidden="true">→</span></a>
+                <a href="/contact" class="about-cta__button about-cta__button--secondary">Partner With Us <span aria-hidden="true">→</span></a>
+                <a href="/contact" class="about-cta__button about-cta__button--secondary">Connect With Our Team <span aria-hidden="true">→</span></a>
             </div>
         </div>
     </section>
