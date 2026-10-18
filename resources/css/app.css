@@ -1500,7 +1500,164 @@ table tbody tr td {
     background: rgba(255,255,255,0.9);
 }
 
+.about-directors {
+    margin: 0;
+    background: #f3f5ef;
+}
+
+.about-directors__inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 30px 22px 34px;
+}
+
+.about-directors__heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 32px;
+    margin-bottom: 22px;
+}
+
+.about-directors__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 8px;
+    color: #286746;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .08em;
+}
+
+.about-directors__eyebrow span {
+    width: 22px;
+    height: 2px;
+    background: #286746;
+}
+
+.about-directors__title {
+    margin: 0;
+    color: #17231d;
+    font-size: clamp(34px, 3vw, 48px);
+    font-weight: 900;
+    line-height: 1.05;
+}
+
+.about-directors__title span {
+    color: #287448;
+}
+
+.about-directors__intro {
+    max-width: 440px;
+    margin: 0 0 4px;
+    color: #4b574f;
+    font-size: 15px;
+    line-height: 1.55;
+}
+
+.about-directors__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.about-director {
+    display: grid;
+    grid-template-columns: minmax(135px, 0.42fr) minmax(0, 1fr);
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid rgba(33, 79, 53, .08);
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 5px 18px rgba(27, 54, 37, .06);
+}
+
+.about-director__portrait {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 330px;
+    object-fit: cover;
+    object-position: center top;
+    background: #e7eee1;
+}
+
+.about-director__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px 18px 14px;
+}
+
+.about-director__name {
+    margin: 0 0 5px;
+    color: #19251e;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(18px, 1.45vw, 22px);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.about-director__role {
+    margin: 0 0 2px;
+    color: #297448;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.about-director__department {
+    margin: 0 0 10px;
+    color: #39443d;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.about-director__bio {
+    margin: 0;
+    color: #4a544d;
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.about-director__quote {
+    position: relative;
+    margin: auto 0 0;
+    padding: 12px 12px 10px 32px;
+    color: #31473a;
+    background: #f1f6ed;
+    font-size: 12px;
+    font-style: italic;
+    line-height: 1.5;
+}
+
+.about-director__quote::before {
+    content: "“";
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    color: #287448;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 34px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1;
+}
+
 @media (max-width: 1080px) {
+    .about-directors__grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .about-director {
+        grid-template-columns: minmax(190px, 0.38fr) minmax(0, 1fr);
+    }
+
+    .about-director__portrait {
+        min-height: 290px;
+    }
+
     .about-story-final__inner {
         grid-template-columns: 1fr;
         gap: 18px;
@@ -1508,6 +1665,49 @@ table tbody tr td {
 }
 
 @media (max-width: 640px) {
+    .about-directors__inner {
+        padding: 26px 16px 30px;
+    }
+
+    .about-directors__heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    .about-directors__title {
+        font-size: clamp(32px, 9vw, 44px);
+    }
+
+    .about-directors__intro {
+        font-size: 14px;
+    }
+
+    .about-director {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .about-director__portrait {
+        height: 290px;
+        min-height: 0;
+        object-position: center 25%;
+    }
+
+    .about-director__content {
+        min-height: 300px;
+        padding: 17px 16px 14px;
+    }
+
+    .about-director__name {
+        font-size: 21px;
+    }
+
+    .about-director__bio,
+    .about-director__quote {
+        font-size: 13px;
+    }
+
     .about-story-final__inner {
         padding-left: 16px;
         padding-right: 16px;
