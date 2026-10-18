@@ -316,4 +316,31 @@
             </div>
         </div>
     </section>
+
+    <section class="about-story-final" aria-labelledby="about-story-final-title">
+        <div class="about-story-final__inner">
+            <div class="about-story-final__content">
+                <p class="about-story-final__eyebrow">OUR STORY</p>
+                <h2 class="about-story-final__title" id="about-story-final-title">Born from a Farmer's Reality.<br>Built for Agriculture's Future.</h2>
+                <p class="about-story-final__lead">Empowering Farmers. Connecting Markets. Creating Opportunities.</p>
+                <p class="about-story-final__description">
+                    Click-N-Grow Agroventures Pvt. Ltd. was born from a deep understanding of the realities faced by Indian farmers.
+                    Growing up in a farming family, Mr. Amol V. Khandare witnessed the challenges faced by farmers — from accessing quality inputs and reliable guidance to getting fair prices for their produce.
+                    This experience inspired the creation of a farmer-first company that connects suitable medicinal plant cultivation with technical guidance,
+                    quality inputs and market linkages, while also supporting herbal industries with organized and sustainable sourcing.
+                </p>
+                <a href="/contact" class="about-story-final__button">Our Story <span aria-hidden="true">→</span></a>
+            </div>
+
+            <div class="about-story-final__visual" aria-hidden="true">
+                <img src="{{ asset('images/home_banner.png') }}" alt="" class="about-story-final__image">
+                <div class="about-story-final__badge">
+                    <span>Stronger</span>
+                    <span>Farmers</span>
+                    <span>Healthier</span>
+                    <span>Tomorrow</span>
+                </div>
+            </div>
+        </div>
+    </section>
 </x-guest-layout>
