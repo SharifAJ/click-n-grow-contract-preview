@@ -641,6 +641,279 @@ table tbody tr td {
     margin: 0;
 }
 
+.about-investors {
+    margin: 0;
+    background: #f4f3ef;
+}
+
+.about-investors__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 28px 24px 18px;
+}
+
+.about-investors__content {
+    flex: 1 1 58%;
+    padding-right: 16px;
+}
+
+.about-investors__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 18px;
+    color: #1c6d4c;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.about-investors__eyebrow span {
+    display: block;
+    width: 6px;
+    height: 22px;
+    border-radius: 4px;
+    background: #2a7d57;
+}
+
+.about-investors__title {
+    margin: 0;
+    color: #173a27;
+    font-size: clamp(40px, 4vw, 76px);
+    font-weight: 900;
+    letter-spacing: -.06em;
+    line-height: 1.02;
+}
+
+.about-investors__description {
+    max-width: 930px;
+    margin: 22px 0 0;
+    color: #374d40;
+    font-size: clamp(16px, 1.3vw, 22px);
+    font-weight: 500;
+    line-height: 1.55;
+}
+
+.about-investors__stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 28px;
+    padding-top: 10px;
+}
+
+.about-investors__stat {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 90px;
+    padding: 14px 12px;
+    border: 1px solid rgba(25, 79, 58, .12);
+    border-radius: 16px;
+    background: rgba(255,255,255,.18);
+}
+
+.about-investors__icon {
+    display: flex;
+    flex: 0 0 52px;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    color: #1d7d53;
+}
+
+.about-investors__icon svg {
+    width: 42px;
+    height: 42px;
+}
+
+.about-investors__label {
+    color: #173a27;
+    font-size: clamp(12px, 1vw, 18px);
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.about-investors__visual {
+    position: relative;
+    flex: 0 0 42%;
+    min-height: 440px;
+    overflow: hidden;
+    border-radius: 28px;
+}
+
+.about-investors__visual-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.1)), url("/images/farmer-happy.jpg") center / cover no-repeat;
+    filter: saturate(1.1) contrast(1.05);
+    transform: scale(1.06);
+}
+
+.about-investors__chart {
+    position: absolute;
+    right: 52px;
+    top: 64px;
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    height: 120px;
+    padding: 10px 12px 0;
+    border: 3px solid rgba(255, 255, 255, 0.78);
+    border-bottom: none;
+    background: rgba(255,255,255,.08);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+}
+
+.about-investors__chart span {
+    display: block;
+    width: 16px;
+    border-radius: 10px 10px 0 0;
+    background: rgba(255,255,255,.82);
+}
+
+.about-investors__chart span:nth-child(1) { height: 30%; }
+.about-investors__chart span:nth-child(2) { height: 45%; }
+.about-investors__chart span:nth-child(3) { height: 65%; }
+.about-investors__chart span:nth-child(4) { height: 85%; }
+.about-investors__chart span:nth-child(5) { height: 100%; }
+
+.about-investors__plant-wrap {
+    position: absolute;
+    right: 16px;
+    bottom: 20px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 260px;
+    height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 45%, rgba(28,85,54,.22), rgba(28,85,54,0) 60%);
+}
+
+.about-investors__plant {
+    position: relative;
+    width: 170px;
+    height: 155px;
+    border-radius: 50% 50% 40% 40%;
+    background: radial-gradient(circle at center, rgba(72,137,70,.7), rgba(40,90,46,.9) 60%, rgba(27,72,43,.95) 100%);
+    box-shadow: inset 0 0 28px rgba(11,56,37,.24);
+}
+
+.about-investors__plant::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 8px;
+    width: 66px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(75, 47, 28, 0.8);
+    transform: translateX(-50%);
+}
+
+.about-investors__leaf {
+    position: absolute;
+    width: 18px;
+    height: 72px;
+    background: linear-gradient(180deg, #5fb86a, #1a7d4e);
+    border-radius: 12px 12px 0 12px;
+    transform-origin: bottom center;
+}
+
+.about-investors__leaf--one { left: 40%; bottom: 62px; transform: rotate(-24deg); }
+.about-investors__leaf--two { left: 52%; bottom: 62px; transform: rotate(18deg); }
+.about-investors__leaf--three { left: 32%; bottom: 34px; transform: rotate(-42deg); }
+.about-investors__leaf--four { left: 58%; bottom: 32px; transform: rotate(32deg); }
+
+@media (max-width: 1080px) {
+    .about-investors__inner {
+        flex-direction: column;
+    }
+
+    .about-investors__content,
+    .about-investors__visual {
+        width: 100%;
+        flex-basis: auto;
+    }
+
+    .about-investors__stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .about-investors__inner {
+        padding: 22px 16px 16px;
+    }
+
+    .about-investors__eyebrow {
+        font-size: 12px;
+    }
+
+    .about-investors__title {
+        font-size: clamp(28px, 8vw, 44px);
+    }
+
+    .about-investors__description {
+        font-size: 15px;
+    }
+
+    .about-investors__stats {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .about-investors__stat {
+        min-height: 74px;
+        padding: 10px 12px;
+    }
+
+    .about-investors__icon {
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
+    }
+
+    .about-investors__icon svg {
+        width: 32px;
+        height: 32px;
+    }
+
+    .about-investors__visual {
+        min-height: 290px;
+    }
+
+    .about-investors__chart {
+        right: 18px;
+        top: 28px;
+        height: 74px;
+        gap: 7px;
+    }
+
+    .about-investors__chart span {
+        width: 12px;
+    }
+
+    .about-investors__plant-wrap {
+        width: 180px;
+        height: 160px;
+        right: 2px;
+        bottom: 8px;
+    }
+
+    .about-investors__plant {
+        width: 110px;
+        height: 110px;
+    }
+}
+
 .expert-visit-hero {
     position: relative;
     isolation: isolate;
