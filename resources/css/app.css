@@ -960,13 +960,11 @@ table tbody tr td {
 .about-investors,
 .about-approach,
 .about-cta,
-.about-story-final {
-    margin-top: 18px;
-    margin-bottom: 18px;
-}
-
-.about-hero {
-    margin-top: 0;
+.about-story-final,
+.about-directors {
+    margin: 0;
+    padding-top: 18px;
+    padding-bottom: 18px;
 }
 
 .about-investors__content {
