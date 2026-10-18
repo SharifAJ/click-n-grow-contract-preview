@@ -371,62 +371,108 @@ table tbody tr td {
     position: relative;
     isolation: isolate;
     width: 100%;
-    min-height: clamp(300px, 34vw, 470px);
-    margin: 24px 0 56px;
+    min-height: clamp(420px, 44vw, 620px);
+    margin: 0 0 56px;
     overflow: hidden;
-    background: #e8f0e4;
+    background: #edf0e7;
 }
 
-.about-hero__image,
-.about-hero__wash {
+.about-hero__image {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-}
-
-.about-hero__image {
-    z-index: -2;
     object-fit: cover;
-    object-position: center 52%;
-}
-
-.about-hero__wash {
-    z-index: -1;
-    background: linear-gradient(90deg, rgba(255, 255, 255, .96) 0%, rgba(255, 255, 255, .9) 34%, rgba(255, 255, 255, .48) 55%, rgba(255, 255, 255, 0) 76%);
+    object-position: center center;
 }
 
 .about-hero__content {
-    width: min(52%, 620px);
-    padding: clamp(32px, 5.4vw, 82px) 0 clamp(32px, 5.4vw, 82px) clamp(28px, 6.8vw, 96px);
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: min(58%, 760px);
+    min-height: clamp(420px, 44vw, 620px);
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(28px, 4vw, 72px) clamp(24px, 4vw, 58px) clamp(28px, 4vw, 72px) clamp(28px, 5vw, 88px);
+    background: linear-gradient(90deg, rgba(247, 248, 245, .97) 0%, rgba(247, 248, 245, .94) 40%, rgba(247, 248, 245, .75) 57%, rgba(247, 248, 245, .12) 80%, rgba(247, 248, 245, 0) 100%);
     color: #173a27;
 }
 
+.about-hero__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 16px;
+    color: #1b623d;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+.about-hero__eyebrow span {
+    display: block;
+    width: 6px;
+    height: 22px;
+    border-radius: 4px;
+    background: #2f7d57;
+}
+
 .about-hero__title {
-    margin: 0 0 2px;
+    margin: 0;
     color: #123d2a;
-    font-size: clamp(38px, 4.2vw, 60px);
+    font-size: clamp(46px, 5vw, 82px);
     font-weight: 900;
-    letter-spacing: -.04em;
-    line-height: 1.05;
+    letter-spacing: -.06em;
+    line-height: .98;
 }
 
 .about-hero__tagline {
-    margin: 0 0 18px;
+    margin: 18px 0 18px;
+    max-width: 620px;
     color: #183d2b;
-    font-size: clamp(20px, 2.2vw, 29px);
+    font-size: clamp(24px, 2.4vw, 38px);
     font-weight: 750;
-    letter-spacing: -.025em;
-    line-height: 1.18;
+    letter-spacing: -.03em;
+    line-height: 1.12;
 }
 
 .about-hero__description {
-    max-width: 540px;
+    max-width: 600px;
     margin: 0;
-    color: #34443a;
-    font-size: clamp(14px, 1.2vw, 16px);
-    font-weight: 600;
-    line-height: 1.55;
+    color: #394a3c;
+    font-size: clamp(14px, 1.15vw, 18px);
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+.about-hero__button {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 10px;
+    margin-top: 26px;
+    padding: 16px 26px;
+    border-radius: 12px;
+    background: linear-gradient(180deg, #1f7a55 0%, #176a4c 100%);
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    box-shadow: 0 12px 28px rgba(17, 68, 48, .2);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.about-hero__button:hover,
+.about-hero__button:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 32px rgba(17, 68, 48, .25);
+}
+
+.about-hero__button span {
+    font-size: 20px;
 }
 
 .expert-visit-hero {
@@ -2668,32 +2714,39 @@ fieldset.expert-registration__field {
     }
 
     .about-hero {
-        width: 100%;
         min-height: 440px;
         margin: 14px 0 36px;
     }
 
     .about-hero__image {
-        object-position: 76% center;
-    }
-
-    .about-hero__wash {
-        background: linear-gradient(90deg, rgba(255, 255, 255, .97) 0%, rgba(255, 255, 255, .9) 56%, rgba(255, 255, 255, .35) 100%);
+        object-position: 72% center;
     }
 
     .about-hero__content {
-        width: min(88%, 440px);
-        padding: 54px 0 36px 24px;
+        width: min(100%, 520px);
+        min-height: 440px;
+        padding: 42px 20px 34px 20px;
+        background: linear-gradient(90deg, rgba(247, 248, 245, .92) 0%, rgba(247, 248, 245, .86) 50%, rgba(247, 248, 245, .35) 100%);
+    }
+
+    .about-hero__eyebrow {
+        margin-bottom: 10px;
+        font-size: 12px;
+    }
+
+    .about-hero__eyebrow span {
+        width: 5px;
+        height: 18px;
     }
 
     .about-hero__title {
-        margin-bottom: 6px;
-        font-size: clamp(38px, 10vw, 48px);
+        font-size: clamp(35px, 9vw, 52px);
+        line-height: 1.02;
     }
 
     .about-hero__tagline {
-        margin-bottom: 16px;
-        font-size: clamp(21px, 5.8vw, 27px);
+        margin: 14px 0 12px;
+        font-size: clamp(20px, 5.4vw, 28px);
     }
 
     .about-hero__desktop-break {
@@ -2702,6 +2755,12 @@ fieldset.expert-registration__field {
 
     .about-hero__description {
         font-size: 15px;
+    }
+
+    .about-hero__button {
+        margin-top: 20px;
+        padding: 14px 22px;
+        font-size: 16px;
     }
 
     .about-story {

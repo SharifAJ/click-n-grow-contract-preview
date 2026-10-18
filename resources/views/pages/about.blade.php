@@ -2,18 +2,20 @@
     <section class="about-hero" aria-labelledby="about-hero-title">
         <img class="about-hero__image" src="{{ asset('images/home_banner.png') }}"
             alt="Farmer tending herbal crops in a green field" fetchpriority="high">
-        <div class="about-hero__wash" aria-hidden="true"></div>
         <div class="about-hero__content">
-            <h1 class="about-hero__title" id="about-hero-title">About Us</h1>
-            <p class="about-hero__tagline">Empowering Herbal Farming<br class="about-hero__desktop-break"> for a Healthier Tomorrow</p>
+            <p class="about-hero__eyebrow"><span aria-hidden="true"></span>ABOUT US</p>
+            <h1 class="about-hero__title" id="about-hero-title">From Farm to Future</h1>
+            <p class="about-hero__tagline">Connecting Farmers, Herbal Industries<br class="about-hero__desktop-break"> and Sustainable Growth</p>
             <p class="about-hero__description">
-                At Click-N-Grow Agroventures Pvt Ltd, we are committed to building a sustainable and transparent herbal
-                farming ecosystem by connecting farmers, industry and opportunities.
+                Click-N-Grow Agroventures Pvt. Ltd. is an agribusiness company focused on developing a structured,
+                market-oriented medicinal plants ecosystem by connecting farmers with herbal industries through contract
+                farming, technical guidance, aggregation and market linkages.
             </p>
+            <a class="about-hero__button" href="#about-story">Our Story <span aria-hidden="true">→</span></a>
         </div>
     </section>
 
-    <section class="about-story" aria-labelledby="about-story-title">
+    <section class="about-story" id="about-story" aria-labelledby="about-story-title">
         <div class="about-story__intro">
             <div class="about-story__copy">
                 <p class="about-story__eyebrow">Who We Are</p>
