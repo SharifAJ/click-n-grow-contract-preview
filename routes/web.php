@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\Api\ApiUsageController;
 use App\Http\Controllers\Auth\AdminAuthenticatedSessionController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\FarmMonitoringController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\TradingEnquiryController;
 use App\Http\Controllers\Web\ContactUsController;
+use App\Http\Controllers\Web\BlogPostController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\FarmerController;
 use App\Http\Controllers\Web\PackageMasterController;
@@ -118,6 +120,8 @@ Route::middleware(['auth:admin'])->group(function () {
 
     // ============For contact us Controller================
     Route::resource('dashboard/contact-us', ContactUsController::class);
+    Route::resource('admin/blogs', BlogPostController::class)
+        ->except(['show']);
 
     /* ---------------------------------------------------------------- GENERAL SETTING --------------------------------------------------------------- */
     Route::get('/settings/application', [SettingController::class, 'index'])->name('setting.index');
@@ -139,6 +143,8 @@ Route::view('/privacy-policy', 'pages/privacy-policy')->name('privacy-policy');
 Route::view('/refund-policy', 'pages/refund-policy')->name('refund-policy');
 Route::view('/terms-and-conditions', 'pages/terms-and-conditions')->name('terms-and-conditions');
 Route::view('/about', 'pages/about')->name('about');
+Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
+Route::get('/blogs/{slug}', [BlogController::class, 'show'])->name('blogs.show');
 Route::get('/trading-and-export', [PageController::class, 'tradingExport'])->name('trading-export');
 Route::get('/trading-enquiry-form', [TradingEnquiryController::class, 'create'])->name('trading-enquiry-form');
 Route::post('/trading-enquiry-form', [TradingEnquiryController::class, 'store'])

@@ -19,6 +19,7 @@
     <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
         <ul>
             <x-sidebar-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" icon="fa-solid fa-tachometer-alt" text="Dashboard" />
+            <x-sidebar-link :href="route('admin.blogs.index')" :active="request()->routeIs('admin.blogs.*')" icon="fa-solid fa-newspaper" text="Blog Posts" />
             {{--
             <x-sidebar-link :href="route('farmer.index')" :active="request()->routeIs('farmer.*')" icon="fa-solid fa-users" text="Farmers" />
             <x-sidebar-link :href="route('subscription.index')" :active="request()->routeIs('subscription.index')" icon="fa-solid fa-money-check-alt"

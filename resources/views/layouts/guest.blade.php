@@ -92,7 +92,7 @@
 						<li><a href="{{ route('contract') }}">{{ __('messages.contract') }}</a></li>
 						<li><a href="{{ route('trading-export') }}">Trading and Export</a></li>
 						<li><a href="{{ route('expert-visit-registration') }}">Expert Visit Registration</a></li>
-						<li><a href="{{ url('/blogs') }}">Blogs</a></li>
+						<li><a href="{{ route('blogs.index') }}">Blogs</a></li>
 
 						{{--
 						<li><a href="#">{{ __('messages.home') }}</a></li>
@@ -340,7 +340,7 @@
 				<li><a href="{{ route('contract') }}"><b>{{ __('messages.contract') }}</b></a></li>
 				<li><a href="{{ route('trading-export') }}"><b>Trading and Export</b></a></li>
 				<li><a href="{{ route('expert-visit-registration') }}"><b>Expert Visit Registration</b></a></li>
-				<li><a href="{{ url('/blogs') }}"><b>Blogs</b></a></li>
+				<li><a href="{{ route('blogs.index') }}"><b>Blogs</b></a></li>
 				<li><a href="{{ route('contact-us') }}"><b>{{ __('messages.contact_us') }}</b></a></li>
 				{{--
 				<li><a href="#"><b>{{ __('messages.footer.home') }}</b></a></li>

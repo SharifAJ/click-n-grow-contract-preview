@@ -114,6 +114,10 @@ Use Razorpay test credentials first. On service startup, Laravel runs the dedica
 
 The state fee tiers are ₹5,000/day for Maharashtra; ₹7,000/day for Madhya Pradesh, Chhattisgarh, Gujarat, Karnataka, and Telangana; and ₹10,000/day for all other states and Union Territories. For registrations with farms in multiple states, the highest tier applies per selected visit day.
 
+## Blog Management
+
+Administrators can create and publish blog posts from **Admin Dashboard → Blog Posts**. After deploying schema changes, run `php artisan migrate --force` and `php artisan storage:link` so uploaded thumbnails are publicly accessible. Draft posts remain hidden from the public blog listing.
+
 ---
 
 # Pipeline Code for Reference
