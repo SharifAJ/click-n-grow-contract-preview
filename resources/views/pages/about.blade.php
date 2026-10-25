@@ -341,13 +341,13 @@
             <div class="about-approach__bottom">
                 <article class="about-approach__panel">
                     <div class="about-approach__panel-icon">◎</div>
-                    <h3>Our Mission</h3>
-                    <p>To connect farmers with market-oriented medicinal plant opportunities and help industrial buyers source through structured farming programs, technical coordination and market linkages.</p>
+                    <h3>Our Vision</h3>
+                    <p>To build a sustainable and profitable medicinal plants ecosystem connecting farmers to global markets.</p>
                 </article>
                 <article class="about-approach__panel about-approach__panel--alt">
                     <div class="about-approach__panel-icon">◎</div>
-                    <h3>Our Vision</h3>
-                    <p>To build a trusted, scalable and sustainable medicinal plants value chain that connects farmers’ agricultural potential with the evolving needs of the herbal industry.</p>
+                    <h3>Our Mission</h3>
+                    <p>To enable farmers to grow profitable medicinal crops through end-to-end support, reliable market linkages, and technology-driven agricultural services, while supplying quality herbal raw materials to industry.</p>
                 </article>
             </div>
         </div>
