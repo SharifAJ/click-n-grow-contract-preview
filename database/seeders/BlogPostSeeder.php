@@ -15,7 +15,7 @@ class BlogPostSeeder extends Seeder
         $posts = [
             [
                 'slug' => 'sample-ashwagandha-cultivation',
-                'title' => '[Sample] Getting Started with Ashwagandha Cultivation',
+                'title' => 'Getting Started with Ashwagandha Cultivation',
                 'excerpt' => 'A sample introduction to planning an ashwagandha crop, from choosing a suitable field to preparing for harvest.',
                 'content' => "Ashwagandha is an important medicinal crop that can offer farmers another option to explore. Successful cultivation starts with understanding local soil, climate, water availability, and the needs of a potential buyer.\n\nBefore planting, growers should seek region-specific agronomic advice and use quality planting material. This sample article is for demonstration only and is not a crop-specific cultivation recommendation.",
                 'thumbnail' => 'images/ashwagandha.webp',
@@ -24,7 +24,7 @@ class BlogPostSeeder extends Seeder
             ],
             [
                 'slug' => 'sample-moringa-value-chain',
-                'title' => '[Sample] Moringa: Connecting Farm Production to Market Needs',
+                'title' => 'Moringa: Connecting Farm Production to Market Needs',
                 'excerpt' => 'See how crop planning, quality handling, and buyer requirements fit together in a more organized medicinal plant supply chain.',
                 'content' => "A reliable crop-to-market journey involves more than growing a crop. Farmers and buyers benefit when production plans, quality expectations, harvesting, and post-harvest handling are discussed in advance.\n\nThis sample article introduces the value-chain approach. Actual crop selection and procurement depend on local conditions and mutually agreed terms.",
                 'thumbnail' => 'images/moringa.jpg',
@@ -33,7 +33,7 @@ class BlogPostSeeder extends Seeder
             ],
             [
                 'slug' => 'sample-amla-farm-planning',
-                'title' => '[Sample] Planning an Amla Opportunity for Your Farm',
+                'title' => 'Planning an Amla Opportunity for Your Farm',
                 'excerpt' => 'A sample guide to the early questions growers can consider when exploring amla and other medicinal plant opportunities.',
                 'content' => "Every farm has its own strengths. Land characteristics, water access, available labour, and the farmer's goals all matter when considering a new crop such as amla.\n\nA good first step is to discuss suitability and market requirements with knowledgeable local partners before making an investment. This sample article is provided to demonstrate the blog and does not guarantee crop performance or a purchase.",
                 'thumbnail' => 'images/amla.jpg',
@@ -43,6 +43,13 @@ class BlogPostSeeder extends Seeder
         ];
 
         foreach ($posts as $post) {
+            $existingPost = BlogPost::query()->where('slug', $post['slug'])->first();
+            if ($existingPost && str_starts_with($existingPost->title, '[Sample] ')) {
+                $existingPost->update([
+                    'title' => substr($existingPost->title, strlen('[Sample] ')),
+                ]);
+            }
+
             $sourcePath = public_path($post['thumbnail']);
             if (! File::isFile($sourcePath)) {
                 throw new RuntimeException("Sample blog thumbnail not found: {$post['thumbnail']}");
