@@ -143,6 +143,54 @@
         </div>
     </section>
 
+    <section class="about-cta" aria-labelledby="about-cta-title">
+        <div class="about-cta__inner">
+            <h2 class="about-cta__title" id="about-cta-title">Let’s Build the Future of Medicinal Plants Together.</h2>
+            <p class="about-cta__description">Whether you are a farmer, an herbal industry buyer, an FPO, or an investor, we welcome opportunities for collaboration.</p>
+            <div class="about-cta__actions">
+                <a href="/contact" class="about-cta__button about-cta__button--primary">Explore Contract Farming <span aria-hidden="true">→</span></a>
+                <a href="/contact" class="about-cta__button about-cta__button--secondary">Partner With Us <span aria-hidden="true">→</span></a>
+                <a href="/contact" class="about-cta__button about-cta__button--secondary">Connect With Our Team <span aria-hidden="true">→</span></a>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-directors" aria-labelledby="about-directors-title">
+        <div class="about-directors__inner">
+            <div class="about-directors__heading">
+                <div>
+                    <p class="about-directors__eyebrow"><span aria-hidden="true"></span> LEADERSHIP WITH PURPOSE</p>
+                    <h2 class="about-directors__title" id="about-directors-title">Meet Our <span>Directors</span></h2>
+                </div>
+                <p class="about-directors__intro">Our journey is guided by a shared commitment to farmer empowerment, sustainable agriculture and inclusive growth.</p>
+            </div>
+
+            <div class="about-directors__grid">
+                <article class="about-director">
+                    <img class="about-director__portrait" src="{{ asset('images/Analysis output 1.png') }}" alt="Mr. Amol V. Khandare, Director of Agriculture and Business Development" loading="lazy">
+                    <div class="about-director__content">
+                        <h3 class="about-director__name">Mr. Amol V. Khandare</h3>
+                        <p class="about-director__role">Director</p>
+                        <p class="about-director__department">Agriculture &amp; Business Development</p>
+                        <p class="about-director__bio">Born into a farming family, Mr. Amol V. Khandare has agriculture in his blood. With formal education in agriculture and management, he witnessed the challenges faced by farmers due to intermediaries, lack of guidance and limited market access. This inspired him to build Click-N-Grow as a platform that supports farmers with suitable cultivation opportunities, quality inputs, technical guidance and market linkages.</p>
+                        <blockquote class="about-director__quote">My mission is to help farmers become respected and empowered members of society.</blockquote>
+                    </div>
+                </article>
+
+                <article class="about-director">
+                    <img class="about-director__portrait" src="{{ asset('images/Analysis output 2.png') }}" alt="Mrs. Priya B. Gangasagare, Director of Operations, Administration and Inclusive Growth" loading="lazy">
+                    <div class="about-director__content">
+                        <h3 class="about-director__name">Mrs. Priya B. Gangasagare</h3>
+                        <p class="about-director__role">Director</p>
+                        <p class="about-director__department">Operations, Administration &amp; Inclusive Growth</p>
+                        <p class="about-director__bio">A passionate and dynamic professional, Mrs. Priya B. Gangasagare brings a Master's degree in Mathematics and a Bachelor's degree in Education, along with strong leadership and management capabilities. She plays a key role in the company's operations and administration, driving growth through meticulous planning and strategic oversight.</p>
+                        <blockquote class="about-director__quote">I am committed to empowering women farmers and strengthening FPOs for a more inclusive and sustainable agricultural future.</blockquote>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
     <section class="about-herbal" aria-labelledby="about-herbal-title">
         <div class="about-herbal__inner">
             <p class="about-herbal__eyebrow"><span aria-hidden="true"></span> FOR HERBAL INDUSTRIES &amp; BUYERS</p>
@@ -305,18 +353,6 @@
         </div>
     </section>
 
-    <section class="about-cta" aria-labelledby="about-cta-title">
-        <div class="about-cta__inner">
-            <h2 class="about-cta__title" id="about-cta-title">Let’s Build the Future of Medicinal Plants Together.</h2>
-            <p class="about-cta__description">Whether you are a farmer, an herbal industry buyer, an FPO, or an investor, we welcome opportunities for collaboration.</p>
-            <div class="about-cta__actions">
-                <a href="/contact" class="about-cta__button about-cta__button--primary">Explore Contract Farming <span aria-hidden="true">→</span></a>
-                <a href="/contact" class="about-cta__button about-cta__button--secondary">Partner With Us <span aria-hidden="true">→</span></a>
-                <a href="/contact" class="about-cta__button about-cta__button--secondary">Connect With Our Team <span aria-hidden="true">→</span></a>
-            </div>
-        </div>
-    </section>
-
     <section class="about-story-final" aria-labelledby="about-story-final-title">
         <div class="about-story-final__inner">
             <div class="about-story-final__content">
@@ -344,39 +380,4 @@
         </div>
     </section>
 
-    <section class="about-directors" aria-labelledby="about-directors-title">
-        <div class="about-directors__inner">
-            <div class="about-directors__heading">
-                <div>
-                    <p class="about-directors__eyebrow"><span aria-hidden="true"></span> LEADERSHIP WITH PURPOSE</p>
-                    <h2 class="about-directors__title" id="about-directors-title">Meet Our <span>Directors</span></h2>
-                </div>
-                <p class="about-directors__intro">Our journey is guided by a shared commitment to farmer empowerment, sustainable agriculture and inclusive growth.</p>
-            </div>
-
-            <div class="about-directors__grid">
-                <article class="about-director">
-                    <img class="about-director__portrait" src="{{ asset('images/Analysis output 1.png') }}" alt="Mr. Amol V. Khandare, Director of Agriculture and Business Development" loading="lazy">
-                    <div class="about-director__content">
-                        <h3 class="about-director__name">Mr. Amol V. Khandare</h3>
-                        <p class="about-director__role">Director</p>
-                        <p class="about-director__department">Agriculture &amp; Business Development</p>
-                        <p class="about-director__bio">Born into a farming family, Mr. Amol V. Khandare has agriculture in his blood. With formal education in agriculture and management, he witnessed the challenges faced by farmers due to intermediaries, lack of guidance and limited market access. This inspired him to build Click-N-Grow as a platform that supports farmers with suitable cultivation opportunities, quality inputs, technical guidance and market linkages.</p>
-                        <blockquote class="about-director__quote">My mission is to help farmers become respected and empowered members of society.</blockquote>
-                    </div>
-                </article>
-
-                <article class="about-director">
-                    <img class="about-director__portrait" src="{{ asset('images/Analysis output 2.png') }}" alt="Mrs. Priya B. Gangasagare, Director of Operations, Administration and Inclusive Growth" loading="lazy">
-                    <div class="about-director__content">
-                        <h3 class="about-director__name">Mrs. Priya B. Gangasagare</h3>
-                        <p class="about-director__role">Director</p>
-                        <p class="about-director__department">Operations, Administration &amp; Inclusive Growth</p>
-                        <p class="about-director__bio">A passionate and dynamic professional, Mrs. Priya B. Gangasagare brings a Master's degree in Mathematics and a Bachelor's degree in Education, along with strong leadership and management capabilities. She plays a key role in the company's operations and administration, driving growth through meticulous planning and strategic oversight.</p>
-                        <blockquote class="about-director__quote">I am committed to empowering women farmers and strengthening FPOs for a more inclusive and sustainable agricultural future.</blockquote>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
 </x-guest-layout>
