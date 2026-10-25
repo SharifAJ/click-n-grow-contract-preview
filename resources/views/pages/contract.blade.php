@@ -1373,6 +1373,219 @@
 
 
 
+    <!-- About Section -->
+    <div class="mt-16 text-center" id="about-section">
+        <h2 class="text-3xl font-bold text-[#3d693c] mb-4">{{ __('messages.contract_about_title') }}</h2>
+        <div class="w-24 h-1 bg-[#90ee90] mx-auto rounded-full"></div>
+    </div>
+
+    <div class="grid max-w-6xl grid-cols-1 gap-8 px-4 mx-auto mt-12 md:grid-cols-2">
+        <div class="text-[#3d693c]">
+            <h3 class="mb-4 text-2xl font-bold">{{ __('messages.contract_what_title') }}</h3>
+            <p class="mb-6 text-[#828892]">
+                {{ __('messages.contract_what_desc') }}
+            </p>
+            <h3 class="mb-4 text-2xl font-bold">{{ __('messages.contract_why_title') }}</h3>
+            <p class="text-[#828892]">
+                {{ __('messages.contract_why_desc') }}
+            </p>
+        </div>
+        <div class="bg-[#f0fdf4] p-6 rounded-lg shadow-lg">
+            <h3 class="text-2xl font-bold text-[#3d693c] mb-4">{{ __('messages.contract_who_title') }}</h3>
+            <ul class="pl-6 list-disc">
+                <br>
+                <li class="text-[#828892] marker:text-green-500">{{ __('messages.contract_who_item1') }}</li>
+                <br>
+                <li class="text-[#828892] marker:text-green-500">{{ __('messages.contract_who_item2') }}</li>
+                <br>
+                <li class="text-[#828892] marker:text-green-500">{{ __('messages.contract_who_item3') }}</li>
+                <br>
+                <li class="text-[#828892] marker:text-green-500">{{ __('messages.contract_who_item4') }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- How It Works Section -->
+    <div class="bg-gray-100 ">
+        <div class="mt-16 text-center">
+            <br>
+            <h2 class="text-3xl font-bold text-[#3d693c] mb-4">{{ __('messages.contract_how_title') }}</h2>
+            <div class="w-24 h-1 bg-[#90ee90] mx-auto rounded-full"></div>
+        </div>
+        <br>
+
+        <!-- Cards Grid -->
+        <div class="grid max-w-6xl grid-cols-1 gap-6 px-4 mx-auto sm:grid-cols-2 lg:grid-cols-4">
+            <x-model-card backgroundImage="{{ asset('images/lang and soil.jpg') }}"
+                heading="{{ __('messages.contract_step1_title') }}"
+                paragraph="{{ __('messages.contract_step1_desc') }}"
+                step=" {{ __('messages.contract_step1_label') }}" />
+
+            <x-model-card backgroundImage="{{ asset('images/Quality Input Supply.jpg') }}"
+                heading="{{ __('messages.contract_step2_title') }}"
+                paragraph="{{ __('messages.contract_step2_desc') }}"
+                step="{{ __('messages.contract_step2_label') }}" />
+
+            <x-model-card backgroundImage="{{ asset('images/Cultivation Advisory.jpg') }}"
+                heading="{{ __('messages.contract_step3_title') }}"
+                paragraph="{{ __('messages.contract_step3_desc') }}"
+                step="{{ __('messages.contract_step3_label') }}" />
+
+            <x-model-card backgroundImage="{{ asset('images/Buyback Support.jpeg') }}"
+                heading="{{ __('messages.contract_step4_title') }}"
+                paragraph="{{ __('messages.contract_step4_desc') }}"
+                step="{{ __('messages.contract_step4_label') }}" />
+        </div>
+    </div>
+
+
+
+    {{-- Crop --}}
+    <section class="py-16" id="contract-crops" x-data>
+        <div class="container max-w-6xl px-4 mx-auto">
+            <div class="mt-16 text-center">
+                <h2 class="text-3xl font-bold text-[#3d693c] mb-4">
+                    {{ __('messages.contract_crops_title') }}
+                </h2>
+                <div class="w-24 h-1 bg-[#90ee90] mx-auto rounded-full"></div>
+                <br>
+            </div>
+
+            <!-- Crop Cards -->
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+                @foreach ($datas as $data)
+                    <div x-data="{ showModal: false }"
+                        class="bg-[#f1fdf2] w-full rounded-xl p-6 shadow-md hover:shadow-lg transition duration-300 border-l-4 border-[#264d1f] flex flex-col justify-between">
+
+                        <!-- Card Header -->
+                        <div class="flex items-center mb-2 space-x-3">
+                            @if ($data->icon)
+                                <span class="text-xl">{!! $data->icon !!}</span>
+                            @endif
+                            <h3 class="text-lg font-semibold text-[#2b501e]">{{ $data->name }}</h3>
+                        </div>
+
+                        <!-- Card Description -->
+                        <p class="mb-4 text-sm text-gray-700">{{ $data->description }}</p>
+
+                        <!-- Sowing Months -->
+                        @if (!empty($data->sowing_months))
+                            <p class="mb-4 text-xs font-semibold text-green-700">
+                                Sowing Months:
+                                <span class="font-normal text-gray-500 whitespace-normal">
+                                    @php
+                                        $months = $data->sowing_months;
+                                        if (is_string($months)) {
+                                            $months = json_decode($months, true);
+                                        }
+                                        if (is_array($months)) {
+                                            echo implode(', ', $months);
+                                        } else {
+                                            echo $data->sowing_months;
+                                        }
+                                    @endphp
+                                </span>
+                            </p>
+                        @endif
+
+                        <!-- View Details Button -->
+                        <button @click="showModal = true" class="text-sm font-semibold text-[#2b501e] hover:underline">
+                            {{ __('messages.contract_crops_view_details') }}
+                        </button>
+
+                        <!-- Modal -->
+                        <div x-show="showModal" x-transition.opacity
+                            class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+                            style="display: none;" @click.self="showModal = false">
+                            <div
+                                class="bg-white rounded-xl w-full max-w-md shadow-xl relative overflow-y-auto max-h-[90vh] p-6">
+
+                                <!-- Close Button -->
+                                <button class="absolute text-2xl text-gray-500 top-2 right-3 hover:text-red-600"
+                                    @click="showModal = false">&times;</button>
+
+                                <!-- Modal Header -->
+                                <div class="flex items-center mb-4 space-x-3">
+                                    @if ($data->icon)
+                                        <span class="text-2xl">{!! $data->icon !!}</span>
+                                    @endif
+                                    <h3 class="text-xl font-semibold text-green-800">{{ $data->name }} Details</h3>
+                                </div>
+
+                                <!-- ✅ Add this code here to display images -->
+                                @php
+                                    $images = json_decode($data->images) ?? [];
+                                @endphp
+
+                                @if (!empty($images))
+                                    <div class="grid grid-cols-2 gap-3 mb-4">
+                                        @foreach ($images as $img)
+                                            <img src="{{ asset('storage/' . $img) }}" alt="{{ $data->name }}"
+                                                class="object-cover w-full h-24 border border-gray-300 rounded">
+                                        @endforeach
+                                    </div>
+                                @endif
+
+                                <!-- Modal Details -->
+                                <p class="mb-4 text-sm text-gray-700">{{ $data->details }}</p>
+
+                                <!-- PDFs -->
+                                <div class="flex justify-center gap-4 mt-6">
+                                    @if ($data->pdf_en)
+                                        <a href="{{ asset('storage/' . $data->pdf_en) }}" target="_blank"
+                                            class="px-5 py-2 font-semibold text-white transition bg-green-800 rounded-lg shadow hover:bg-green-900">
+                                            {{ __('messages.contract_crops_pdf_en') }}
+                                        </a>
+                                    @endif
+                                    @if ($data->pdf_hi)
+                                        <a href="{{ asset('storage/' . $data->pdf_hi) }}" target="_blank"
+                                            class="px-5 py-2 font-semibold text-white transition bg-green-800 rounded-lg shadow hover:bg-green-900">
+                                            {{ __('messages.contract_crops_pdf_hi') }}
+                                        </a>
+                                    @endif
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <!-- Who Can Partner with Us -->
+    <div class="bg-gray-100">
+        <div class="mt-16 text-center">
+            <br>
+            <h2 class="text-3xl font-bold text-[#3d693c] mb-4"> {{ __('messages.contract_who_can_partner_title') }}
+            </h2>
+            <div class="w-24 h-1 bg-[#90ee90] mx-auto rounded-full"></div>
+        </div>
+        <br>
+
+        <!-- Cards Grid -->
+        <div class="grid max-w-6xl grid-cols-1 gap-6 px-4 mx-auto sm:grid-cols-2 lg:grid-cols-4">
+            <x-model-card2 backgroundImage="{{ asset('images/farmer.jpg') }}"
+                heading="{{ __('messages.contract_partner_farmers_title') }}"
+                paragraph="{{ __('messages.contract_partner_farmers_desc') }}" />
+
+            <x-model-card2 backgroundImage="{{ asset('images/FPOs.jpg') }}"
+                heading="{{ __('messages.contract_partner_fpos_title') }}"
+                paragraph="{{ __('messages.contract_partner_fpos_desc') }}" />
+
+            <x-model-card2 backgroundImage="{{ asset('images/NGOs.jpeg') }}"
+                heading="{{ __('messages.contract_partner_ngos_title') }}"
+                paragraph="{{ __('messages.contract_partner_ngos_desc') }}" />
+
+            <x-model-card2 backgroundImage="{{ asset('images/Corporates.jpeg') }}"
+                heading="{{ __('messages.contract_partner_corporates_title') }}"
+                paragraph="{{ __('messages.contract_partner_corporates_desc') }}" />
+        </div>
+
+    </div>
+
+
+
     <!-- Footer Section with Background + Tabs + Contact Info -->
     <section class="relative py-16 text-green-900" x-data="{ activeTab: 'associate' }">
         <!-- Background Image -->
@@ -1850,219 +2063,6 @@
 
             </div>
         </div>
-
-    <!-- About Section -->
-    <div class="mt-16 text-center" id="about-section">
-        <h2 class="text-3xl font-bold text-[#3d693c] mb-4">{{ __('messages.contract_about_title') }}</h2>
-        <div class="w-24 h-1 bg-[#90ee90] mx-auto rounded-full"></div>
-    </div>
-
-    <div class="grid max-w-6xl grid-cols-1 gap-8 px-4 mx-auto mt-12 md:grid-cols-2">
-        <div class="text-[#3d693c]">
-            <h3 class="mb-4 text-2xl font-bold">{{ __('messages.contract_what_title') }}</h3>
-            <p class="mb-6 text-[#828892]">
-                {{ __('messages.contract_what_desc') }}
-            </p>
-            <h3 class="mb-4 text-2xl font-bold">{{ __('messages.contract_why_title') }}</h3>
-            <p class="text-[#828892]">
-                {{ __('messages.contract_why_desc') }}
-            </p>
-        </div>
-        <div class="bg-[#f0fdf4] p-6 rounded-lg shadow-lg">
-            <h3 class="text-2xl font-bold text-[#3d693c] mb-4">{{ __('messages.contract_who_title') }}</h3>
-            <ul class="pl-6 list-disc">
-                <br>
-                <li class="text-[#828892] marker:text-green-500">{{ __('messages.contract_who_item1') }}</li>
-                <br>
-                <li class="text-[#828892] marker:text-green-500">{{ __('messages.contract_who_item2') }}</li>
-                <br>
-                <li class="text-[#828892] marker:text-green-500">{{ __('messages.contract_who_item3') }}</li>
-                <br>
-                <li class="text-[#828892] marker:text-green-500">{{ __('messages.contract_who_item4') }}</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- How It Works Section -->
-    <div class="bg-gray-100 ">
-        <div class="mt-16 text-center">
-            <br>
-            <h2 class="text-3xl font-bold text-[#3d693c] mb-4">{{ __('messages.contract_how_title') }}</h2>
-            <div class="w-24 h-1 bg-[#90ee90] mx-auto rounded-full"></div>
-        </div>
-        <br>
-
-        <!-- Cards Grid -->
-        <div class="grid max-w-6xl grid-cols-1 gap-6 px-4 mx-auto sm:grid-cols-2 lg:grid-cols-4">
-            <x-model-card backgroundImage="{{ asset('images/lang and soil.jpg') }}"
-                heading="{{ __('messages.contract_step1_title') }}"
-                paragraph="{{ __('messages.contract_step1_desc') }}"
-                step=" {{ __('messages.contract_step1_label') }}" />
-
-            <x-model-card backgroundImage="{{ asset('images/Quality Input Supply.jpg') }}"
-                heading="{{ __('messages.contract_step2_title') }}"
-                paragraph="{{ __('messages.contract_step2_desc') }}"
-                step="{{ __('messages.contract_step2_label') }}" />
-
-            <x-model-card backgroundImage="{{ asset('images/Cultivation Advisory.jpg') }}"
-                heading="{{ __('messages.contract_step3_title') }}"
-                paragraph="{{ __('messages.contract_step3_desc') }}"
-                step="{{ __('messages.contract_step3_label') }}" />
-
-            <x-model-card backgroundImage="{{ asset('images/Buyback Support.jpeg') }}"
-                heading="{{ __('messages.contract_step4_title') }}"
-                paragraph="{{ __('messages.contract_step4_desc') }}"
-                step="{{ __('messages.contract_step4_label') }}" />
-        </div>
-    </div>
-
-
-
-    {{-- Crop --}}
-    <section class="py-16" id="contract-crops" x-data>
-        <div class="container max-w-6xl px-4 mx-auto">
-            <div class="mt-16 text-center">
-                <h2 class="text-3xl font-bold text-[#3d693c] mb-4">
-                    {{ __('messages.contract_crops_title') }}
-                </h2>
-                <div class="w-24 h-1 bg-[#90ee90] mx-auto rounded-full"></div>
-                <br>
-            </div>
-
-            <!-- Crop Cards -->
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
-                @foreach ($datas as $data)
-                    <div x-data="{ showModal: false }"
-                        class="bg-[#f1fdf2] w-full rounded-xl p-6 shadow-md hover:shadow-lg transition duration-300 border-l-4 border-[#264d1f] flex flex-col justify-between">
-
-                        <!-- Card Header -->
-                        <div class="flex items-center mb-2 space-x-3">
-                            @if ($data->icon)
-                                <span class="text-xl">{!! $data->icon !!}</span>
-                            @endif
-                            <h3 class="text-lg font-semibold text-[#2b501e]">{{ $data->name }}</h3>
-                        </div>
-
-                        <!-- Card Description -->
-                        <p class="mb-4 text-sm text-gray-700">{{ $data->description }}</p>
-
-                        <!-- Sowing Months -->
-                        @if (!empty($data->sowing_months))
-                            <p class="mb-4 text-xs font-semibold text-green-700">
-                                Sowing Months:
-                                <span class="font-normal text-gray-500 whitespace-normal">
-                                    @php
-                                        $months = $data->sowing_months;
-                                        if (is_string($months)) {
-                                            $months = json_decode($months, true);
-                                        }
-                                        if (is_array($months)) {
-                                            echo implode(', ', $months);
-                                        } else {
-                                            echo $data->sowing_months;
-                                        }
-                                    @endphp
-                                </span>
-                            </p>
-                        @endif
-
-                        <!-- View Details Button -->
-                        <button @click="showModal = true" class="text-sm font-semibold text-[#2b501e] hover:underline">
-                            {{ __('messages.contract_crops_view_details') }}
-                        </button>
-
-                        <!-- Modal -->
-                        <div x-show="showModal" x-transition.opacity
-                            class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-                            style="display: none;" @click.self="showModal = false">
-                            <div
-                                class="bg-white rounded-xl w-full max-w-md shadow-xl relative overflow-y-auto max-h-[90vh] p-6">
-
-                                <!-- Close Button -->
-                                <button class="absolute text-2xl text-gray-500 top-2 right-3 hover:text-red-600"
-                                    @click="showModal = false">&times;</button>
-
-                                <!-- Modal Header -->
-                                <div class="flex items-center mb-4 space-x-3">
-                                    @if ($data->icon)
-                                        <span class="text-2xl">{!! $data->icon !!}</span>
-                                    @endif
-                                    <h3 class="text-xl font-semibold text-green-800">{{ $data->name }} Details</h3>
-                                </div>
-
-                                <!-- ✅ Add this code here to display images -->
-                                @php
-                                    $images = json_decode($data->images) ?? [];
-                                @endphp
-
-                                @if (!empty($images))
-                                    <div class="grid grid-cols-2 gap-3 mb-4">
-                                        @foreach ($images as $img)
-                                            <img src="{{ asset('storage/' . $img) }}" alt="{{ $data->name }}"
-                                                class="object-cover w-full h-24 border border-gray-300 rounded">
-                                        @endforeach
-                                    </div>
-                                @endif
-
-                                <!-- Modal Details -->
-                                <p class="mb-4 text-sm text-gray-700">{{ $data->details }}</p>
-
-                                <!-- PDFs -->
-                                <div class="flex justify-center gap-4 mt-6">
-                                    @if ($data->pdf_en)
-                                        <a href="{{ asset('storage/' . $data->pdf_en) }}" target="_blank"
-                                            class="px-5 py-2 font-semibold text-white transition bg-green-800 rounded-lg shadow hover:bg-green-900">
-                                            {{ __('messages.contract_crops_pdf_en') }}
-                                        </a>
-                                    @endif
-                                    @if ($data->pdf_hi)
-                                        <a href="{{ asset('storage/' . $data->pdf_hi) }}" target="_blank"
-                                            class="px-5 py-2 font-semibold text-white transition bg-green-800 rounded-lg shadow hover:bg-green-900">
-                                            {{ __('messages.contract_crops_pdf_hi') }}
-                                        </a>
-                                    @endif
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-
-    <!-- Who Can Partner with Us -->
-    <div class="bg-gray-100">
-        <div class="mt-16 text-center">
-            <br>
-            <h2 class="text-3xl font-bold text-[#3d693c] mb-4"> {{ __('messages.contract_who_can_partner_title') }}
-            </h2>
-            <div class="w-24 h-1 bg-[#90ee90] mx-auto rounded-full"></div>
-        </div>
-        <br>
-
-        <!-- Cards Grid -->
-        <div class="grid max-w-6xl grid-cols-1 gap-6 px-4 mx-auto sm:grid-cols-2 lg:grid-cols-4">
-            <x-model-card2 backgroundImage="{{ asset('images/farmer.jpg') }}"
-                heading="{{ __('messages.contract_partner_farmers_title') }}"
-                paragraph="{{ __('messages.contract_partner_farmers_desc') }}" />
-
-            <x-model-card2 backgroundImage="{{ asset('images/FPOs.jpg') }}"
-                heading="{{ __('messages.contract_partner_fpos_title') }}"
-                paragraph="{{ __('messages.contract_partner_fpos_desc') }}" />
-
-            <x-model-card2 backgroundImage="{{ asset('images/NGOs.jpeg') }}"
-                heading="{{ __('messages.contract_partner_ngos_title') }}"
-                paragraph="{{ __('messages.contract_partner_ngos_desc') }}" />
-
-            <x-model-card2 backgroundImage="{{ asset('images/Corporates.jpeg') }}"
-                heading="{{ __('messages.contract_partner_corporates_title') }}"
-                paragraph="{{ __('messages.contract_partner_corporates_desc') }}" />
-        </div>
-
-    </div>
-
-
 
         {{-- Footer section --}}
         <footer>
