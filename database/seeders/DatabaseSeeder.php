@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ServiceMasterTableSeeder::class);
         $this->call(PackageMasterTableSeeder::class);
         $this->call(PackageServiceSeeder::class);
+        $this->call(BlogPostSeeder::class);
         // $this->call(SubscriptionModelSeeder::class);
     }
 }

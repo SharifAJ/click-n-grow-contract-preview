@@ -116,7 +116,7 @@ The state fee tiers are ₹5,000/day for Maharashtra; ₹7,000/day for Madhya Pr
 
 ## Blog Management
 
-Administrators can create and publish blog posts from **Admin Dashboard → Blog Posts**. After deploying schema changes, run `php artisan migrate --force` and `php artisan storage:link` so uploaded thumbnails are publicly accessible. Draft posts remain hidden from the public blog listing.
+Administrators can create and publish blog posts from **Admin Dashboard → Blog Posts**. After deploying schema changes, run `php artisan migrate --force`, `php artisan storage:link`, and `php artisan db:seed --class=BlogPostSeeder` so the sample posts are loaded and uploaded thumbnails are publicly accessible. The Docker preview runs these setup commands at startup. Draft posts remain hidden from the public blog listing.
 
 ---
 
