@@ -87,7 +87,7 @@
             <h2 class="mb-6 text-center text-2xl font-bold text-gray-800 sm:mb-8 sm:text-3xl">
                 {{ __('messages.getin_ContactUs') }}</h2>
             <form class="mx-auto max-w-xl space-y-4 sm:space-y-6" method="POST"
-                action="{{ route('contact-us.store') }}">
+                action="{{ route('contact-us.submit') }}">
                 @csrf
                 <div class="grid gap-4 sm:gap-6 md:grid-cols-2">
                     <div>
@@ -178,11 +178,15 @@
         <div class="mt-12 text-center sm:mt-16">
             <h3 class="mb-4 text-xl font-bold text-gray-800 sm:mb-6 sm:text-2xl">
                 {{ __('messages.getin_JoinThousands') }}</h3>
-            <a class="inline-flex items-center justify-center rounded-lg bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:bg-emerald-700 hover:shadow-xl sm:px-8 sm:py-4 sm:text-lg"
-                href="{{ env('ANDROID_APP_LINK') }}" target="_blank">
-                <i class="fas fa-download mr-2 sm:mr-3"></i>
-                {{ __('messages.getin_Download') }}
-            </a>
+            @if (filled(config('services.android_app_link')))
+                <a class="inline-flex items-center justify-center rounded-lg bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:bg-emerald-700 hover:shadow-xl sm:px-8 sm:py-4 sm:text-lg"
+                    href="{{ config('services.android_app_link') }}" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-download mr-2 sm:mr-3"></i>
+                    {{ __('messages.getin_Download') }}
+                </a>
+            @else
+                <p class="text-gray-600">The app download link is not available yet.</p>
+            @endif
             <p class="mt-3 text-sm text-gray-600 sm:mt-4 sm:text-base"> {{ __('messages.getin_AndriodPlaystore') }}
             </p>
         </div>

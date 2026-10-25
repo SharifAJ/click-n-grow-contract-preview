@@ -49,7 +49,7 @@ class ContactUsController extends Controller
         ]);
 
         // Remove extra spaces and sanitize the message
-        $validatedData['message'] = trim(preg_replace('/\s+/', ' ', $validatedData['message']));
+        $validatedData['message'] = trim(preg_replace('/\s+/', ' ', $validatedData['message'] ?? ''));
 
 
         // Create the contact entry

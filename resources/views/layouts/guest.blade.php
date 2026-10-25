@@ -196,137 +196,108 @@
 				{{ $slot }}
 			</main>
 
-			@if (!isset($contract_var) || $contract_var !== 'contract_page')
-				<footer class="relative bg-gradient-to-b from-slate-700 via-slate-800 to-slate-900 py-10 text-white">
-					<div class="absolute inset-0 bg-cover bg-center opacity-70"
-						style="background-image: url('{{ asset('images/hero_placeholder_img2.webp') }}');">
+			<section class="relative isolate overflow-hidden bg-cover bg-center px-4 py-14 text-center sm:py-16"
+				style="background-image: url('{{ asset('images/hero_placeholder_img2.webp') }}');">
+				<div class="absolute inset-0 bg-white/65"></div>
+				<h2 class="relative z-10 text-3xl font-extrabold leading-tight text-emerald-950 sm:text-4xl">
+					Ready to Grow a Healthier, Greener Tomorrow?
+				</h2>
+				<p class="relative z-10 mx-auto mt-3 max-w-2xl text-base text-emerald-950 sm:text-lg">
+					Partner with Click-N-Grow and be a part of India’s herbal farming journey.
+				</p>
+				<a class="relative z-10 mt-6 inline-flex items-center gap-3 rounded-lg bg-emerald-700 px-7 py-3 font-bold text-white shadow-lg transition hover:bg-emerald-800"
+					href="{{ route('contact-us') }}">
+					Get in Touch <span aria-hidden="true">→</span>
+				</a>
+			</section>
+
+			<footer class="relative overflow-hidden bg-emerald-950 text-white">
+				<div class="absolute inset-0 -z-0 bg-cover bg-center opacity-20"
+					style="background-image: url('{{ asset('images/hero_bg.jpg') }}');" aria-hidden="true"></div>
+				<div class="container relative z-10 px-6 py-12 sm:px-8 lg:py-16">
+					<div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+						<div>
+							<a class="inline-block rounded-lg bg-white p-3" href="{{ route('home') }}">
+								<img class="h-24 w-auto" src="{{ asset('images/Logo.jpeg') }}"
+									alt="Click-N-Grow Agroventures Pvt. Ltd.">
+							</a>
+							<p class="mt-4 max-w-sm text-sm leading-relaxed text-emerald-50">
+								Empowering herbal farming and connecting farmers to global opportunities.
+							</p>
+							<div class="mt-5 flex gap-4 text-xl" aria-label="Social media">
+								<a class="transition hover:text-lime-300" href="https://www.facebook.com/profile.php?id=100093467838017"
+									target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+								<a class="transition hover:text-lime-300" href="https://x.com/kisan_sat"
+									target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-twitter"></i></a>
+								<a class="transition hover:text-lime-300" href="https://www.instagram.com/kisansat/?hl=en"
+									target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+								<a class="transition hover:text-lime-300"
+									href="https://youtube.com/@kisansat-smartfarmingsolutions?si=VTdyMUe24CWK77aJ"
+									target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+							</div>
+						</div>
+
+						<div>
+							<h2 class="mb-4 text-lg font-bold">Quick Links</h2>
+							<ul class="space-y-2 text-sm text-emerald-50">
+								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('home') }}">Home</a></li>
+								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('about') }}">About Us</a></li>
+								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('contract') }}">Contract Farming</a></li>
+								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('trading-export') }}">Trading &amp; Export</a></li>
+								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('expert-visit-registration') }}">Expert Visit Registration</a></li>
+								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('blogs.index') }}">Blogs</a></li>
+								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('contact-us') }}">Contact</a></li>
+							</ul>
+						</div>
+
+						<div>
+							<h2 class="mb-4 text-lg font-bold">Our Services</h2>
+							<ul class="space-y-2 text-sm text-emerald-50">
+								@foreach (__('messages.footer.service_list') as $slug => $name)
+									<li>
+										<a class="hover:text-lime-300 hover:underline"
+											href="{{ route('services.show', ['service' => $slug]) }}">{{ $name }}</a>
+									</li>
+								@endforeach
+								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('contract') }}#contract-crops">Contract Farming Crops</a></li>
+							</ul>
+						</div>
+
+						<div>
+							<h2 class="mb-4 text-lg font-bold">Contact Us</h2>
+							<ul class="space-y-3 text-sm leading-relaxed text-emerald-50">
+								<li class="flex gap-3">
+									<i class="fas fa-location-dot mt-1 text-lime-400" aria-hidden="true"></i>
+									<span>{{ __('messages.footer_address') }}</span>
+								</li>
+								<li class="flex gap-3">
+									<i class="fas fa-phone mt-1 text-lime-400" aria-hidden="true"></i>
+									<a class="hover:text-lime-300" href="tel:+919096338660">+91 90963 38660</a>
+								</li>
+								<li class="flex gap-3">
+									<i class="fas fa-phone mt-1 text-lime-400" aria-hidden="true"></i>
+									<a class="hover:text-lime-300" href="tel:+917775008660">+91 77750 08660</a>
+								</li>
+								<li class="flex gap-3">
+									<i class="fas fa-envelope mt-1 text-lime-400" aria-hidden="true"></i>
+									<a class="break-all hover:text-lime-300" href="mailto:info.clickngrow@gmail.com">info.clickngrow@gmail.com</a>
+								</li>
+							</ul>
+						</div>
 					</div>
 
-					<div class="container relative z-10 border-gray-400 px-6 pt-6">
-						<div class="mx-auto px-6 text-center">
-							<h2 class="text-2xl font-bold sm:text-3xl md:text-4xl" data-aos="fade-up">
-								{{ __('messages.footer.title') }}
-							</h2>
-							<p class="mt-2 text-sm opacity-90 sm:text-base md:text-lg" data-aos="fade-up" data-aos-delay="200">
-								{{ __('messages.footer.desc') }}
-							</p>
-							<!-- Social Media Links -->
-							<div class="mt-6 flex justify-center space-x-4 sm:space-x-6">
-								<a class="transform transition hover:scale-110 hover:text-emerald-300"
-									href="https://www.facebook.com/profile.php?id=100093467838017" target="_blank">
-									<i class="fab fa-facebook text-xl sm:text-2xl"></i>
-								</a>
-								<a class="transform transition hover:scale-110 hover:text-emerald-300" href="https://x.com/kisan_sat"
-									target="_blank">
-									<i class="fab fa-twitter text-xl sm:text-2xl"></i>
-								</a>
-								<a class="transform transition hover:scale-110 hover:text-emerald-300"
-									href="https://www.instagram.com/kisansat/?hl=en" target="_blank">
-									<i class="fab fa-instagram text-xl sm:text-2xl"></i>
-								</a>
-								<a class="transform transition hover:scale-110 hover:text-emerald-300"
-									href="https://youtube.com/@kisansat-smartfarmingsolutions?si=VTdyMUe24CWK77aJ" target="_blank">
-									<i class="fab fa-youtube text-xl sm:text-2xl"></i>
-								</a>
-							</div>
-						</div>
-
-						<div
-							class="my-4 grid grid-cols-1 gap-6 border-y border-gray-400 py-4 sm:grid-cols-2 md:grid-cols-2 md:gap-16 md:py-8 lg:grid-cols-4">
-							<div>
-								<h4 class="pb-2 text-lg font-bold uppercase sm:text-xl">
-									{{ __('messages.footer.contact') }}
-								</h4>
-								<p class="mt-4 flex items-center text-sm sm:text-base">
-									<i class="fas fa-map-marker-alt pr-2"></i> {{ $setting->company_address }}
-								</p>
-								<p class="mt-4 text-sm sm:text-base">
-									<i class="fas fa-phone-alt fa-flip-horizontal pr-1"></i> <span
-										class="font-semibold">{{ $setting->phone_number }}</span>
-								</p>
-								<p class="text-sm sm:text-base">
-									<i class="fas fa-phone-alt fa-flip-horizontal pr-1"></i> <span class="font-semibold">+91-77750-08660</span>
-								</p>
-								<p class="mt-4 text-sm sm:text-base">
-									<i class="fas fa-envelope pr-1"></i>
-									<a class="font-semibold hover:underline" href="mailto:{{ $setting->company_email }}">
-										{{ $setting->company_email }}
-									</a>
-								</p>
-							</div>
-
-							<div>
-								<h4 class="pb-2 text-lg font-bold uppercase sm:text-xl">
-									{{ __('messages.footer.quick_links') }}</h4>
-								<ul class="mt-4 space-y-2 text-sm sm:text-base">
-									<li><a class="transition hover:underline" href="{{ route('home') }}">{{ __('messages.footer.home') }}</a>
-									</li>
-									<li><a class="transition hover:underline" href="{{ route('about') }}">{{ __('messages.footer.about') }}</a>
-									</li>
-									<li><a class="transition hover:underline"
-											href="{{ route('home') }}/#services">{{ __('messages.footer.services') }}</a>
-									</li>
-									<li><a class="transition hover:underline"
-											href="{{ route('home') }}/#faq">{{ __('messages.footer.faq') }}</a></li>
-									<li><a class="transition hover:underline"
-											href="{{ route('contact-us') }}">{{ __('messages.footer.contact_us') }}</a>
-									</li>
-								</ul>
-							</div>
-
-							<div>
-								<h4 class="pb-2 text-lg font-bold uppercase sm:text-xl">
-									{{ __('messages.footer.services') }}</h4>
-								<ul class="mt-4 space-y-2 text-sm sm:text-base">
-
-									@foreach (__('messages.footer.service_list') as $slug => $name)
-										<li>
-											<a class="transition hover:underline" href="{{ route('services.show', ['service' => $slug]) }}">
-												{{ $name }}
-											</a>
-										</li>
-									@endforeach
-									<li class="pt-3">
-										<a class="transition hover:underline" href="{{ route('home') }}/#services">
-											<i class="fas fa-search"></i> {{ __('messages.footer.see_all') }}
-										</a>
-									</li>
-								</ul>
-							</div>
-							<!-- Logo & Social Links -->
-							<div class="flex flex-col items-center text-center md:text-left">
-								<div class="inline-block w-fit rounded-lg bg-white p-3 shadow-md">
-									<img class="w-24 sm:w-32 md:w-40" src="{{ asset('storage/' . $setting->application_logo) }}"
-										alt="KisanSAT Logo">
-								</div>
-								<div class="mt-4 flex justify-center space-x-4">
-									<a class="hover:text-green-300" href="https://www.facebook.com/profile.php?id=100093467838017"
-										target="_blank">
-										<i class="fa-brands fa-facebook text-xl sm:text-2xl"></i>
-									</a>
-									<a class="hover:text-green-300" href="https://x.com/kisan_sat" target="_blank">
-										<i class="fa-brands fa-twitter text-xl sm:text-2xl"></i>
-									</a>
-									<a class="hover:text-green-300" href="https://www.instagram.com/kisansat/?hl=en" target="_blank">
-										<i class="fa-brands fa-instagram text-xl sm:text-2xl"></i>
-									</a>
-									<a class="hover:text-green-300" href="https://youtube.com/@kisansat-smartfarmingsolutions?si=VTdyMUe24CWK77aJ"
-										target="_blank">
-										<i class="fa-brands fa-youtube text-xl sm:text-2xl"></i>
-									</a>
-								</div>
-							</div>
-						</div>
-						<!-- Footer Bottom -->
-						<div class="text-center text-xs sm:text-sm">
-							<p>{{ __('messages.footer.copyright') }} |
-								<a class="hover:underline" href="{{ route('refund-policy') }}">{{ __('messages.footer.privacy') }}</a> |
-								<a class="hover:underline" href="{{ route('terms-and-conditions') }}">{{ __('messages.footer.terms') }}</a>
-							</p>
-						</div>
+					<div class="mt-10 flex flex-col gap-4 border-t border-emerald-100/30 pt-5 text-center text-sm text-emerald-50 md:flex-row md:items-center md:justify-between md:text-left">
+						<p>© 2026 Click-N-Grow Agroventures Pvt. Ltd. All rights reserved.</p>
+						<nav class="flex flex-wrap justify-center gap-x-5 gap-y-2" aria-label="Legal">
+							<a class="hover:text-lime-300 hover:underline" href="{{ route('privacy-policy') }}">Privacy Policy</a>
+							<a class="hover:text-lime-300 hover:underline" href="{{ route('terms-and-conditions') }}">Terms &amp; Conditions</a>
+							<a class="hover:text-lime-300 hover:underline" href="{{ route('refund-policy') }}">Refund Policy</a>
+						</nav>
+						<p>Developed by <a class="font-bold hover:text-lime-300 hover:underline" href="https://yashams.com"
+								target="_blank" rel="noopener noreferrer">Yasham Softwares Pvt. Ltd.</a></p>
 					</div>
-				</footer>
-			@endif
+				</div>
+			</footer>
 
 
 
@@ -381,7 +352,6 @@
 
 				<li><a href="#"><b>{{ __('messages.footer.faq') }}</b></a></li>
 				--}}
-				<li><a href="#"><b>{{ __('messages.footer.contact_us') }}</b></a></li>
 			</ul>
 		</div>
 	</div>

@@ -30,26 +30,40 @@ class FarmersController extends Controller
      */
     public function store(Request $request)
     {
-        /*
-        $validated = $request->validate([
-            'full_name' => 'required|string|max:255',
-            'mobile' => 'required|string|max:20',
-            'email' => 'nullable|email',
-            'state_district_taluka' => 'required|string|max:255',
-            'land_size' => 'nullable|numeric',
-            'current_crops' => 'nullable|string|max:255',
-            'interested_crop' => 'nullable|string|max:255',
-            'expected_start_time' => 'nullable|string|max:255',
-            'support_required' => 'nullable|array',
-            'upload_land_document' => 'nullable|file|mimes:pdf,jpg,png',
-            'remarks' => 'nullable|string',
-        ]);
-        */
         $validated = $request->all();
 
         if ($request->hasFile('upload_land_document')) {
             $validated['upload_land_document'] = $request->file('upload_land_document')->store('farmer_land_docs', 'public');
         }
+
+        Farmer::create($validated);
+
+        return redirect()->back()->with('success', 'Individual Farmer enquiry submitted successfully.');
+    }
+
+    public function publicStore(Request $request)
+    {
+        $validated = $request->validate([
+            'full_name' => 'required|string|max:255',
+            'mobile' => 'required|string|max:20',
+            'email' => 'nullable|email|max:255',
+            'state_district' => 'required|string|max:255',
+            'village' => 'required|string|max:255',
+            'land_area' => 'required|numeric|min:0|max:999999.99',
+            'irrigation' => 'required|string|in:yes,no',
+            'land_type' => 'required|string|in:owned,leased',
+            'previous_crops' => 'nullable|string|max:255',
+            'interested_crops' => 'nullable|string|max:255',
+            'start_month' => 'nullable|string|in:january,february,march,april,may,june,july,august,september,october,november,december',
+            'support' => 'nullable|array',
+            'support.*' => 'string|in:technical_guidance,input_supply,buyback_contract,training',
+            'additional_comments' => 'nullable|string|max:5000',
+        ]);
+
+        $validated['irrigation'] = ucfirst($validated['irrigation']);
+        $validated['land_type'] = ucfirst($validated['land_type']);
+        $validated['preferred_support'] = $validated['support'] ?? [];
+        unset($validated['support']);
 
         Farmer::create($validated);
 

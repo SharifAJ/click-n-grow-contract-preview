@@ -34,13 +34,13 @@ class BusinessAssociateController extends Controller
             'full_name' => 'required|string|max:255',
             'company_name' => 'nullable|string|max:255',
             'mobile' => 'required|string|max:20',
-            'email' => 'required|email',
+            'email' => 'required|email|max:255',
             'state_district' => 'required|string|max:255',
-            'experience' => 'nullable|numeric|min:0',
+            'experience' => 'nullable|integer|min:0|max:100',
             'operating_area' => 'nullable|string|max:255',
             'network_type' => 'nullable|string|max:255',
-            'reason' => 'nullable|string',
-            'resume' => 'nullable|file|mimes:pdf,doc,docx',
+            'reason' => 'nullable|string|max:5000',
+            'resume' => 'nullable|file|mimes:pdf,doc,docx|max:5120',
             'preferred_contact' => 'nullable|string|in:call,whatsapp,email',
         ]);
 

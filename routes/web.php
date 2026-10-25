@@ -160,10 +160,24 @@ Route::post('/expert-visit-registration/payment/verify', [ExpertVisitRegistratio
     ->name('expert-visit-registration.payment.verify');
 // Show contact form
 Route::get('/contact-us', [ContactUsController::class, 'create'])->name('contact-us');
+Route::post('/contact-us/submit', [ContactUsController::class, 'store'])
+    ->middleware('throttle:8,1')
+    ->name('contact-us.submit');
 // Route::view('/contact-us', 'pages/contact-us')->name('contact-us');
 Route::get('/contract-farming-medicinal-plants', [PageController::class, 'contract'])->name('contract');
- // Public submission of Contract Farming enquiries
+// Public submissions from the contract-farming enquiry tabs.
+Route::post('/contract-farming/enquiry/business', [BusinessAssociateController::class, 'store'])
+    ->middleware('throttle:8,1')
+    ->name('public.enquiry.business.store');
+Route::post('/contract-farming/enquiry/farmer', [FarmersController::class, 'publicStore'])
+    ->middleware('throttle:8,1')
+    ->name('public.enquiry.farmer.store');
+Route::post('/contract-farming/enquiry/fpo', [FPOController::class, 'publicStore'])
+    ->middleware('throttle:8,1')
+    ->name('public.enquiry.fpo.store');
+// Public submission of the general contract-farming enquiry form.
 Route::post('/contract-farming-enquiry', [EnquiryController::class, 'store'])
+    ->middleware('throttle:8,1')
     ->name('contract_farming.enquiry.public.store');
 
 
@@ -197,10 +211,6 @@ Route::prefix('contract-farming')->middleware('auth:admin')->group(function () {
     Route::resource('farmers', FarmersController::class)->names('contract_farming.farmers');
     Route::resource('fpo', FPOController::class)->names('contract_farming.fpo');
 
-    // Enquiry store routes
-    Route::post('/enquiry/business', [BusinessAssociateController::class, 'store'])->name('enquiry.business.store');
-    Route::post('/enquiry/farmer', [FarmersController::class, 'store'])->name('enquiry.farmer.store');
-    Route::post('/enquiry/fpo', [FpoController::class, 'store'])->name('enquiry.fpo.store');
 });
 
 

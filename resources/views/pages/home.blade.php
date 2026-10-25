@@ -59,12 +59,14 @@
 							{{ __('messages.hero_description') }}
 						</p>
 						<!-- Better button implementation -->
-						<a
-							class="btn-white text-md btn justify-start px-6 font-bold text-emerald-900 transition-all duration-300 hover:scale-105"
-							href="{{ env('ANDROID_APP_LINK') }}" target="_blank" rel="noopener noreferrer">
-							<i class="fab fa-google-play pr-1 text-lg"></i>
-							{{ __('messages.download_now') }}
-						</a>
+						@if (filled(config('services.android_app_link')))
+							<a
+								class="btn-white text-md btn justify-start px-6 font-bold text-emerald-900 transition-all duration-300 hover:scale-105"
+								href="{{ config('services.android_app_link') }}" target="_blank" rel="noopener noreferrer">
+								<i class="fab fa-google-play pr-1 text-lg"></i>
+								{{ __('messages.download_now') }}
+							</a>
+						@endif
 
 					</div>
 
@@ -134,11 +136,13 @@
 			<div class="max-w-md space-y-4 text-center md:text-left">
 				<h2 class="text-2xl font-bold text-gray-900 md:text-3xl">{{ __('messages.get_started_title') }}</h2>
 				<p class="text-base text-gray-700 md:text-lg">{{ __('messages.get_started_desc') }}</p>
-				<a
-					class="btn btn-primary inline-block rounded-md px-6 py-2 text-sm uppercase text-white md:px-10 md:py-3 md:text-lg"
-					href="{{ env('ANDROID_APP_LINK') }}">
-					<i class="fas fa-download mr-2"></i> {{ __('messages.download_button') }}
-				</a>
+				@if (filled(config('services.android_app_link')))
+					<a
+						class="btn btn-primary inline-block rounded-md px-6 py-2 text-sm uppercase text-white md:px-10 md:py-3 md:text-lg"
+						href="{{ config('services.android_app_link') }}" target="_blank" rel="noopener noreferrer">
+						<i class="fas fa-download mr-2"></i> {{ __('messages.download_button') }}
+					</a>
+				@endif
 			</div>
 
 			<!-- Right Column: QR Code & Play Store Button -->
@@ -286,6 +290,10 @@
 
 	{{-- FAQ SECTION --}}
 	@php
+		$appDownloadLink = config('services.android_app_link');
+		$playStoreLink = filled($appDownloadLink)
+		    ? '<u><a href="' . e($appDownloadLink) . '" target="_blank" rel="noopener noreferrer"><strong>Google Play Store</strong></a></u>'
+		    : 'Google Play Store (link unavailable).';
 		$faqs = [
 		    [
 		        'question' => 'What is KisanSAT?',
@@ -295,9 +303,9 @@
 		    [
 		        'question' => 'How do I access KisanSAT’s services?',
 		        'answer' =>
-		            '1) Download our app from the <u><a href="' .
-		            env('ANDROID_APP_LINK') .
-		            '"  target="_blank"><strong>Google Play Store</strong></a></u>.<br>
+		            '1) Download our app from the ' .
+		            $playStoreLink .
+		            '.<br>
                      2) Create an account and verify your email.<br>
                      3) Add your field boundaries using our intuitive mapping tool.<br>
                      4) Choose your subscription plan based on your needs.<br>

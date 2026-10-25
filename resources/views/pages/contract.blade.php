@@ -1020,7 +1020,7 @@
 
 
     <!-- FAQ Section -->
-    <section class="py-12 bg-white" x-data="{ tab: 'general' }">
+    <section class="py-12 bg-white" id="faq" x-data="{ tab: 'general' }">
         <div class="max-w-3xl px-4 mx-auto">
 
             <!-- Heading -->
@@ -1642,7 +1642,7 @@
                     </h2>
                     <p class="mb-6 text-center text-gray-600">{{ __('messages.business_associate_desc') }}</p>
 
-                    <form action="{{ route('enquiry.business.store') }}" method="POST"
+                    <form action="{{ route('public.enquiry.business.store') }}" method="POST"
                         enctype="multipart/form-data" class="space-y-4">
                         @csrf
                         <!-- Full Name -->
@@ -1747,7 +1747,7 @@
                     </h2>
                     <p class="mb-6 text-center text-gray-600"> {{ __('messages.individual_farmer_desc') }}</p>
 
-                    <form action="{{ route('enquiry.farmer.store') }}" method="POST" class="space-y-4">
+                    <form action="{{ route('public.enquiry.farmer.store') }}" method="POST" class="space-y-4">
                         @csrf
 
                         <!-- Full Name -->
@@ -1916,7 +1916,7 @@
                         {{ __('messages.fpo_farmer_group_desc') }}
                     </p>
 
-                    <form action="{{ route('enquiry.fpo.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+                    <form action="{{ route('public.enquiry.fpo.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
                         @csrf
 
                         <!-- FPO / Group Name -->
@@ -2064,89 +2064,6 @@
             </div>
         </div>
 
-        {{-- Footer section --}}
-        <footer>
-            <div class="relative px-8 py-16 mt-12 text-white bg-black/60">
-                <div class="mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-
-                    <!-- Left: Logo -->
-                    <div class="grid grid-cols-1 md:grid-cols-1 ml-12 px-6">
-                        <!-- Logo Section -->
-                        <div class="mb-6">
-                            <img src="{{ asset('images/Click N Grow Final Logo.jpg') }}" alt="Logo" class="h-40 shadow-lg rounded-2xl">
-                        </div>
-
-                        <!-- Our Websites Section -->
-                        <h4 class="mb-2 text-lg font-semibold">{{ __('messages.footer_websites') }}</h4>
-                        <ul class="space-y-1 text-gray-200">
-                            <li>
-                                <a href="http://www.ekisanzone.com" target="_blank" class="transition duration-300 hover:text-green-400">
-                                    www.ekisanzone.com
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://www.kisansat.com" target="_blank" class="transition duration-300 hover:text-green-400">
-                                    www.kisansat.com
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Middle: Corporate Office Info -->
-                    <div class="text-center md:text-left">
-                        <h3 class="mb-6 text-3xl font-bold text-green-400">{{ __('messages.footer_corporate_office') }}</h3>
-                        <p class="mb-6 leading-relaxed text-gray-200">
-                            {{ __('messages.footer_address') }}
-                        </p>
-
-                        <h4 class="mb-4 text-xl font-semibold text-green-300">{{ __('messages.footer_key_contacts') }}</h4>
-                        <ul class="space-y-2 text-gray-200">
-                            <li class="flex flex-col p-3 rounded-lg md:flex-row md:justify-between md:items-center bg-gray-900/40">
-                                <span class="font-medium">Ms. Karishma Srivastava</span>
-                                <span class="italic text-gray-300">{{ __('messages.business_development_manager') }}</span>
-                                <span class="font-medium text-green-400"> +91-7028301210</span>
-                            </li>
-                            <li class="flex flex-col p-3 rounded-lg md:flex-row md:justify-between md:items-center bg-gray-900/40">
-                                <span class="font-medium">Mr. Bhushan Deshmukh</span>
-                                <span class="italic text-gray-300">{{ __('messages.sales_agronomist') }}</span>
-                                <span class="font-medium text-green-400"> +91-9096338660</span>
-                            </li>
-                            <li class="flex flex-col p-3 rounded-lg md:flex-row md:justify-between md:items-center bg-gray-900/40">
-                                <span class="font-medium">Mr. Amol Khandare</span>
-                                <span class="italic text-gray-300">{{ __('messages.co_founder_director') }}</span>
-                                <span class="font-medium text-green-400"> +91-7775008660</span>
-                            </li>
-                            <li class="flex flex-col p-3 rounded-lg md:flex-row md:justify-between md:items-center bg-gray-900/40">
-                                <span class="font-medium">Mrs. Priya Gangasagare</span>
-                                <span class="italic text-gray-300">{{ __('messages.co_founder_director') }}</span>
-                                <span class="font-medium text-green-400"> +91-97730951149</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Right: Email & WhatsApp -->
-                    <div class="ml-12 text-center md:text-left">
-                        <h4 class="mb-3 text-xl font-semibold text-green-300">{{ __('messages.footer_email') }}</h4>
-                        <ul class="space-y-2 text-gray-200">
-                            <li>
-                                <a href="mailto:info@ekisanzone.com" class="transition duration-300 hover:text-green-400">info@ekisanzone.com</a>
-                            </li>
-                            <li>
-                                <a href="mailto:info.clickngrow@gmail.com" class="transition duration-300 hover:text-green-400">info.clickngrow@gmail.com</a>
-                            </li>
-                            <li>
-                                <a href="mailto:ekisanzone1@gmail.com" class="transition duration-300 hover:text-green-400">ekisanzone1@gmail.com</a>
-                            </li>
-                        </ul>
-
-                        <h4 class="mt-6 mb-3 text-xl font-semibold text-green-300">{{ __('messages.footer_whatsapp') }}</h4>
-                        <p class="text-lg">💬 +91-7775008660</p>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
-
     </section>
 
 
@@ -2171,8 +2088,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const enquiryForm = document.querySelector(
-                'form[action="{{ route('contract_farming.enquiry.public.store') }}"]');
+            const enquiryForm = document.getElementById('enquiry-form-section');
 
             @if (session('success'))
                 // Scroll to form

@@ -1,182 +1,45 @@
 <x-guest-layout>
-    <div class="container prose mb-20 mt-3 max-w-5xl px-4 sm:px-6 lg:px-8">
-
-        <x-page-header title="{{ __('messages.privacypolicy_title') }}" />
-
-        <p>
-            {{ __('messages.privacypolicy_desc_1') }}
-        </p>
-        <p>
-            <b>{{ __('messages.privacypolicy_desc_2_bold') }}</b>{{ __('messages.privacypolicy_desc_2') }}
-
-        <ol class="pl-6" type="a">
-            <li>
-                <a href="https://kisansat.com/privacy-policy"
-                    target="_blank">{{ __('messages.privacypolicy_PrivacyPolicyPage') }}</a>
-                {{ __('messages.privacypolicy_PrivacyPolicyPagedesc') }}
-            </li>
-            <li>
-                {{ __('messages.privacypolicy_PrivacyPolicyrelated') }}
-            </li>
-            <li>
-                {{ __('messages.privacypolicy_PrivacyPolicyrelated2') }}
-
-            </li>
-        </ol>
-        </p>
+    <article class="container prose mb-20 mt-8 max-w-5xl px-4 sm:px-6 lg:px-8">
+        <h1 class="mb-2 text-3xl font-bold text-emerald-900 sm:text-4xl">Privacy Policy</h1>
+        <p class="text-sm text-gray-600">Click-N-Grow Agroventures Pvt. Ltd.</p>
 
         <p>
-            {{ __('messages.privacypolicy_PrivacyPolicySite') }}
+            This Privacy Policy explains how Click-N-Grow Agroventures Pvt. Ltd. (“Click-N-Grow”, “we”, “us” or “our”)
+            handles information when you visit this website, contact us, submit an enquiry, or register your interest
+            in our services. It applies to this website and its forms; separate products or applications may provide
+            their own privacy notices.
         </p>
 
-        <p>
-            {{ __('messages.privacypolicy_PrivacyPolicySite2') }}
-
-        </p>
-
-        <p>
-            {{ __('messages.privacypolicy_PrivacyPolicySite3') }}
-            <b>{{ __('messages.privacypolicy_PrivacyPolicySite4') }}</b>
-            {{ __('messages.privacypolicy_PrivacyPolicySite5') }}
-            <i>{{ __('messages.privacypolicy_PrivacyPolicySite6') }}</i>
-            {{ __('messages.privacypolicy_PrivacyPolicySite7') }}
-        </p>
-        <ul class="pl-6">
-            <li>
-                {{ __('messages.privacypolicy_PrivacyPolicySite8') }}
-            </li>
+        <h2>Information we receive</h2>
+        <p>Depending on how you use the website, information may include:</p>
+        <ul>
+            <li>Contact and identity details you choose to submit, such as your name, phone number, email address, location, and organisation or farm details.</li>
+            <li>Information in your enquiry, partnership request, expert-visit registration, or other message, including any files you choose to attach.</li>
+            <li>Basic technical and usage information sent by your browser, such as your IP address, device and browser type, pages visited, and the time of a request. This may be recorded in server logs to operate and protect the website.</li>
         </ul>
+        <p>Please do not submit sensitive personal information unless it is needed for your enquiry.</p>
 
-        <ol>
-            <li>
-                <h3><u>{{ __('messages.privacypolicy_typeofinfo_title') }}</u></h3>
-                <ol type="a">
-                    <li>
-                        {{ __('messages.privacypolicy_typeofinfo_1') }}
-                        <ol type="i">
-                            <li><b><u>{{ __('messages.privacypolicy_typeofinfo_1i') }}</u></b>
-                                {{ __('messages.privacypolicy_typeofinfo_1i_desc') }}</li>
-                            <li><b><u>{{ __('messages.privacypolicy_typeofinfo_1ii') }}</u></b>
-                                {{ __('messages.privacypolicy_typeofinfo_1ii_desc') }}</li>
-                            <li><b><u>{{ __('messages.privacypolicy_typeofinfo_1iii') }}</u></b>
-                                {{ __('messages.privacypolicy_typeofinfo_1iii_desc') }}</li>
-                            <li><b><u>{{ __('messages.privacypolicy_typeofinfo_1iv') }}</u></b>
-                                {{ __('messages.privacypolicy_typeofinfo_1iv_desc') }}</li>
-                            <li><b><u>{{ __('messages.privacypolicy_typeofinfo_1v') }}</u></b>
-                                {{ __('messages.privacypolicy_typeofinfo_1v_desc') }}</li>
-                        </ol>
-                    </li>
-                </ol>
-            </li>
+        <h2>How we use information</h2>
+        <p>We use submitted information to respond to requests, assess and coordinate potential farming or business partnerships, provide information about services you request, maintain and secure the website, and meet applicable legal obligations. We do not use enquiry details for unrelated marketing unless permitted by law or you have agreed to receive it.</p>
 
-            <li>
-                <h3><u>{{ __('messages.privacypolicy_childinfo_title') }}</u></h3>
-                {{ __('messages.privacypolicy_childinfo_desc') }}
-                <a href="mailto:info.kisansat@gmail.com">info.kisansat@gmail.com</a>.
-                {{ __('messages.privacypolicy_childinfo_desc2') }}
+        <h2>Sharing and service providers</h2>
+        <p>We may make information available to authorised personnel and service providers who help us host, maintain, secure, or operate the website and respond to enquiries. They should handle it only for the relevant service. We may also disclose information where required by law, to protect rights and safety, or in connection with a business reorganisation. We do not sell personal information.</p>
 
-                <ol type="a">
-                    <li>{{ __('messages.privacypolicy_childinfo_point1') }}</li>
-                    <li>{{ __('messages.privacypolicy_childinfo_point2') }}</li>
-                </ol>
-            </li>
+        <h2>Retention and security</h2>
+        <p>We retain information for as long as it is reasonably needed for the purpose for which it was collected, to maintain business records, resolve disputes, and comply with law. We use reasonable safeguards, but no website or electronic transmission can be guaranteed to be completely secure.</p>
 
-            <li>
-                <h3><u>{{ __('messages.privacypolicy_useinfo_title') }}</u></h3>
-                <ol type="a">
-                    <li>{{ __('messages.privacypolicy_useinfo_point1') }}</li>
-                    <li>
-                        {{ __('messages.privacypolicy_useinfo_point2') }}
-                        <ol type="i">
-                            <li>{{ __('messages.privacypolicy_useinfo_point2_i') }}</li>
-                            <li>{{ __('messages.privacypolicy_useinfo_point2_ii') }}</li>
-                            <li>{{ __('messages.privacypolicy_useinfo_point2_iii') }}</li>
-                            <li>{{ __('messages.privacypolicy_useinfo_point2_iv') }}</li>
-                            <li>{{ __('messages.privacypolicy_useinfo_point2_v') }}</li>
-                            <li>{{ __('messages.privacypolicy_useinfo_point2_vi') }}</li>
-                            <li>{{ __('messages.privacypolicy_useinfo_point2_vii') }}</li>
-                            <li>{{ __('messages.privacypolicy_useinfo_point2_viii') }}</li>
-                            <li>{{ __('messages.privacypolicy_useinfo_point2_ix') }}</li>
-                            <li>{{ __('messages.privacypolicy_useinfo_point2_x') }}</li>
-                            <li>
-                                {{ __('messages.privacypolicy_useinfo_point2_xi') }}
-                                <ul class="mt-2 list-[lower-roman] pl-6">
-                                    <li>{{ __('messages.privacypolicy_useinfo_point2_xi_1') }}</li>
-                                    <li>{{ __('messages.privacypolicy_useinfo_point2_xi_2') }}</li>
-                                    <li>{{ __('messages.privacypolicy_useinfo_point2_xi_3') }}</li>
-                                </ul>
-                            </li>
-                        </ol>
-                    </li>
-                </ol>
-            </li>
+        <h2>Cookies and external links</h2>
+        <p>Your browser may store essential data used to operate the website. This website may link to third-party websites or services; their privacy practices are governed by their own policies, which we encourage you to read.</p>
 
+        <h2>Your choices and requests</h2>
+        <p>You may contact us to ask about, correct, or request deletion of personal information you have submitted, subject to applicable law and legitimate record-keeping needs. We may need to verify your identity before acting on a request.</p>
 
-            <li>
-                <h3><u>{{ __('messages.privacypolicy_sharing_title') }}</u></h3>
-                <p>
-                    {{ __('messages.privacypolicy_sharing_content') }}
-                </p>
-            </li>
+        <h2>Children’s privacy</h2>
+        <p>This website and its enquiry forms are intended for adults and business or agricultural users. We do not knowingly seek personal information directly from children.</p>
 
-            <li>
-                <h3><u>{{ __('messages.privacypolicy_dataretention_title') }}</u></h3>
-                <p>
-                    {{ __('messages.privacypolicy_dataretention_intro') }}
-                </p>
-                <ol type="i">
-                    <li>{{ __('messages.privacypolicy_dataretention_point1') }}</li>
-                    <li>{{ __('messages.privacypolicy_dataretention_point2') }}</li>
-                    <li>{{ __('messages.privacypolicy_dataretention_point3') }}</li>
-                </ol>
-            </li>
+        <h2>Contact</h2>
+        <p>For privacy questions or requests, contact Click-N-Grow Agroventures Pvt. Ltd. at <a href="mailto:info.clickngrow@gmail.com">info.clickngrow@gmail.com</a> or write to C/17-18, Dakshata Nagar Complex, Opp New SP Office, Sindhi Camp, Akola, Maharashtra - 444001, India.</p>
 
-            <li>
-                <h3><u>{{ __('messages.privacypolicy_security_title') }}</u></h3>
-                <p>
-                    {{ __('messages.privacypolicy_security_content') }}
-                </p>
-            </li>
-
-            <li>
-                <h3><u>{{ __('messages.privacypolicy_thirdparty_title') }}</u></h3>
-                <p>
-                    {{ __('messages.privacypolicy_thirdparty_content_1') }}
-                </p>
-                <p>
-                    {{ __('messages.privacypolicy_thirdparty_content_2') }}
-                </p>
-            </li>
-
-
-            <li>
-                <h3><u>{{ __('messages.privacypolicy_advertising_title') }}</u></h3>
-                <p>
-                    {{ __('messages.privacypolicy_advertising_content_1') }}
-                </p>
-                <p>
-                    {{ __('messages.privacypolicy_advertising_content_2') }}
-                </p>
-            </li>
-
-            <li>
-                <h3><u>{{ __('messages.privacypolicy_consent_title') }}</u></h3>
-                <p>
-                    {{ __('messages.privacypolicy_consent_content') }}
-                </p>
-            </li>
-
-            <li>
-                <h3><u>{{ __('messages.privacypolicy_contact_title') }}</u></h3>
-                <p>
-                    {!! __('messages.privacypolicy_contact_content') !!}
-                </p>
-            </li>
-
-        </ol>
-
-        <div class="mt-8">
-            <a class="btn btn-outline btn-primary rounded-lg px-6 py-2" href="{{ route('home') }}">{{ __('messages.privacypolicy_BacktoHome') }}</a>
-        </div>
-    </div>
+        <p><a href="{{ route('home') }}">Return to Home</a></p>
+    </article>
 </x-guest-layout>

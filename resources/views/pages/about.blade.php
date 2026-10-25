@@ -148,9 +148,9 @@
             <h2 class="about-cta__title" id="about-cta-title">Let’s Build the Future of Medicinal Plants Together.</h2>
             <p class="about-cta__description">Whether you are a farmer, an herbal industry buyer, an FPO, or an investor, we welcome opportunities for collaboration.</p>
             <div class="about-cta__actions">
-                <a href="/contact" class="about-cta__button about-cta__button--primary">Explore Contract Farming <span aria-hidden="true">→</span></a>
-                <a href="/contact" class="about-cta__button about-cta__button--secondary">Partner With Us <span aria-hidden="true">→</span></a>
-                <a href="/contact" class="about-cta__button about-cta__button--secondary">Connect With Our Team <span aria-hidden="true">→</span></a>
+                <a href="{{ route('contract') }}" class="about-cta__button about-cta__button--primary">Explore Contract Farming <span aria-hidden="true">→</span></a>
+                <a href="{{ route('contact-us') }}" class="about-cta__button about-cta__button--secondary">Partner With Us <span aria-hidden="true">→</span></a>
+                <a href="{{ route('contact-us') }}" class="about-cta__button about-cta__button--secondary">Connect With Our Team <span aria-hidden="true">→</span></a>
             </div>
         </div>
     </section>
@@ -365,7 +365,7 @@
                     This experience inspired the creation of a farmer-first company that connects suitable medicinal plant cultivation with technical guidance,
                     quality inputs and market linkages, while also supporting herbal industries with organized and sustainable sourcing.
                 </p>
-                <a href="/contact" class="about-story-final__button">Our Story <span aria-hidden="true">→</span></a>
+                <a href="{{ route('about') }}#about-story-final-title" class="about-story-final__button">Our Story <span aria-hidden="true">→</span></a>
             </div>
 
             <div class="about-story-final__visual" aria-hidden="true">

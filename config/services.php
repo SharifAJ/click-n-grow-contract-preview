@@ -44,6 +44,7 @@ return [
         'frontend_url' => env('APP_URL'),
         'mobile' => "90962 48660"
     ],
+    'android_app_link' => env('ANDROID_APP_LINK'),
 
     'razorpay' => [
         'key_id' => env('RAZORPAY_KEY_ID'),
