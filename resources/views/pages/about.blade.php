@@ -31,17 +31,7 @@
             </div>
 
             <div class="about-bigger-picture__visual" aria-hidden="true">
-                <div class="about-bigger-picture__map"></div>
-                <div class="about-bigger-picture__line"></div>
-                <div class="about-bigger-picture__circle about-bigger-picture__circle--crop">
-                    <img src="{{ asset('images/plant.jpg') }}" alt="">
-                </div>
-                <div class="about-bigger-picture__circle about-bigger-picture__circle--processing">
-                    <img src="{{ asset('images/farmer-happy.jpg') }}" alt="">
-                </div>
-                <div class="about-bigger-picture__circle about-bigger-picture__circle--root">
-                    <img src="{{ asset('images/crops.jpg') }}" alt="">
-                </div>
+                <img src="{{ asset('images/client-assets/farm-to-industry-panels.jpeg') }}" alt="">
             </div>
         </div>
     </section>
@@ -56,7 +46,7 @@
 
             <div class="about-farmers__grid">
                 <article class="about-farmers__card">
-                    <div class="about-farmers__image about-farmers__image--soil"></div>
+                    <div class="about-farmers__image about-farmers__image--soil" role="img" aria-label="Farmer choosing a medicinal crop"></div>
                     <div class="about-farmers__meta">
                         <span class="about-farmers__number">01</span>
                         <span class="about-farmers__icon" aria-hidden="true">✦</span>
@@ -73,7 +63,7 @@
                 </article>
 
                 <article class="about-farmers__card">
-                    <div class="about-farmers__image about-farmers__image--seeds"></div>
+                    <div class="about-farmers__image about-farmers__image--seeds" role="img" aria-label="Medicinal crop cultivation guidance"></div>
                     <div class="about-farmers__meta">
                         <span class="about-farmers__number">02</span>
                         <span class="about-farmers__icon" aria-hidden="true">✦</span>
@@ -90,7 +80,7 @@
                 </article>
 
                 <article class="about-farmers__card">
-                    <div class="about-farmers__image about-farmers__image--crop"></div>
+                    <div class="about-farmers__image about-farmers__image--crop" role="img" aria-label="Growing a medicinal crop"></div>
                     <div class="about-farmers__meta">
                         <span class="about-farmers__number">03</span>
                         <span class="about-farmers__icon" aria-hidden="true">✦</span>
@@ -107,7 +97,7 @@
                 </article>
 
                 <article class="about-farmers__card">
-                    <div class="about-farmers__image about-farmers__image--harvest"></div>
+                    <div class="about-farmers__image about-farmers__image--harvest" role="img" aria-label="Harvesting and handling medicinal plants"></div>
                     <div class="about-farmers__meta">
                         <span class="about-farmers__number">04</span>
                         <span class="about-farmers__icon" aria-hidden="true">✦</span>
@@ -124,7 +114,7 @@
                 </article>
 
                 <article class="about-farmers__card">
-                    <div class="about-farmers__image about-farmers__image--market"></div>
+                    <div class="about-farmers__image about-farmers__image--market" role="img" aria-label="Finding markets for medicinal crops"></div>
                     <div class="about-farmers__meta">
                         <span class="about-farmers__number">05</span>
                         <span class="about-farmers__icon" aria-hidden="true">✦</span>
@@ -200,7 +190,7 @@
             </p>
 
             <figure class="about-herbal__visual">
-                <img src="{{ asset('images/client-assets/crop-roots.jpg') }}" alt="Fresh medicinal plant roots after harvest" loading="lazy">
+                <img src="{{ asset('images/client-assets/organized-herbal-supply.jpeg') }}" alt="Organized supply of medicinal plant raw materials" loading="lazy">
                 <figcaption>Connecting organized cultivation with herbal buyers</figcaption>
             </figure>
 

@@ -31,6 +31,7 @@ use App\Http\Controllers\ContractFarming\BusinessAssociateController;
 use App\Http\Controllers\ContractFarming\FPOController;
 use App\Http\Controllers\ContractFarming\FarmersController;
 use App\Http\Controllers\ExpertVisitRegistrationController;
+use App\Http\Controllers\CareerController;
 
 
 
@@ -125,6 +126,8 @@ Route::middleware(['auth:admin'])->group(function () {
         ->except(['show']);
     Route::resource('admin/gallery', GalleryItemController::class)
         ->except(['show']);
+    Route::get('/admin/careers', [CareerController::class, 'applications'])->name('admin.careers.index');
+    Route::get('/admin/careers/{careerApplication}/resume', [CareerController::class, 'resume'])->name('admin.careers.resume');
 
     /* ---------------------------------------------------------------- GENERAL SETTING --------------------------------------------------------------- */
     Route::get('/settings/application', [SettingController::class, 'index'])->name('setting.index');
@@ -146,6 +149,8 @@ Route::view('/privacy-policy', 'pages/privacy-policy')->name('privacy-policy');
 Route::view('/refund-policy', 'pages/refund-policy')->name('refund-policy');
 Route::view('/terms-and-conditions', 'pages/terms-and-conditions')->name('terms-and-conditions');
 Route::view('/about', 'pages/about')->name('about');
+Route::get('/careers', [CareerController::class, 'index'])->name('careers');
+Route::post('/careers', [CareerController::class, 'store'])->middleware('throttle:5,1')->name('careers.store');
 Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
 Route::get('/blogs/{slug}', [BlogController::class, 'show'])->name('blogs.show');
 Route::get('/trading-and-export', [PageController::class, 'tradingExport'])->name('trading-export');

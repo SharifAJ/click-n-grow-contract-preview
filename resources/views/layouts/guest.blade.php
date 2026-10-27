@@ -248,6 +248,7 @@
 								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('contract') }}">Contract Farming</a></li>
 								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('trading-export') }}">Trading &amp; Export</a></li>
 								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('expert-visit-registration') }}">Expert Visit Registration</a></li>
+								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('careers') }}">Careers</a></li>
 								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('blogs.index') }}">Blogs</a></li>
 								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('home') }}#gallery-news">News &amp; Image Gallery</a></li>
 								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('contact-us') }}">Contact</a></li>
@@ -255,12 +256,15 @@
 						</div>
 
 						<div>
-							<h2 class="mb-4 text-lg font-bold">Policies</h2>
+							<h2 class="mb-4 text-lg font-bold">Services &amp; Policies</h2>
 							<ul class="space-y-2 text-sm text-emerald-50">
+								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('contract') }}">Contract Farming</a></li>
+								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('contract') }}#contract-crops">Medicinal Crops</a></li>
+								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('trading-export') }}">Trading &amp; Export</a></li>
+								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('trading-export') }}">Third Party Manufacturing</a></li>
 								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('privacy-policy') }}">Privacy Policy</a></li>
 								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('terms-and-conditions') }}">Terms &amp; Conditions</a></li>
 								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('refund-policy') }}">Refund Policy</a></li>
-								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('contract') }}#contract-crops">Contract Farming Crops</a></li>
 							</ul>
 						</div>
 

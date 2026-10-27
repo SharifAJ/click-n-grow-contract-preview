@@ -53,36 +53,36 @@
         <div class="journey-track-wrap">
             <ol class="journey-track" aria-label="Farm-to-herbal-industry process">
                 <li class="journey-step">
-                    <img src="{{ asset('images/lang and soil.jpg') }}" alt="Cultivated field" loading="lazy">
+                    <img src="{{ asset('images/client-assets/journey-crop-selection.jpeg') }}" alt="Farmer reviewing medicinal crops" loading="lazy">
                     <span>Crop<br>Selection</span>
                 </li>
                 <li class="journey-step">
-                    <img src="{{ asset('images/Quality Input Supply.jpg') }}" alt="Farmer tending a field" loading="lazy">
+                    <img src="{{ asset('images/client-assets/journey-cultivation-support.jpeg') }}" alt="Farmer receiving cultivation support" loading="lazy">
+                    <span>Quality Inputs</span>
+                </li>
+                <li class="journey-step">
+                    <img src="{{ asset('images/client-assets/journey-crop-growth.jpeg') }}" alt="Medicinal plants growing from seed to maturity" loading="lazy">
                     <span>Cultivation</span>
                 </li>
                 <li class="journey-step">
-                    <img src="{{ asset('images/farmer.jpg') }}" alt="Farmer growing herbs" loading="lazy">
-                    <span>Raw Support<br>for Cultivation</span>
+                    <img src="{{ asset('images/client-assets/journey-field-cultivation.jpeg') }}" alt="Farmer tending medicinal plants" loading="lazy">
+                    <span>Crop Advisory</span>
                 </li>
                 <li class="journey-step">
-                    <img src="{{ asset('images/farmer-happy.jpg') }}" alt="Farmer with harvested produce" loading="lazy">
+                    <img src="{{ asset('images/client-assets/journey-harvest.jpeg') }}" alt="Medicinal crop being harvested" loading="lazy">
                     <span>Harvest</span>
                 </li>
                 <li class="journey-step">
-                    <img src="{{ asset('images/Cultivation Advisory.jpg') }}" alt="Crop assessment in a greenhouse" loading="lazy">
-                    <span>Quality<br>Assessment</span>
-                </li>
-                <li class="journey-step">
-                    <img src="{{ asset('images/Corporates.jpeg') }}" alt="Agricultural materials being assessed" loading="lazy">
+                    <img src="{{ asset('images/client-assets/journey-processing.jpeg') }}" alt="Medicinal herbs being sorted and packed" loading="lazy">
                     <span>Processing /<br>Grading</span>
                 </li>
                 <li class="journey-step">
-                    <img src="{{ asset('images/FPOs.jpg') }}" alt="Farmer producer organization and its produce" loading="lazy">
+                    <img src="{{ asset('images/client-assets/organized-herbal-supply.jpeg') }}" alt="Farmers supplying medicinal herbs for processing" loading="lazy">
                     <span>Raw Material<br>Supply</span>
                 </li>
                 <li class="journey-step">
-                    <img src="{{ asset('images/yeild.jpg') }}" alt="Mature crop ready for market" loading="lazy">
-                    <span>Herbal<br>Industry</span>
+                    <img src="{{ asset('images/client-assets/journey-export.jpeg') }}" alt="Processed medicinal herbs prepared for export" loading="lazy">
+                    <span>Herbal Industry</span>
                 </li>
             </ol>
         </div>
@@ -1328,14 +1328,14 @@
 
                                 <!-- PDFs -->
                                 <div class="flex justify-center gap-4 mt-6">
-                                    @if ($data->pdf_en)
-                                        <a href="{{ asset('storage/' . $data->pdf_en) }}" target="_blank"
+                                    @if ($data->pdf_en || $data->fallback_pdf_en)
+                                        <a href="{{ $data->pdf_en ? asset('storage/' . $data->pdf_en) : $data->fallback_pdf_en }}" target="_blank" rel="noopener noreferrer"
                                             class="px-5 py-2 font-semibold text-white transition bg-green-800 rounded-lg shadow hover:bg-green-900">
                                             {{ __('messages.contract_crops_pdf_en') }}
                                         </a>
                                     @endif
-                                    @if ($data->pdf_hi)
-                                        <a href="{{ asset('storage/' . $data->pdf_hi) }}" target="_blank"
+                                    @if ($data->pdf_hi || $data->fallback_pdf_hi)
+                                        <a href="{{ $data->pdf_hi ? asset('storage/' . $data->pdf_hi) : $data->fallback_pdf_hi }}" target="_blank" rel="noopener noreferrer"
                                             class="px-5 py-2 font-semibold text-white transition bg-green-800 rounded-lg shadow hover:bg-green-900">
                                             {{ __('messages.contract_crops_pdf_hi') }}
                                         </a>

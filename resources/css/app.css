@@ -645,7 +645,17 @@ table tbody tr td {
 .about-bigger-picture__visual {
     position: relative;
     flex: 0 0 40%;
-    min-height: 360px;
+    min-height: 0;
+}
+
+.about-bigger-picture__visual > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    border-radius: 22px;
+    object-fit: cover;
+    box-shadow: 0 14px 32px rgba(20, 64, 40, .12);
 }
 
 .about-bigger-picture__map {
@@ -794,11 +804,11 @@ table tbody tr td {
     background-position: center;
 }
 
-.about-farmers__image--soil { background-image: linear-gradient(rgba(0,0,0,.08), rgba(0,0,0,.08)), url("/images/plant.jpg"); }
-.about-farmers__image--seeds { background-image: linear-gradient(rgba(0,0,0,.08), rgba(0,0,0,.08)), url("/images/home_banner.png"); }
-.about-farmers__image--crop { background-image: linear-gradient(rgba(0,0,0,.08), rgba(0,0,0,.08)), url("/images/farmer-happy.jpg"); }
-.about-farmers__image--harvest { background-image: linear-gradient(rgba(0,0,0,.08), rgba(0,0,0,.08)), url("/images/crops.jpg"); }
-.about-farmers__image--market { background-image: linear-gradient(rgba(0,0,0,.08), rgba(0,0,0,.08)), url("/images/home_banner.png"); }
+.about-farmers__image--soil { background-image: url("/images/client-assets/farmer-crop-selection.jpeg"); }
+.about-farmers__image--seeds { background-image: url("/images/client-assets/farmer-quality-inputs.jpeg"); }
+.about-farmers__image--crop { background-image: url("/images/client-assets/farmer-cultivation-guide.jpeg"); }
+.about-farmers__image--harvest { background-image: url("/images/client-assets/farmer-harvest-guide.jpeg"); }
+.about-farmers__image--market { background-image: url("/images/client-assets/farmer-market-linkage.jpeg"); }
 
 .about-farmers__meta {
     display: flex;
@@ -1000,10 +1010,11 @@ table tbody tr td {
 
 .about-investors__stat {
     display: flex;
+    min-width: 0;
     align-items: center;
     gap: 12px;
-    min-height: 90px;
-    padding: 14px 12px;
+    min-height: 100px;
+    padding: 14px 16px;
     border: 1px solid rgba(25, 79, 58, .12);
     border-radius: 16px;
     background: rgba(255,255,255,.18);
@@ -1011,11 +1022,11 @@ table tbody tr td {
 
 .about-investors__icon {
     display: flex;
-    flex: 0 0 52px;
+    flex: 0 0 48px;
     align-items: center;
     justify-content: center;
-    width: 52px;
-    height: 52px;
+    width: 48px;
+    height: 48px;
     color: #1d7d53;
 }
 
@@ -1025,8 +1036,9 @@ table tbody tr td {
 }
 
 .about-investors__label {
+    min-width: 0;
     color: #173a27;
-    font-size: clamp(12px, 1vw, 18px);
+    font-size: clamp(14px, 1vw, 18px);
     font-weight: 700;
     line-height: 1.25;
 }
@@ -1885,6 +1897,37 @@ table tbody tr td {
     .about-cta__button {
         width: 100%;
     }
+}
+
+.about-hero,
+.about-bigger-picture,
+.about-farmers,
+.about-herbal,
+.about-investors,
+.about-approach,
+.about-cta,
+.about-story-final,
+.about-directors {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.about-investors__inner { padding-top: 16px; padding-bottom: 12px; }
+
+.journey-track .journey-step > img {
+    width: 100%;
+    height: 150px;
+    flex: 0 0 150px;
+    border: 0;
+    border-radius: 14px;
+    padding: 0;
+    object-fit: cover;
+}
+
+.journey-track .journey-step > span:last-child {
+    width: 100%;
+    max-width: none;
+    min-height: 34px;
 }
 
 .expert-visit-hero {
