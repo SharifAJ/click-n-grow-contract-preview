@@ -18,11 +18,7 @@
 		content="KisanSAT, Agriculture, Farming, Technology, Services, Kisan, Farmers, Crop Health, Soil Analysis, Weather Forecasting">
 	<meta name="author" content="KisanSAT">
 
-	@if (!empty($setting->application_logo) && file_exists(public_path('storage/' . $setting->application_logo)))
-		<link type="image/x-icon" href="{{ asset('storage/' . $setting->application_logo) }}" rel="icon">
-	@else
-		<link type="image/x-icon" href="{{ asset('images/kisansat-logo.png') }}" rel="icon">
-	@endif
+	<link rel="icon" type="image/png" sizes="256x256" href="{{ asset('images/click-n-grow-favicon.png') }}">
 
 	{{-- Fonts-  Headinng font is downloaded and imported in style.css file, this body font is imported via cdn --}}
 	<link href="https://fonts.googleapis.com" rel="preconnect">
