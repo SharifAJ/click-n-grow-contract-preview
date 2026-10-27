@@ -195,117 +195,68 @@
 			<main>
 				{{ $slot }}
 			</main>
-
-			<section class="relative isolate overflow-hidden bg-cover bg-center px-4 py-14 text-center sm:py-16"
-				style="background-image: url('{{ asset('images/hero_placeholder_img2.webp') }}');">
-				<div class="absolute inset-0 bg-white/65"></div>
-				<h2 class="relative z-10 text-3xl font-extrabold leading-tight text-emerald-950 sm:text-4xl">
-					Ready to Grow a Healthier, Greener Tomorrow?
-				</h2>
-				<p class="relative z-10 mx-auto mt-3 max-w-2xl text-base text-emerald-950 sm:text-lg">
-					Partner with Click-N-Grow and be a part of India’s herbal farming journey.
-				</p>
-				<a class="relative z-10 mt-6 inline-flex items-center gap-3 rounded-lg bg-emerald-700 px-7 py-3 font-bold text-white shadow-lg transition hover:bg-emerald-800"
-					href="{{ route('contact-us') }}">
-					Get in Touch <span aria-hidden="true">→</span>
-				</a>
-			</section>
-
-			<footer class="relative overflow-hidden bg-emerald-950 text-white">
-				<div class="absolute inset-0 -z-0 bg-cover bg-center opacity-20"
-					style="background-image: url('{{ asset('images/hero_bg.jpg') }}');" aria-hidden="true"></div>
-				<div class="container relative z-10 px-6 py-12 sm:px-8 lg:py-16">
-					<div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-						<div>
-							<a class="inline-block rounded-lg bg-white p-3" href="{{ route('home') }}">
-								<img class="h-auto max-h-16 w-[230px] object-contain" src="{{ asset('images/click-n-grow-logo.png') }}"
-									alt="Click-N-Grow Agroventures Pvt. Ltd.">
-							</a>
-							<p class="mt-4 max-w-sm text-sm leading-relaxed text-emerald-50">
-								Empowering herbal farming and connecting farmers to global opportunities.
-							</p>
-							<p class="mt-4 max-w-sm border-l-2 border-lime-400 pl-3 text-sm leading-relaxed text-lime-100">
-								Grower support from the field to brand building and unit establishment.
-							</p>
-							<div class="mt-5 flex gap-4 text-xl" aria-label="Social media">
-								<a class="transition hover:text-lime-300" href="https://www.facebook.com/FarmTradecom"
-									target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-								<a class="transition hover:text-lime-300" href="https://www.instagram.com/herbal_contract_farming?dlrf=MXZzY2FhYmx6c2lyeA=="
-									target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-								<a class="transition hover:text-lime-300"
-									href="https://www.youtube.com/@ClickNGrowAgro"
-									target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-								<a class="transition hover:text-lime-300" href="https://www.linkedin.com/company/89865876/admin/dashboard/"
-									target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-							</div>
-						</div>
-
-						<div>
-							<h2 class="mb-4 text-lg font-bold">Quick Links</h2>
-							<ul class="space-y-2 text-sm text-emerald-50">
-								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('home') }}">Home</a></li>
-								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('about') }}">About Us</a></li>
-								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('contract') }}">Contract Farming</a></li>
-								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('trading-export') }}">Trading &amp; Export</a></li>
-								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('expert-visit-registration') }}">Expert Visit Registration</a></li>
-								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('careers') }}">Careers</a></li>
-								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('blogs.index') }}">Blogs</a></li>
-								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('home') }}#gallery-news">News &amp; Image Gallery</a></li>
-								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('contact-us') }}">Contact</a></li>
-							</ul>
-						</div>
-
-						<div>
-							<h2 class="mb-4 text-lg font-bold">Services &amp; Policies</h2>
-							<ul class="space-y-2 text-sm text-emerald-50">
-								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('contract') }}">Contract Farming</a></li>
-								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('contract') }}#contract-crops">Medicinal Crops</a></li>
-								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('trading-export') }}">Trading &amp; Export</a></li>
-								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('trading-export') }}">Third Party Manufacturing</a></li>
-								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('privacy-policy') }}">Privacy Policy</a></li>
-								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('terms-and-conditions') }}">Terms &amp; Conditions</a></li>
-								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('refund-policy') }}">Refund Policy</a></li>
-							</ul>
-						</div>
-
-						<div>
-							<h2 class="mb-4 text-lg font-bold">Contact Us</h2>
-							<ul class="space-y-3 text-sm leading-relaxed text-emerald-50">
-								<li class="flex gap-3">
-									<i class="fas fa-location-dot mt-1 text-lime-400" aria-hidden="true"></i>
-										<span>C/17-18, 1st Floor, Dakshata Nagar Vyapar Sankul, Opp. New SP Office, Sindhi Camp Chowk, Mangrulpir Road, Akola, Maharashtra - 444001</span>
-								</li>
-								<li class="flex gap-3">
-									<i class="fas fa-phone mt-1 text-lime-400" aria-hidden="true"></i>
-										<a class="hover:text-lime-300" href="tel:+917775008660">+91 77750 08660</a>
-								</li>
-								<li class="flex gap-3">
-									<i class="fas fa-phone mt-1 text-lime-400" aria-hidden="true"></i>
-										<a class="hover:text-lime-300" href="tel:+917028301210">+91 70283 01210</a>
-								</li>
-								<li class="flex gap-3">
-									<i class="fas fa-phone mt-1 text-lime-400" aria-hidden="true"></i>
-									<a class="hover:text-lime-300" href="tel:+919096338660">+91 90963 38660</a>
-								</li>
-								<li class="flex gap-3">
-									<i class="fas fa-envelope mt-1 text-lime-400" aria-hidden="true"></i>
-									<a class="break-all hover:text-lime-300" href="mailto:info.clickngrow@gmail.com">info.clickngrow@gmail.com</a>
-								</li>
-								<li class="flex gap-3">
-									<i class="fas fa-envelope mt-1 text-lime-400" aria-hidden="true"></i>
-									<a class="break-all hover:text-lime-300" href="mailto:info@ekisanzone.com">info@ekisanzone.com</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-
-					<div class="mt-10 flex flex-col gap-4 border-t border-emerald-100/30 pt-5 text-center text-sm text-emerald-50 md:flex-row md:items-center md:justify-between md:text-left">
-						<p>© 2026 Click-N-Grow Agroventures Pvt. Ltd. All rights reserved.</p>
-						<p>Developed by <a class="font-bold hover:text-lime-300 hover:underline" href="https://yashams.com"
-								target="_blank" rel="noopener noreferrer">Yasham Softwares Pvt. Ltd.</a></p>
-					</div>
-				</div>
-			</footer>
+            <footer class="relative isolate overflow-hidden bg-slate-950 text-white">
+                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('images/hero_placeholder_img2.webp') }}');" aria-hidden="true"></div>
+                <div class="absolute inset-0 bg-slate-950/40" aria-hidden="true"></div>
+                <div class="relative z-10">
+                    <section class="px-5 pb-8 pt-10 text-center sm:pb-9 sm:pt-12">
+                        <h2 class="text-3xl font-bold leading-tight text-white sm:text-5xl">Ready to Revolutionize Your Farming?</h2>
+                        <p class="mt-3 text-lg text-white sm:text-2xl">Download KisanSAT and start optimizing your farm today!</p>
+                        <div class="mt-7 flex justify-center gap-6 text-2xl sm:gap-8" aria-label="KisanSAT social media">
+                            <a class="hover:text-lime-300" href="https://www.facebook.com/FarmTradecom" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                            <a class="hover:text-lime-300" href="https://twitter.com/" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a class="hover:text-lime-300" href="https://www.instagram.com/herbal_contract_farming?dlrf=MXZzY2FhYmx6c2lyeA==" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a class="hover:text-lime-300" href="https://www.youtube.com/@ClickNGrowAgro" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </section>
+                    <div class="mx-5 border-t border-white/50 sm:mx-8"></div>
+                    <div class="mx-auto grid max-w-[1500px] gap-9 px-6 py-8 sm:grid-cols-2 lg:grid-cols-[1.25fr_1.2fr_1.35fr_1fr] lg:gap-8 lg:px-9">
+                        <section>
+                            <h2 class="mb-5 text-xl font-bold uppercase tracking-wide">Contact Us</h2>
+                            <ul class="space-y-3 text-base leading-relaxed sm:text-lg">
+                                <li class="flex gap-3"><i class="fas fa-location-dot mt-1 shrink-0" aria-hidden="true"></i><span>eKisanZone, C/17-18, Dakshata Nagar Vyapar Sankul, Sindhi Camp Chowk, Opp New SP Office, Mangrulpir Road, Akola, Maharashtra, India-444001</span></li>
+                                <li class="flex gap-3"><i class="fas fa-phone mt-1 shrink-0" aria-hidden="true"></i><a href="tel:+919096248660">+91 9096248660</a></li>
+                                <li class="flex gap-3"><i class="fas fa-phone mt-1 shrink-0" aria-hidden="true"></i><a href="tel:+917775008660">+91-77750-08660</a></li>
+                                <li class="flex gap-3"><i class="fas fa-envelope mt-1 shrink-0" aria-hidden="true"></i><a class="break-all" href="mailto:info.kisansat@gmail.com">info.kisansat@gmail.com</a></li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h2 class="mb-5 text-xl font-bold uppercase tracking-wide">Quick Links</h2>
+                            <ul class="space-y-3 text-base sm:text-lg">
+                                <li><a class="hover:underline" href="{{ route('home') }}">Home</a></li>
+                                <li><a class="hover:underline" href="{{ route('about') }}">About Us</a></li>
+                                <li><a class="hover:underline" href="{{ route('contract') }}">Our Services</a></li>
+                                <li><a class="hover:underline" href="{{ route('contract') }}#faq">FAQ</a></li>
+                                <li><a class="hover:underline" href="{{ route('contact-us') }}">Contact Us</a></li>
+                                <li><a class="hover:underline" href="{{ route('careers') }}">Careers</a></li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h2 class="mb-5 text-xl font-bold uppercase tracking-wide">Our Services</h2>
+                            <ul class="space-y-3 text-base sm:text-lg">
+                                <li><a class="hover:underline" href="{{ route('services.show', 'crop-calendar') }}">Crop Calendar</a></li>
+                                <li><a class="hover:underline" href="{{ route('services.show', 'crop-health-analysis') }}">Crop Health Analysis</a></li>
+                                <li><a class="hover:underline" href="{{ route('services.show', 'image-based-diagnosis') }}">Image-Based Diagnosis</a></li>
+                                <li><a class="hover:underline" href="{{ route('services.show', 'land-area-mapping') }}">Land Area Mapping</a></li>
+                                <li><a class="hover:underline" href="{{ route('services.show', 'mandi-rates') }}">Mandi Rates</a></li>
+                                <li><a class="hover:underline" href="{{ route('trading-export') }}">Third Party Manufacturing</a></li>
+                                <li><a class="inline-flex items-center gap-2 font-semibold hover:underline" href="{{ route('contract') }}"><i class="fas fa-magnifying-glass" aria-hidden="true"></i>See All Services</a></li>
+                            </ul>
+                        </section>
+                        <section class="flex flex-col items-center lg:items-end">
+                            <a class="inline-flex rounded-2xl bg-white p-4 shadow-lg" href="{{ route('home') }}" aria-label="KisanSAT Home"><img class="h-56 w-56 object-contain" src="{{ asset('images/kisansat-logo.png') }}" alt="KisanSAT Logo"></a>
+                            <div class="mt-5 flex justify-center gap-5 text-2xl lg:justify-end" aria-label="KisanSAT social media">
+                                <a class="hover:text-lime-300" href="https://www.facebook.com/FarmTradecom" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                                <a class="hover:text-lime-300" href="https://twitter.com/" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                                <a class="hover:text-lime-300" href="https://www.instagram.com/herbal_contract_farming?dlrf=MXZzY2FhYmx6c2lyeA==" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                                <a class="hover:text-lime-300" href="https://www.youtube.com/@ClickNGrowAgro" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="mx-5 border-t border-white/50 sm:mx-8"></div>
+                    <div class="px-5 py-5 text-center text-base sm:text-lg">© 2024 KisanSAT. All rights reserved. <span class="mx-1">|</span><a class="hover:underline" href="{{ route('privacy-policy') }}">Privacy Policy</a><span class="mx-1">|</span><a class="hover:underline" href="{{ route('terms-and-conditions') }}">Terms &amp; Conditions</a></div>
+                </div>
+            </footer>
 
 
 

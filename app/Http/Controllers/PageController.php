@@ -46,7 +46,7 @@ class PageController extends Controller
             'Chia Seeds' => ['d6I4BsU4RPO0qspQzlboPAMxtqigLwgwloK9nRCO.pdf', 'Od5NXLGh6Ppz2agn89t8SDaoegQf09lDtW3hbk1N.pdf'],
             'Kalmegh' => ['lqSBN2VFBrqDVWoBuC4g4sEVipiIkKv52l8OLPXt.pdf', 'ivFoJAwLxJO3LCKD9h1xdHOpY425c1lZtiEFiqHh.pdf'],
             'Moringa' => ['7vtWDSaM1mz9MAkIx7301xKvBMk9m493TkBrvbpY.pdf', 'vyhd7UAD5eW96ke2lXxxMjtsZFPVTnNLY1jdt5yg.pdf'],
-            'Pippli' => ['wGXQlzovBxgzrXVgRcBceWuaZTRFxk2I93kFlNrL.pdf', null],
+            'Pippli' => ['pd3vuGbHGjLXBQj0gA3ymieqMKqGUKFpWtFO1lQS.pdf', null],
             'Quinoa' => ['V6s0GNMZf8pqZdH0TlqmADWtxd40PPM8JifvK3Mi.pdf', 'K0adjyA8byvG9tNvNFdN3ay0gva3W8dMjZpSHqcy.pdf'],
             'Safed Musli' => ['qtDGFsvENWbItK6HazxEXQ1NSp1VE5AjE9YG67Ti.pdf', 'lJaGaqNL2c7D4EYSVgHRt6PTkJHjjVv8QTd0ush3.pdf'],
             'Sarpagandha' => ['mwh8v3FeeoOyRwUVTivWbAEFhIQXCYVH7MaEZ4rd.pdf', 'Iz1pqHwrBHT5IHbeh3xd6lgd8y7MAkZhfDY6oE1k.pdf'],
