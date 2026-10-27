@@ -1,4 +1,19 @@
-@props(['contract_var' => null, 'brand' => 'kisansat'])
+@props(['contract_var' => null, 'brand' => 'kisansat', 'title' => null, 'description' => null, 'seoImage' => null])
+
+@php
+	$routeName = request()->route()?->getName() ?? '';
+	$seo = config("seo.routes.{$routeName}", config('seo.default'));
+	if ($routeName === 'services.show') {
+		$seo = config('seo.services.' . request()->route('service'), config('seo.routes.services.show', config('seo.default')));
+	}
+	$seoTitle = $title ?: ($post->title ?? $seo['title']);
+	$seoDescription = $description ?: (isset($post)
+		? ($post->excerpt ?: \Illuminate\Support\Str::limit(strip_tags($post->content), 155))
+		: $seo['description']);
+	$seoCanonical = url()->current();
+	$seoRobots = $seo['robots'] ?? 'index, follow';
+	$seoImageUrl = $seoImage ?: (isset($post) && $post->thumbnail_path ? asset('storage/' . $post->thumbnail_path) : asset('images/click-n-grow-logo.png'));
+@endphp
 
 <!DOCTYPE html>
 <html data-theme="emerald" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -12,11 +27,22 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
-	<meta name="description"
-		content="KisanSAT offers satellite-based agriculture advisory services in India—featuring soil nutrient analysis, crop health monitoring, pest forewarning, irrigation planning, and 15-day weather forecasts. Boost yield, save water, and improve produce quality with expert agri insights.">
-	<meta name="keywords"
-		content="KisanSAT, Agriculture, Farming, Technology, Services, Kisan, Farmers, Crop Health, Soil Analysis, Weather Forecasting">
-	<meta name="author" content="KisanSAT">
+	<title>{{ $seoTitle }}</title>
+	<meta name="description" content="{{ $seoDescription }}">
+	<meta name="robots" content="{{ $seoRobots }}">
+	<meta name="author" content="Click-N-Grow Agroventures">
+	<link rel="canonical" href="{{ $seoCanonical }}">
+	<meta property="og:type" content="{{ $routeName === 'blogs.show' ? 'article' : 'website' }}">
+	<meta property="og:site_name" content="Click-N-Grow Agroventures">
+	<meta property="og:title" content="{{ $seoTitle }}">
+	<meta property="og:description" content="{{ $seoDescription }}">
+	<meta property="og:url" content="{{ $seoCanonical }}">
+	<meta property="og:image" content="{{ $seoImageUrl }}">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="{{ $seoTitle }}">
+	<meta name="twitter:description" content="{{ $seoDescription }}">
+	<meta name="twitter:image" content="{{ $seoImageUrl }}">
+	<script type="application/ld+json">{!! json_encode(['@context' => 'https://schema.org', '@type' => $routeName === 'blogs.show' ? 'Article' : 'WebPage', 'name' => $seoTitle, 'description' => $seoDescription, 'url' => $seoCanonical, 'publisher' => ['@type' => 'Organization', 'name' => 'Click-N-Grow Agroventures', 'url' => request()->root()]], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 
 	<link rel="icon" type="image/png" sizes="256x256" href="{{ asset('images/click-n-grow-favicon.png') }}">
 

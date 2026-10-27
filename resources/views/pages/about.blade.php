@@ -228,32 +228,6 @@
                     The demand for medicinal plant raw materials is growing across Ayurveda, nutraceuticals, herbal wellness and natural products. Our business model offers opportunities to develop and scale a coordinated value chain through farmer networks, contract farming, aggregation and market linkages.
                 </p>
 
-                <div class="about-investors__stats" aria-label="Business value pillars">
-                    <div class="about-investors__stat" style="box-sizing:border-box; height:112px; min-height:112px; gap:8px; padding:14px 12px;">
-                        <span class="about-investors__icon" aria-hidden="true">
-                            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 48.5V20.5M22 48.5V14.5M34 48.5V26.5M46 48.5V18.5M54 48.5V10.5" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M8 52H56" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
-                        </span>
-                        <span class="about-investors__label" style="flex:1 1 auto; min-width:0; font-size:14px; line-height:1.3;">Expanding Market<br>Opportunity</span>
-                    </div>
-                    <div class="about-investors__stat" style="box-sizing:border-box; height:112px; min-height:112px; gap:8px; padding:14px 12px;">
-                        <span class="about-investors__icon" aria-hidden="true">
-                            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M32 12v40M18 21h28M18 43h28" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M24 12h16v8H24zm0 22h16v8H24z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M10 18l7-7m30 0 7 7M10 46l7 7m30-7 7 7" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
-                        </span>
-                        <span class="about-investors__label" style="flex:1 1 auto; min-width:0; font-size:14px; line-height:1.3;">Scalable<br>Business Model</span>
-                    </div>
-                    <div class="about-investors__stat" style="box-sizing:border-box; height:112px; min-height:112px; gap:8px; padding:14px 12px;">
-                        <span class="about-investors__icon" aria-hidden="true">
-                            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="22" cy="24" r="8" stroke="currentColor" stroke-width="3"/><circle cx="42" cy="24" r="8" stroke="currentColor" stroke-width="3"/><path d="M12 48c2-8 8-12 18-12s16 4 18 12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M32 48V36" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
-                        </span>
-                        <span class="about-investors__label" style="flex:1 1 auto; min-width:0; font-size:14px; line-height:1.3;">Collaborations with<br>FPOs &amp; Institutions</span>
-                    </div>
-                    <div class="about-investors__stat" style="box-sizing:border-box; height:112px; min-height:112px; gap:8px; padding:14px 12px;">
-                        <span class="about-investors__icon" aria-hidden="true">
-                            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 18c0-4 4-7 8-7s8 3 8 7-4 7-8 7-8-3-8-7Zm0 28c0-4 4-7 8-7s8 3 8 7-4 7-8 7-8-3-8-7ZM16 28c0-4 4-7 8-7s8 3 8 7-4 7-8 7-8-3-8-7Zm24 0c0-4 4-7 8-7s8 3 8 7-4 7-8 7-8-3-8-7Z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M10 22v20c0 4 4 8 8 8h3" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M54 22v20c0 4-4 8-8 8h-3" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
-                        </span>
-                        <span class="about-investors__label" style="flex:1 1 auto; min-width:0; font-size:14px; line-height:1.3;">Value Creation<br>Across the Supply Chain</span>
-                    </div>
-                </div>
             </div>
 
             <div class="about-investors__visual" aria-hidden="true">
@@ -273,6 +247,33 @@
                         <span class="about-investors__leaf about-investors__leaf--three"></span>
                         <span class="about-investors__leaf about-investors__leaf--four"></span>
                     </div>
+                </div>
+            </div>
+
+            <div class="about-investors__stats" aria-label="Business value pillars">
+                <div class="about-investors__stat">
+                    <span class="about-investors__icon" aria-hidden="true">
+                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 48.5V20.5M22 48.5V14.5M34 48.5V26.5M46 48.5V18.5M54 48.5V10.5" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M8 52H56" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+                    </span>
+                    <span class="about-investors__label">Expanding Market<br>Opportunity</span>
+                </div>
+                <div class="about-investors__stat">
+                    <span class="about-investors__icon" aria-hidden="true">
+                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M32 12v40M18 21h28M18 43h28" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M24 12h16v8H24zm0 22h16v8H24z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M10 18l7-7m30 0 7 7M10 46l7 7m30-7 7 7" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+                    </span>
+                    <span class="about-investors__label">Scalable<br>Business Model</span>
+                </div>
+                <div class="about-investors__stat">
+                    <span class="about-investors__icon" aria-hidden="true">
+                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="22" cy="24" r="8" stroke="currentColor" stroke-width="3"/><circle cx="42" cy="24" r="8" stroke="currentColor" stroke-width="3"/><path d="M12 48c2-8 8-12 18-12s16 4 18 12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M32 48V36" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+                    </span>
+                    <span class="about-investors__label">Collaborations with<br>FPOs &amp; Institutions</span>
+                </div>
+                <div class="about-investors__stat">
+                    <span class="about-investors__icon" aria-hidden="true">
+                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 18c0-4 4-7 8-7s8 3 8 7-4 7-8 7-8-3-8-7Zm0 28c0-4 4-7 8-7s8 3 8 7-4 7-8 7-8-3-8-7ZM16 28c0-4 4-7 8-7s8 3 8 7-4 7-8 7-8-3-8-7Zm24 0c0-4 4-7 8-7s8 3 8 7-4 7-8 7-8-3-8-7Z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M10 22v20c0 4 4 8 8 8h3" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M54 22v20c0 4-4 8-8 8h-3" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+                    </span>
+                    <span class="about-investors__label">Value Creation<br>Across the Supply Chain</span>
                 </div>
             </div>
         </div>
