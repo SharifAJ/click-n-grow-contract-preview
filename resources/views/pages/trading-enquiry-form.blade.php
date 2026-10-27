@@ -303,28 +303,6 @@
                         <li>Transparent and professional communication</li>
                     </ul>
                 </section>
-
-                <section class="expert-registration__side-card trading-enquiry__contact" aria-labelledby="trading-contact-title">
-                    <h2 id="trading-contact-title">
-                        <i class="fas fa-headset" aria-hidden="true"></i>
-                        For Any Queries
-                    </h2>
-                    <p>Feel free to reach out to our team.</p>
-                    <ul>
-                        <li>
-                            <i class="fas fa-phone-alt" aria-hidden="true"></i>
-                            <a href="tel:+919096248660">+91 90962 48660</a>
-                        </li>
-                        <li>
-                            <i class="fas fa-envelope" aria-hidden="true"></i>
-                            <a href="mailto:info.kisansat@gmail.com">info.kisansat@gmail.com</a>
-                        </li>
-                        <li>
-                            <i class="fas fa-clock" aria-hidden="true"></i>
-                            Mon - Sat, 9:00 AM - 6:00 PM
-                        </li>
-                    </ul>
-                </section>
             </aside>
         </div>
     </div>

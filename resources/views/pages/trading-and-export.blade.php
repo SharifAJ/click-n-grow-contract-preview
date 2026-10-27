@@ -1,6 +1,6 @@
 <x-guest-layout brand="click-n-grow">
     <section class="trading-export-hero" aria-labelledby="trading-export-title">
-        <img class="trading-export-hero__image" src="{{ asset('images/te_banner.png') }}"
+        <img class="trading-export-hero__image" src="{{ asset('images/client-assets/herbal-processing.jpg') }}"
             alt="" fetchpriority="high">
         <div class="trading-export-hero__wash" aria-hidden="true"></div>
         <div class="trading-export-hero__content">

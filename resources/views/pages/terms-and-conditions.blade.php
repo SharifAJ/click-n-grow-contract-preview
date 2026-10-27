@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-guest-layout brand="click-n-grow">
     <article class="container prose mb-20 mt-8 max-w-5xl px-4 sm:px-6 lg:px-8">
         <h1 class="mb-2 text-3xl font-bold text-emerald-900 sm:text-4xl">Terms &amp; Conditions</h1>
         <p class="text-sm text-gray-600">Click-N-Grow Agroventures Pvt. Ltd.</p>

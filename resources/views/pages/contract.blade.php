@@ -2,8 +2,8 @@
 
     <section class="contract-home-hero">
         <picture>
-            <source media="(max-width: 767px)" srcset="{{ asset('images/mobile_banner.png') }}">
-            <img class="contract-home-hero__image" src="{{ asset('images/home_banner.png') }}"
+            <source media="(max-width: 767px)" srcset="{{ asset('images/client-assets/farmers-at-harvest.jpg') }}">
+            <img class="contract-home-hero__image" src="{{ asset('images/client-assets/farmers-at-harvest.jpg') }}"
                 alt="Farmer holding fresh herbs in a green field" fetchpriority="high">
         </picture>
         <div class="contract-home-hero__wash" aria-hidden="true"></div>
@@ -87,38 +87,7 @@
             </ol>
         </div>
 
-        <div class="journey-support">
-            <h3>We also support growers with brand building and unit establishment</h3>
-            <div class="journey-track-wrap">
-                <ol class="journey-track journey-track--support" aria-label="Grower brand-building process">
-                    <li class="journey-step">
-                        <span class="journey-step__icon"><i class="fas fa-seedling" aria-hidden="true"></i></span>
-                        <span>Crop<br>Selection</span>
-                    </li>
-                    <li class="journey-step">
-                        <span class="journey-step__icon"><i class="fas fa-leaf" aria-hidden="true"></i></span>
-                        <span>Cultivation</span>
-                    </li>
-                    <li class="journey-step">
-                        <span class="journey-step__icon"><i class="fas fa-people-group" aria-hidden="true"></i></span>
-                        <span>Field Support<br>for Cultivation</span>
-                    </li>
-                    <li class="journey-step">
-                        <span class="journey-step__icon"><i class="fas fa-wheat-awn" aria-hidden="true"></i></span>
-                        <span>Harvest</span>
-                    </li>
-                    <li class="journey-step">
-                        <span class="journey-step__icon"><i class="fas fa-handshake" aria-hidden="true"></i></span>
-                        <span>Consultancy for<br>Brand Unit Establishment</span>
-                    </li>
-                    <li class="journey-step">
-                        <span class="journey-step__icon"><i class="fas fa-store" aria-hidden="true"></i></span>
-                        <span>Brand Building<br>for Grower</span>
-                    </li>
-                </ol>
-            </div>
-        </div>
-    </section>
+        </section>
 
     <section class="why-choose-section" aria-labelledby="why-choose-heading">
         <style>
@@ -637,122 +606,9 @@
             </aside>
         </div>
     </section>
-
-    <script src="//unpkg.com/alpinejs" defer></script>
-
-
     <!-- Alpine.js -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
-
-    <!-- Why Choose Click-N-Grow? -->
-    <div class="bg-white">
-        <div class="mt-16 text-center">
-            <br>
-            <h2 class="text-3xl font-bold text-[#3d693c] mb-4">{{ __('messages.why_choose') }}</h2>
-            <div class="w-24 h-1 bg-[#90ee90] mx-auto rounded-full"></div>
-        </div>
-
-        <section class="py-12 bg-white">
-            <div class="max-w-6xl px-4 mx-auto">
-                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    <!-- Item -->
-                    <div class="flex items-start space-x-4">
-                        <div class="p-2 text-green-800 bg-green-300 rounded-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12l2 2l4-4m1.382-6.382A2.25 2.25 0 0117.25 4.5H6.75a2.25 2.25 0 01-2.132-1.882M12 2v2m6.364 1.636l-1.414 1.414M21 12h-2M3 12H1m4.636 6.364l1.414-1.414M12 22v-2m6.364-1.636l-1.414-1.414" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-green-900 text-md">{{ __('messages.exp_years') }}</h4>
-                            <p class="text-sm text-gray-600">{{ __('messages.exp_desc') }}</p>
-                        </div>
-                    </div>
-
-                    <!-- Item -->
-                    <div class="flex items-start space-x-4">
-                        <div class="p-2 text-green-800 bg-green-300 rounded-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7M13 16V8M9 12h6" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-green-900 text-md">{{ __('messages.agronomy_support') }}
-                            </h4>
-                            <p class="text-sm text-gray-600">{{ __('messages.agronomy_desc') }}</p>
-                        </div>
-                    </div>
-
-                    <!-- Item -->
-                    <div class="flex items-start space-x-4">
-                        <div class="p-2 text-green-800 bg-green-300 rounded-full">
-                            <!-- Seed Icon (Farming input supply) -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 2a10 10 0 00-3.293 19.42c.508.092.707-.227.707-.505 0-.25-.01-1.082-.015-1.962-2.873.623-3.482-1.385-3.482-1.385-.463-1.178-1.13-1.492-1.13-1.492-.923-.63.07-.617.07-.617 1.02.071 1.557 1.048 1.557 1.048.908 1.555 2.384 1.106 2.965.846.092-.658.355-1.107.645-1.362-2.29-.26-4.698-1.145-4.698-5.096 0-1.125.403-2.045 1.063-2.765-.106-.26-.46-1.303.1-2.72 0 0 .864-.275 2.828 1.051A9.91 9.91 0 0112 6.844a9.912 9.912 0 012.574.346c1.964-1.326 2.826-1.051 2.826-1.051.562 1.417.208 2.46.102 2.72.662.72 1.06 1.64 1.06 2.765 0 3.96-2.41 4.832-4.705 5.085.365.313.69.928.69 1.872 0 1.35-.012 2.438-.012 2.77 0 .28.196.602.712.5A10 10 0 0012 2z" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-green-900 text-md">{{ __('messages.input_supply') }}</h4>
-                            <p class="text-sm text-gray-600">{{ __('messages.input_desc') }}</p>
-                        </div>
-                    </div>
-
-                    <!-- Item -->
-                    <div class="flex items-start space-x-4">
-                        <div class="p-2 text-green-800 bg-green-300 rounded-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 20l-5.447-2.724A2 2 0 013 15.382V5.618a2 2 0 011.553-1.946L9 2m0 0l6 3m-6-3v18m6-15l5.447 2.724A2 2 0 0121 8.618v9.764a2 2 0 01-1.553 1.946L15 22m0 0V4" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-green-900 text-md">{{ __('messages.state_ops') }}</h4>
-                            <p class="text-sm text-gray-600">{{ __('messages.state_ops_desc') }}</p>
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Item -->
-                    <div class="flex items-start space-x-4">
-                        <div class="p-2 text-green-800 bg-green-300 rounded-full">
-                            <!-- Calendar Icon -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M8 7V3M16 7V3M4 11h16M4 19h16M4 11v8a2 2 0 002 2h12a2 2 0 002-2v-8M4 7h16a2 2 0 012 2v2H2V9a2 2 0 012-2z" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-green-900 text-md">{{ __('messages.monthly_visits') }}</h4>
-                            <p class="text-sm text-gray-600">{{ __('messages.monthly_visits_desc') }}</p>
-                        </div>
-                    </div>
-
-                    <!-- Item -->
-                    <div class="flex items-start space-x-4">
-                        <div class="p-2 text-green-800 bg-green-300 rounded-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-green-900 text-md">{{ __('messages.buyback') }}</h4>
-                            <p class="text-sm text-gray-600">{{ __('messages.buyback_desc') }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
 
 
     <!-- Success Stories -->
@@ -1373,72 +1229,6 @@
 
 
 
-    <!-- About Section -->
-    <div class="mt-16 text-center" id="about-section">
-        <h2 class="text-3xl font-bold text-[#3d693c] mb-4">{{ __('messages.contract_about_title') }}</h2>
-        <div class="w-24 h-1 bg-[#90ee90] mx-auto rounded-full"></div>
-    </div>
-
-    <div class="grid max-w-6xl grid-cols-1 gap-8 px-4 mx-auto mt-12 md:grid-cols-2">
-        <div class="text-[#3d693c]">
-            <h3 class="mb-4 text-2xl font-bold">{{ __('messages.contract_what_title') }}</h3>
-            <p class="mb-6 text-[#828892]">
-                {{ __('messages.contract_what_desc') }}
-            </p>
-            <h3 class="mb-4 text-2xl font-bold">{{ __('messages.contract_why_title') }}</h3>
-            <p class="text-[#828892]">
-                {{ __('messages.contract_why_desc') }}
-            </p>
-        </div>
-        <div class="bg-[#f0fdf4] p-6 rounded-lg shadow-lg">
-            <h3 class="text-2xl font-bold text-[#3d693c] mb-4">{{ __('messages.contract_who_title') }}</h3>
-            <ul class="pl-6 list-disc">
-                <br>
-                <li class="text-[#828892] marker:text-green-500">{{ __('messages.contract_who_item1') }}</li>
-                <br>
-                <li class="text-[#828892] marker:text-green-500">{{ __('messages.contract_who_item2') }}</li>
-                <br>
-                <li class="text-[#828892] marker:text-green-500">{{ __('messages.contract_who_item3') }}</li>
-                <br>
-                <li class="text-[#828892] marker:text-green-500">{{ __('messages.contract_who_item4') }}</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- How It Works Section -->
-    <div class="bg-gray-100 ">
-        <div class="mt-16 text-center">
-            <br>
-            <h2 class="text-3xl font-bold text-[#3d693c] mb-4">{{ __('messages.contract_how_title') }}</h2>
-            <div class="w-24 h-1 bg-[#90ee90] mx-auto rounded-full"></div>
-        </div>
-        <br>
-
-        <!-- Cards Grid -->
-        <div class="grid max-w-6xl grid-cols-1 gap-6 px-4 mx-auto sm:grid-cols-2 lg:grid-cols-4">
-            <x-model-card backgroundImage="{{ asset('images/lang and soil.jpg') }}"
-                heading="{{ __('messages.contract_step1_title') }}"
-                paragraph="{{ __('messages.contract_step1_desc') }}"
-                step=" {{ __('messages.contract_step1_label') }}" />
-
-            <x-model-card backgroundImage="{{ asset('images/Quality Input Supply.jpg') }}"
-                heading="{{ __('messages.contract_step2_title') }}"
-                paragraph="{{ __('messages.contract_step2_desc') }}"
-                step="{{ __('messages.contract_step2_label') }}" />
-
-            <x-model-card backgroundImage="{{ asset('images/Cultivation Advisory.jpg') }}"
-                heading="{{ __('messages.contract_step3_title') }}"
-                paragraph="{{ __('messages.contract_step3_desc') }}"
-                step="{{ __('messages.contract_step3_label') }}" />
-
-            <x-model-card backgroundImage="{{ asset('images/Buyback Support.jpeg') }}"
-                heading="{{ __('messages.contract_step4_title') }}"
-                paragraph="{{ __('messages.contract_step4_desc') }}"
-                step="{{ __('messages.contract_step4_label') }}" />
-        </div>
-    </div>
-
-
 
     {{-- Crop --}}
     <section class="py-16" id="contract-crops" x-data>
@@ -1455,7 +1245,12 @@
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
                 @foreach ($datas as $data)
                     <div x-data="{ showModal: false }"
-                        class="bg-[#f1fdf2] w-full rounded-xl p-6 shadow-md hover:shadow-lg transition duration-300 border-l-4 border-[#264d1f] flex flex-col justify-between">
+                        class="contract-crop-card">
+
+                        <img class="contract-crop-card__image" src="{{ $data->display_image ?? asset('images/client-assets/crop-herb.jpg') }}"
+                            alt="Herbal crops grown for contract farming" loading="lazy">
+
+                        <div class="contract-crop-card__body">
 
                         <!-- Card Header -->
                         <div class="flex items-center mb-2 space-x-3">
@@ -1514,7 +1309,9 @@
 
                                 <!-- ✅ Add this code here to display images -->
                                 @php
-                                    $images = json_decode($data->images) ?? [];
+                                    $images = is_array($data->images)
+                                        ? $data->images
+                                        : (json_decode($data->images ?? '[]', true) ?? []);
                                 @endphp
 
                                 @if (!empty($images))
@@ -1547,46 +1344,19 @@
 
                             </div>
                         </div>
+                        </div>
                     </div>
                 @endforeach
             </div>
         </div>
     </section>
 
-    <!-- Who Can Partner with Us -->
-    <div class="bg-gray-100">
-        <div class="mt-16 text-center">
-            <br>
-            <h2 class="text-3xl font-bold text-[#3d693c] mb-4"> {{ __('messages.contract_who_can_partner_title') }}
-            </h2>
-            <div class="w-24 h-1 bg-[#90ee90] mx-auto rounded-full"></div>
-        </div>
-        <br>
-
-        <!-- Cards Grid -->
-        <div class="grid max-w-6xl grid-cols-1 gap-6 px-4 mx-auto sm:grid-cols-2 lg:grid-cols-4">
-            <x-model-card2 backgroundImage="{{ asset('images/farmer.jpg') }}"
-                heading="{{ __('messages.contract_partner_farmers_title') }}"
-                paragraph="{{ __('messages.contract_partner_farmers_desc') }}" />
-
-            <x-model-card2 backgroundImage="{{ asset('images/FPOs.jpg') }}"
-                heading="{{ __('messages.contract_partner_fpos_title') }}"
-                paragraph="{{ __('messages.contract_partner_fpos_desc') }}" />
-
-            <x-model-card2 backgroundImage="{{ asset('images/NGOs.jpeg') }}"
-                heading="{{ __('messages.contract_partner_ngos_title') }}"
-                paragraph="{{ __('messages.contract_partner_ngos_desc') }}" />
-
-            <x-model-card2 backgroundImage="{{ asset('images/Corporates.jpeg') }}"
-                heading="{{ __('messages.contract_partner_corporates_title') }}"
-                paragraph="{{ __('messages.contract_partner_corporates_desc') }}" />
-        </div>
-
-    </div>
 
 
 
-    <!-- Footer Section with Background + Tabs + Contact Info -->
+    @include('pages.partials.gallery-news')
+
+    <!-- Farmer and partner enquiry forms -->
     <section class="relative py-16 text-green-900" x-data="{ activeTab: 'associate' }">
         <!-- Background Image -->
         <div class="absolute inset-0 bg-center bg-cover blur-sm "

@@ -12,7 +12,7 @@
 				<strong>{{ __('messages.company_name') }}</strong><br>
 				<strong>{{ __('messages.address') }}</strong><br>
 				<strong>{{ __('messages.email') }}:</strong>
-				<a class="text-blue-600 hover:underline" href="mailto:info.kisansat@gmail.com">info.kisansat@gmail.com</a>
+				<a class="text-blue-600 hover:underline" href="mailto:info.clickngrow@gmail.com">info.clickngrow@gmail.com</a>
 			</p>
 		</div>
 

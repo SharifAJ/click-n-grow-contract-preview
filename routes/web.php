@@ -9,6 +9,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\TradingEnquiryController;
 use App\Http\Controllers\Web\ContactUsController;
 use App\Http\Controllers\Web\BlogPostController;
+use App\Http\Controllers\Web\GalleryItemController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\FarmerController;
 use App\Http\Controllers\Web\PackageMasterController;
@@ -121,6 +122,8 @@ Route::middleware(['auth:admin'])->group(function () {
     // ============For contact us Controller================
     Route::resource('dashboard/contact-us', ContactUsController::class);
     Route::resource('admin/blogs', BlogPostController::class)
+        ->except(['show']);
+    Route::resource('admin/gallery', GalleryItemController::class)
         ->except(['show']);
 
     /* ---------------------------------------------------------------- GENERAL SETTING --------------------------------------------------------------- */

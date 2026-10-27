@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-guest-layout brand="click-n-grow">
     <div class="container mb-20 mt-3 max-w-5xl px-4 sm:px-6 lg:px-8">
         <x-page-header title="{{ __('messages.getin_touch_title') }}"
             subTitle="{{ __('messages.getin_touch_subtitle') }}" />
@@ -12,12 +12,7 @@
                 </div>
                 <h3 class="text-xl font-bold text-gray-800 sm:text-2xl">{{ __('messages.getin_Office') }}</h3>
                 <address class="mt-3 text-base not-italic text-gray-600 sm:mt-4">
-                    {{-- eKisanZone, <br>
-                    C/17-18, Dakshata Nagar Complex,<br>
-                    Sindhi Camp, Opp SP Office, Akola,<br>
-                    Maharashtra, India - 444001 --}}
-
-                    {{ $setting->company_address }}
+                    C/17-18, 1st Floor, Dakshata Nagar Vyapar Sankul, Opp. New SP Office, Sindhi Camp Chowk, Mangrulpir Road, Akola, Maharashtra - 444001
                 </address>
             </div>
 
@@ -30,15 +25,21 @@
                 <h3 class="text-xl font-bold text-gray-800 sm:text-2xl">{{ __('messages.getin_PhoneNumbers') }}</h3>
                 <div class="mt-4 space-y-2 sm:mt-6 sm:space-y-3">
                     <p class="text-base text-gray-600 hover:text-emerald-600 sm:text-lg">
-                        <a class="flex items-center gap-2 sm:gap-3" href="tel:+919096248660">
+                        <a class="flex items-center gap-2 sm:gap-3" href="tel:+917775008660">
                             <i class="fas fa-phone-alt fa-flip-horizontal"></i>
-                            +91-90962-48660
+                            +91 77750 08660
                         </a>
                     </p>
                     <p class="text-base text-gray-600 hover:text-emerald-600 sm:text-lg">
-                        <a class="flex items-center gap-2 sm:gap-3" href="tel:+917775008660">
+                        <a class="flex items-center gap-2 sm:gap-3" href="tel:+917028301210">
                             <i class="fas fa-phone-alt fa-flip-horizontal"></i>
-                            +91-77750-08660
+                            +91 70283 01210
+                        </a>
+                    </p>
+                    <p class="text-base text-gray-600 hover:text-emerald-600 sm:text-lg">
+                        <a class="flex items-center gap-2 sm:gap-3" href="tel:+919096338660">
+                            <i class="fas fa-phone-alt fa-flip-horizontal"></i>
+                            +91 90963 38660
                         </a>
                     </p>
                 </div>
@@ -54,28 +55,35 @@
                 </h3>
                 <div class="mt-4 space-y-3 sm:mt-6">
                     <p class="text-base text-gray-600 hover:text-emerald-600 sm:text-lg">
-                        <a class="flex items-center gap-2 text-lg sm:gap-3" href="mailto:info.kisansat@gmail.com">
+                        <a class="flex items-center gap-2 text-lg sm:gap-3" href="mailto:info.clickngrow@gmail.com">
                             <i class="fas fa-envelope"></i>
-                            info.kisansat@gmail.com
+                            info.clickngrow@gmail.com
+                        </a>
+                    </p>
+                    <p class="text-base text-gray-600 hover:text-emerald-600 sm:text-lg">
+                        <a class="flex items-center gap-2 text-lg sm:gap-3" href="mailto:info@ekisanzone.com">
+                            <i class="fas fa-envelope"></i>
+                            info@ekisanzone.com
                         </a>
                     </p>
                     <!-- Social Media Links -->
                     <div class="mt-4 flex justify-center space-x-4 md:justify-start">
-                        <a class="hover:text-emerald-600" href="https://www.facebook.com/profile.php?id=100093467838017"
-                            target="_blank">
+                        <a class="hover:text-emerald-600" href="https://www.facebook.com/FarmTradecom"
+                            target="_blank" rel="noopener noreferrer">
                             <i class="fa-brands fa-facebook text-2xl"></i>
                         </a>
-                        <a class="hover:text-emerald-600" href="https://x.com/kisan_sat" target="_blank">
-                            <i class="fa-brands fa-twitter text-2xl"></i>
-                        </a>
-                        <a class="hover:text-emerald-600" href="https://www.instagram.com/kisansat/?hl=en"
-                            target="_blank">
+                        <a class="hover:text-emerald-600" href="https://www.instagram.com/herbal_contract_farming?dlrf=MXZzY2FhYmx6c2lyeA=="
+                            target="_blank" rel="noopener noreferrer">
                             <i class="fa-brands fa-instagram text-2xl"></i>
                         </a>
                         <a class="hover:text-emerald-600"
-                            href="https://youtube.com/@kisansat-smartfarmingsolutions?si=VTdyMUe24CWK77aJ"
-                            target="_blank">
+                            href="https://www.youtube.com/@ClickNGrowAgro"
+                            target="_blank" rel="noopener noreferrer">
                             <i class="fa-brands fa-youtube text-2xl"></i>
+                        </a>
+                        <a class="hover:text-emerald-600" href="https://www.linkedin.com/company/89865876/admin/dashboard/"
+                            target="_blank" rel="noopener noreferrer">
+                            <i class="fa-brands fa-linkedin text-2xl"></i>
                         </a>
                     </div>
                 </div>

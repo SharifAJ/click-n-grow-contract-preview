@@ -1,6 +1,6 @@
 <x-guest-layout brand="click-n-grow">
     <section class="about-hero" aria-labelledby="about-hero-title">
-        <img class="about-hero__image" src="{{ asset('images/home_banner.png') }}"
+        <img class="about-hero__image" src="{{ asset('images/client-assets/farmer-in-the-field.jpg') }}"
             alt="Farmer tending herbal crops in a green field" fetchpriority="high">
         <div class="about-hero__content">
             <p class="about-hero__eyebrow"><span aria-hidden="true"></span>ABOUT US</p>
@@ -194,29 +194,34 @@
     <section class="about-herbal" aria-labelledby="about-herbal-title">
         <div class="about-herbal__inner">
             <p class="about-herbal__eyebrow"><span aria-hidden="true"></span> FOR HERBAL INDUSTRIES &amp; BUYERS</p>
-            <h2 class="about-herbal__title" id="about-herbal-title">A More Reliable and Organized<br>Supply of Medicinal Plant Raw Materials</h2>
+            <h2 class="about-herbal__title" id="about-herbal-title">A More Reliable and Organized Supply of Medicinal Plant Raw Materials</h2>
             <p class="about-herbal__description">
                 Herbal industries need consistent availability, assured quality and traceability of raw materials. We work to develop organized cultivation and sourcing networks that can support your procurement and production planning.
             </p>
 
+            <figure class="about-herbal__visual">
+                <img src="{{ asset('images/client-assets/crop-roots.jpg') }}" alt="Fresh medicinal plant roots after harvest" loading="lazy">
+                <figcaption>Connecting organized cultivation with herbal buyers</figcaption>
+            </figure>
+
             <div class="about-herbal__grid">
                 <article class="about-herbal__item">
-                    <div class="about-herbal__icon about-herbal__icon--organized"><span>✓</span></div>
+                    <div class="about-herbal__icon about-herbal__icon--organized"><i class="fas fa-people-group" aria-hidden="true"></i></div>
                     <h3>Organized<br>Farmer Network</h3>
                     <p>Coordinated cultivation and supply support.</p>
                 </article>
                 <article class="about-herbal__item">
-                    <div class="about-herbal__icon about-herbal__icon--quality"><span>✓</span></div>
+                    <div class="about-herbal__icon about-herbal__icon--quality"><i class="fas fa-certificate" aria-hidden="true"></i></div>
                     <h3>Quality-Oriented<br>Production</h3>
                     <p>Quality standards aligned with industry needs.</p>
                 </article>
                 <article class="about-herbal__item">
-                    <div class="about-herbal__icon about-herbal__icon--aggregation"><span>✓</span></div>
+                    <div class="about-herbal__icon about-herbal__icon--aggregation"><i class="fas fa-boxes-stacked" aria-hidden="true"></i></div>
                     <h3>Aggregation<br>&amp; Consolidation</h3>
                     <p>Larger and consistent volumes for business planning.</p>
                 </article>
                 <article class="about-herbal__item">
-                    <div class="about-herbal__icon about-herbal__icon--partnership"><span>✓</span></div>
+                    <div class="about-herbal__icon about-herbal__icon--partnership"><i class="fas fa-handshake" aria-hidden="true"></i></div>
                     <h3>Long-Term<br>Partnerships</h3>
                     <p>Transparent and mutually beneficial collaboration.</p>
                 </article>
@@ -262,6 +267,7 @@
             </div>
 
             <div class="about-investors__visual" aria-hidden="true">
+                <img class="about-investors__photo" src="{{ asset('images/client-assets/farmer-network.jpg') }}" alt="" loading="lazy">
                 <div class="about-investors__visual-bg"></div>
                 <div class="about-investors__chart">
                     <span></span>
@@ -290,7 +296,7 @@
 
             <div class="about-approach__steps">
                 <div class="about-approach__step">
-                    <div class="about-approach__icon"><span>👥</span></div>
+                    <div class="about-approach__icon"><i class="fas fa-people-group" aria-hidden="true"></i></div>
                     <div class="about-approach__meta">
                         <strong>01</strong>
                         <span class="about-approach__arrow">→</span>
@@ -298,7 +304,7 @@
                     <h3>Farmer<br>Mobilization</h3>
                 </div>
                 <div class="about-approach__step">
-                    <div class="about-approach__icon"><span>🌿</span></div>
+                    <div class="about-approach__icon"><i class="fas fa-seedling" aria-hidden="true"></i></div>
                     <div class="about-approach__meta">
                         <strong>02</strong>
                         <span class="about-approach__arrow">→</span>
@@ -306,7 +312,7 @@
                     <h3>Crop Suitability<br>Assessment</h3>
                 </div>
                 <div class="about-approach__step">
-                    <div class="about-approach__icon"><span>📦</span></div>
+                    <div class="about-approach__icon"><i class="fas fa-boxes-stacked" aria-hidden="true"></i></div>
                     <div class="about-approach__meta">
                         <strong>03</strong>
                         <span class="about-approach__arrow">→</span>
@@ -314,7 +320,7 @@
                     <h3>Input<br>Coordination</h3>
                 </div>
                 <div class="about-approach__step">
-                    <div class="about-approach__icon"><span>🧑‍🌾</span></div>
+                    <div class="about-approach__icon"><i class="fas fa-person-circle-check" aria-hidden="true"></i></div>
                     <div class="about-approach__meta">
                         <strong>04</strong>
                         <span class="about-approach__arrow">→</span>
@@ -322,7 +328,7 @@
                     <h3>Technical<br>Support</h3>
                 </div>
                 <div class="about-approach__step">
-                    <div class="about-approach__icon"><span>🏭</span></div>
+                    <div class="about-approach__icon"><i class="fas fa-warehouse" aria-hidden="true"></i></div>
                     <div class="about-approach__meta">
                         <strong>05</strong>
                         <span class="about-approach__arrow">→</span>
@@ -330,7 +336,7 @@
                     <h3>Aggregation &amp;<br>Quality Management</h3>
                 </div>
                 <div class="about-approach__step">
-                    <div class="about-approach__icon"><span>🤝</span></div>
+                    <div class="about-approach__icon"><i class="fas fa-globe" aria-hidden="true"></i></div>
                     <div class="about-approach__meta">
                         <strong>06</strong>
                     </div>
@@ -340,12 +346,12 @@
 
             <div class="about-approach__bottom">
                 <article class="about-approach__panel">
-                    <div class="about-approach__panel-icon">◎</div>
+                    <div class="about-approach__panel-icon"><i class="fas fa-compass" aria-hidden="true"></i></div>
                     <h3>Our Vision</h3>
                     <p>To build a sustainable and profitable medicinal plants ecosystem connecting farmers to global markets.</p>
                 </article>
                 <article class="about-approach__panel about-approach__panel--alt">
-                    <div class="about-approach__panel-icon">◎</div>
+                    <div class="about-approach__panel-icon"><i class="fas fa-compass" aria-hidden="true"></i></div>
                     <h3>Our Mission</h3>
                     <p>To enable farmers to grow profitable medicinal crops through end-to-end support, reliable market linkages, and technology-driven agricultural services, while supplying quality herbal raw materials to industry.</p>
                 </article>
@@ -368,8 +374,8 @@
                 <a href="{{ route('about') }}#about-story-final-title" class="about-story-final__button">Our Story <span aria-hidden="true">→</span></a>
             </div>
 
-            <div class="about-story-final__visual" aria-hidden="true">
-                <img src="{{ asset('images/home_banner.png') }}" alt="" class="about-story-final__image">
+            <div class="about-story-final__visual">
+                <img src="{{ asset('images/client-assets/farmers-at-harvest.jpg') }}" alt="Farmers harvesting medicinal crops together" class="about-story-final__image" loading="lazy">
                 <div class="about-story-final__badge">
                     <span>Stronger</span>
                     <span>Farmers</span>

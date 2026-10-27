@@ -76,11 +76,11 @@
 
 					<a class="text-xl font-bold" href="{{ route('home') }}">
 						@if ($usesClickNGrowBrand)
-							<img class="w-20" src="{{ asset('images/Click N Grow Final Logo.jpg') }}" alt="Contract Logo">
+										<img class="h-auto max-h-14 w-36 object-contain" src="{{ asset('images/click-n-grow-logo.png') }}" alt="Click-N-Grow Agroventures">
 						@elseif (!empty($setting->application_logo) && file_exists(public_path('storage/' . $setting->application_logo)))
-							<img class="w-20" src="{{ asset('storage/' . $setting->application_logo) }}" alt="KisanSAT Logo">
+										<img class="h-auto max-h-14 w-36 object-contain" src="{{ asset('storage/' . $setting->application_logo) }}" alt="KisanSAT Logo">
 						@else
-							<img class="w-20" src="{{ asset('images/kisansat-logo.png') }}" alt="KisanSAT Logo">
+										<img class="h-auto max-h-14 w-36 object-contain" src="{{ asset('images/kisansat-logo.png') }}" alt="KisanSAT Logo">
 						@endif
 					</a>
 
@@ -218,22 +218,25 @@
 					<div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
 						<div>
 							<a class="inline-block rounded-lg bg-white p-3" href="{{ route('home') }}">
-								<img class="h-24 w-auto" src="{{ asset('images/Logo.jpeg') }}"
+								<img class="h-auto max-h-16 w-[230px] object-contain" src="{{ asset('images/click-n-grow-logo.png') }}"
 									alt="Click-N-Grow Agroventures Pvt. Ltd.">
 							</a>
 							<p class="mt-4 max-w-sm text-sm leading-relaxed text-emerald-50">
 								Empowering herbal farming and connecting farmers to global opportunities.
 							</p>
+							<p class="mt-4 max-w-sm border-l-2 border-lime-400 pl-3 text-sm leading-relaxed text-lime-100">
+								Grower support from the field to brand building and unit establishment.
+							</p>
 							<div class="mt-5 flex gap-4 text-xl" aria-label="Social media">
-								<a class="transition hover:text-lime-300" href="https://www.facebook.com/profile.php?id=100093467838017"
+								<a class="transition hover:text-lime-300" href="https://www.facebook.com/FarmTradecom"
 									target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-								<a class="transition hover:text-lime-300" href="https://x.com/kisan_sat"
-									target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-twitter"></i></a>
-								<a class="transition hover:text-lime-300" href="https://www.instagram.com/kisansat/?hl=en"
+								<a class="transition hover:text-lime-300" href="https://www.instagram.com/herbal_contract_farming?dlrf=MXZzY2FhYmx6c2lyeA=="
 									target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
 								<a class="transition hover:text-lime-300"
-									href="https://youtube.com/@kisansat-smartfarmingsolutions?si=VTdyMUe24CWK77aJ"
+									href="https://www.youtube.com/@ClickNGrowAgro"
 									target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+								<a class="transition hover:text-lime-300" href="https://www.linkedin.com/company/89865876/admin/dashboard/"
+									target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
 							</div>
 						</div>
 
@@ -246,19 +249,17 @@
 								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('trading-export') }}">Trading &amp; Export</a></li>
 								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('expert-visit-registration') }}">Expert Visit Registration</a></li>
 								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('blogs.index') }}">Blogs</a></li>
+								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('home') }}#gallery-news">News &amp; Image Gallery</a></li>
 								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('contact-us') }}">Contact</a></li>
 							</ul>
 						</div>
 
 						<div>
-							<h2 class="mb-4 text-lg font-bold">Our Services</h2>
+							<h2 class="mb-4 text-lg font-bold">Policies</h2>
 							<ul class="space-y-2 text-sm text-emerald-50">
-								@foreach (__('messages.footer.service_list') as $slug => $name)
-									<li>
-										<a class="hover:text-lime-300 hover:underline"
-											href="{{ route('services.show', ['service' => $slug]) }}">{{ $name }}</a>
-									</li>
-								@endforeach
+								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('privacy-policy') }}">Privacy Policy</a></li>
+								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('terms-and-conditions') }}">Terms &amp; Conditions</a></li>
+								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('refund-policy') }}">Refund Policy</a></li>
 								<li><a class="hover:text-lime-300 hover:underline" href="{{ route('contract') }}#contract-crops">Contract Farming Crops</a></li>
 							</ul>
 						</div>
@@ -268,19 +269,27 @@
 							<ul class="space-y-3 text-sm leading-relaxed text-emerald-50">
 								<li class="flex gap-3">
 									<i class="fas fa-location-dot mt-1 text-lime-400" aria-hidden="true"></i>
-									<span>{{ __('messages.footer_address') }}</span>
+										<span>C/17-18, 1st Floor, Dakshata Nagar Vyapar Sankul, Opp. New SP Office, Sindhi Camp Chowk, Mangrulpir Road, Akola, Maharashtra - 444001</span>
+								</li>
+								<li class="flex gap-3">
+									<i class="fas fa-phone mt-1 text-lime-400" aria-hidden="true"></i>
+										<a class="hover:text-lime-300" href="tel:+917775008660">+91 77750 08660</a>
+								</li>
+								<li class="flex gap-3">
+									<i class="fas fa-phone mt-1 text-lime-400" aria-hidden="true"></i>
+										<a class="hover:text-lime-300" href="tel:+917028301210">+91 70283 01210</a>
 								</li>
 								<li class="flex gap-3">
 									<i class="fas fa-phone mt-1 text-lime-400" aria-hidden="true"></i>
 									<a class="hover:text-lime-300" href="tel:+919096338660">+91 90963 38660</a>
 								</li>
 								<li class="flex gap-3">
-									<i class="fas fa-phone mt-1 text-lime-400" aria-hidden="true"></i>
-									<a class="hover:text-lime-300" href="tel:+917775008660">+91 77750 08660</a>
+									<i class="fas fa-envelope mt-1 text-lime-400" aria-hidden="true"></i>
+									<a class="break-all hover:text-lime-300" href="mailto:info.clickngrow@gmail.com">info.clickngrow@gmail.com</a>
 								</li>
 								<li class="flex gap-3">
 									<i class="fas fa-envelope mt-1 text-lime-400" aria-hidden="true"></i>
-									<a class="break-all hover:text-lime-300" href="mailto:info.clickngrow@gmail.com">info.clickngrow@gmail.com</a>
+									<a class="break-all hover:text-lime-300" href="mailto:info@ekisanzone.com">info@ekisanzone.com</a>
 								</li>
 							</ul>
 						</div>
@@ -288,11 +297,6 @@
 
 					<div class="mt-10 flex flex-col gap-4 border-t border-emerald-100/30 pt-5 text-center text-sm text-emerald-50 md:flex-row md:items-center md:justify-between md:text-left">
 						<p>© 2026 Click-N-Grow Agroventures Pvt. Ltd. All rights reserved.</p>
-						<nav class="flex flex-wrap justify-center gap-x-5 gap-y-2" aria-label="Legal">
-							<a class="hover:text-lime-300 hover:underline" href="{{ route('privacy-policy') }}">Privacy Policy</a>
-							<a class="hover:text-lime-300 hover:underline" href="{{ route('terms-and-conditions') }}">Terms &amp; Conditions</a>
-							<a class="hover:text-lime-300 hover:underline" href="{{ route('refund-policy') }}">Refund Policy</a>
-						</nav>
 						<p>Developed by <a class="font-bold hover:text-lime-300 hover:underline" href="https://yashams.com"
 								target="_blank" rel="noopener noreferrer">Yasham Softwares Pvt. Ltd.</a></p>
 					</div>
@@ -302,7 +306,8 @@
 
 
 		</div>
-		<x-whats-app-button phoneNumber="9096248660" />
+		<x-whats-app-button phoneNumber="9096338660"
+			message="Hello, I am interested in Click-N-Grow's herbal farming and raw material services. Please share more details." />
 
 		<div class="drawer-side z-50">
 			<label class="drawer-overlay" for="custom-mobile-menu-drawer" aria-label="close sidebar"></label>
