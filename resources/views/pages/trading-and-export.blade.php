@@ -180,7 +180,7 @@
             <ol class="trading-export-process__steps">
                 <li class="trading-export-process__step">
                     <span class="trading-export-process__icon" aria-hidden="true">
-                        <i class="fas fa-people-group"></i>
+                        <i class="fas fa-users"></i>
                     </span>
                     <span class="trading-export-process__label">Farmer Network<br>&amp; Sourcing</span>
                 </li>

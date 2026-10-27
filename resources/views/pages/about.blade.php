@@ -206,7 +206,7 @@
 
             <div class="about-herbal__grid">
                 <article class="about-herbal__item">
-                    <div class="about-herbal__icon about-herbal__icon--organized"><i class="fas fa-people-group" aria-hidden="true"></i></div>
+                    <div class="about-herbal__icon about-herbal__icon--organized"><i class="fas fa-users" aria-hidden="true"></i></div>
                     <h3>Organized<br>Farmer Network</h3>
                     <p>Coordinated cultivation and supply support.</p>
                 </article>
@@ -216,7 +216,7 @@
                     <p>Quality standards aligned with industry needs.</p>
                 </article>
                 <article class="about-herbal__item">
-                    <div class="about-herbal__icon about-herbal__icon--aggregation"><i class="fas fa-boxes-stacked" aria-hidden="true"></i></div>
+                    <div class="about-herbal__icon about-herbal__icon--aggregation"><i class="fas fa-cubes" aria-hidden="true"></i></div>
                     <h3>Aggregation<br>&amp; Consolidation</h3>
                     <p>Larger and consistent volumes for business planning.</p>
                 </article>
@@ -296,7 +296,7 @@
 
             <div class="about-approach__steps">
                 <div class="about-approach__step">
-                    <div class="about-approach__icon"><i class="fas fa-people-group" aria-hidden="true"></i></div>
+                    <div class="about-approach__icon"><i class="fas fa-users" aria-hidden="true"></i></div>
                     <div class="about-approach__meta">
                         <strong>01</strong>
                         <span class="about-approach__arrow">→</span>
@@ -312,7 +312,7 @@
                     <h3>Crop Suitability<br>Assessment</h3>
                 </div>
                 <div class="about-approach__step">
-                    <div class="about-approach__icon"><i class="fas fa-boxes-stacked" aria-hidden="true"></i></div>
+                    <div class="about-approach__icon"><i class="fas fa-cubes" aria-hidden="true"></i></div>
                     <div class="about-approach__meta">
                         <strong>03</strong>
                         <span class="about-approach__arrow">→</span>
@@ -320,7 +320,7 @@
                     <h3>Input<br>Coordination</h3>
                 </div>
                 <div class="about-approach__step">
-                    <div class="about-approach__icon"><i class="fas fa-person-circle-check" aria-hidden="true"></i></div>
+                    <div class="about-approach__icon"><i class="fas fa-user-check" aria-hidden="true"></i></div>
                     <div class="about-approach__meta">
                         <strong>04</strong>
                         <span class="about-approach__arrow">→</span>
