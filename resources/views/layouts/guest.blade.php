@@ -217,13 +217,12 @@
 			<main>
 				{{ $slot }}
 			</main>
-            <footer class="relative isolate overflow-hidden bg-slate-950 text-white">
-                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('images/hero_placeholder_img2.webp') }}');" aria-hidden="true"></div>
-                <div class="absolute inset-0 bg-slate-950/40" aria-hidden="true"></div>
+            <footer class="click-grow-footer relative isolate overflow-hidden bg-[#143d2a] text-white" style="background-image: url('{{ asset('images/client-assets/golden-sunrise-footer.png') }}'); background-position: center calc(100% - 72px); background-size: 100% auto; background-repeat: no-repeat;">
                 <div class="relative z-10">
-                    <section class="px-5 pb-8 pt-10 text-center sm:pb-9 sm:pt-12">
+                    <section class="click-grow-footer__cta px-5 pb-8 pt-10 text-center sm:pb-9 sm:pt-12">
                         <h2 class="text-3xl font-bold leading-tight text-white sm:text-5xl">Ready to Grow a Healthier, Greener Tomorrow?</h2>
-                        <p class="mt-3 text-lg text-white sm:text-2xl">Partner with Click-N-Grow and be a part of India’s herbal farming journey.</p>
+                        <p class="mt-3 text-lg text-white sm:text-2xl">Partner with Click-N-Grow and be a part of India's herbal farming journey.</p>
+                        <a class="click-grow-footer__whatsapp mt-6 inline-flex items-center gap-2 rounded-full px-6 py-3 font-bold" href="https://wa.me/917775008660?text=Namaste%20Click-N-Grow%20Team!%20I%20am%20interested%20in%20your%20Medicinal%20Plant%20Contract%20Farming%20Program.%20Please%20share%20details%20about%20crop%20selection%2C%20minimum%20land%20requirements%2C%20cultivation%20support%2C%20and%20buyback%20arrangements." target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp text-xl" aria-hidden="true"></i> Chat with us on WhatsApp</a>
                         <div class="mt-7 flex justify-center gap-6 text-2xl sm:gap-8" aria-label="Click-N-Grow social media">
                             <a class="hover:text-lime-300" href="https://www.facebook.com/FarmTradecom" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
                             <a class="hover:text-lime-300" href="https://www.linkedin.com/company/89865876/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
@@ -232,7 +231,7 @@
                         </div>
                     </section>
                     <div class="mx-5 border-t border-white/50 sm:mx-8"></div>
-                    <div class="mx-auto grid max-w-[1500px] gap-9 px-6 py-8 sm:grid-cols-2 lg:grid-cols-[1.25fr_1.2fr_1.35fr_1fr] lg:gap-8 lg:px-9">
+                    <div class="mx-auto grid max-w-[1500px] gap-9 px-6 py-8 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1.2fr] lg:gap-10 lg:px-9">
                         <section>
                             <h2 class="mb-5 text-xl font-bold uppercase tracking-wide">Contact Us</h2>
                             <ul class="space-y-3 text-base leading-relaxed sm:text-lg">
@@ -267,26 +266,18 @@
                                 <li><a class="inline-flex items-center gap-2 font-semibold hover:underline" href="{{ route('contract') }}"><i class="fas fa-magnifying-glass" aria-hidden="true"></i>See All Services</a></li>
                             </ul>
                         </section>
-                        <section class="flex flex-col items-center lg:items-end">
-                            <a class="inline-flex rounded-2xl bg-white p-4 shadow-lg" href="{{ route('home') }}" aria-label="Click-N-Grow Home"><img class="h-56 w-56 object-contain" src="{{ asset('images/Click N Grow Final Logo.jpg') }}" alt="Click-N-Grow Agroventures Pvt. Ltd."></a>
-                            <div class="mt-5 flex justify-center gap-5 text-2xl lg:justify-end" aria-label="Click-N-Grow social media">
-                                <a class="hover:text-lime-300" href="https://www.facebook.com/FarmTradecom" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                                <a class="hover:text-lime-300" href="https://www.linkedin.com/company/89865876/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                                <a class="hover:text-lime-300" href="https://www.instagram.com/herbal_contract_farming?dlrf=MXZzY2FhYmx6c2lyeA==" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                                <a class="hover:text-lime-300" href="https://www.youtube.com/@ClickNGrowAgro" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                            </div>
-                        </section>
                     </div>
+                    <div class="click-grow-footer__sunrise" role="img" aria-label="Golden sunrise over farms with Click-N-Grow, KisanZone and KisanSAT branding"></div>
                     <div class="mx-5 border-t border-white/50 sm:mx-8"></div>
-                    <div class="px-5 py-5 text-center text-base sm:text-lg">© 2026 Click-N-Grow Agroventures Pvt. Ltd. All rights reserved. <span class="mx-1">|</span><a class="hover:underline" href="{{ route('privacy-policy') }}">Privacy Policy</a><span class="mx-1">|</span><a class="hover:underline" href="{{ route('terms-and-conditions') }}">Terms &amp; Conditions</a></div>
+                    <div class="click-grow-footer__copyright px-5 py-5 text-center text-base sm:text-lg">&copy; 2026 Click-N-Grow Agroventures Pvt. Ltd. All rights reserved. <span class="mx-1">|</span><a class="hover:underline" href="{{ route('privacy-policy') }}">Privacy Policy</a><span class="mx-1">|</span><a class="hover:underline" href="{{ route('terms-and-conditions') }}">Terms &amp; Conditions</a></div>
                 </div>
             </footer>
 
 
 
 		</div>
-		<x-whats-app-button phoneNumber="9096338660"
-			message="Hello, I am interested in Click-N-Grow's herbal farming and raw material services. Please share more details." />
+		<x-whats-app-button phoneNumber="917775008660"
+			message="Namaste Click-N-Grow Team! I am interested in your Medicinal Plant Contract Farming Program. Please share details about crop selection, minimum land requirements, cultivation support, and buyback arrangements." />
 
 		<div class="drawer-side z-50">
 			<label class="drawer-overlay" for="custom-mobile-menu-drawer" aria-label="close sidebar"></label>

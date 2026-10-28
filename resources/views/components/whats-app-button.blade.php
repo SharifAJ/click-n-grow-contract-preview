@@ -6,14 +6,13 @@
 @php
 	// Format the phone number and message for WhatsApp URL
 	$formattedMessage = rawurlencode($message);
-	$whatsappWebUrl = "https://web.whatsapp.com/send?phone={$phoneNumber}&text={$formattedMessage}";
-	$whatsappMobileUrl = "https://api.whatsapp.com/send?phone={$phoneNumber}&text={$formattedMessage}";
+	$whatsappUrl = "https://wa.me/{$phoneNumber}?text={$formattedMessage}";
 @endphp
 
 <div class="fixed bottom-4 right-4 z-50">
 	<a
 		class="animate-float btn btn-success flex h-14 w-14 items-center justify-center rounded-full p-0 shadow-lg transition-colors hover:bg-green-600"
-		href="#" onclick="redirectToWhatsApp('{{ $whatsappWebUrl }}', '{{ $whatsappMobileUrl }}')">
+		href="{{ $whatsappUrl }}" target="_blank" rel="noopener noreferrer" aria-label="Chat with Click-N-Grow on WhatsApp" title="Chat with Click-N-Grow on WhatsApp">
 		<i class="fab fa-whatsapp text-3xl text-white"></i>
 	</a>
 </div>
@@ -37,12 +36,3 @@
 		/* Adjust duration for faster/slower animation */
 	}
 </style>
-<script>
-	function redirectToWhatsApp(webUrl, mobileUrl) {
-		if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-			window.location.href = mobileUrl;
-		} else {
-			window.location.href = webUrl;
-		}
-	}
-</script>

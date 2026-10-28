@@ -1980,6 +1980,29 @@ table tbody tr td {
     .about-investors__stats { grid-template-columns: minmax(0, 1fr); }
 }
 
+.click-grow-footer { background: #143d2a; }
+.click-grow-footer__cta { max-width: 1440px; margin: 0 auto; }
+.click-grow-footer__whatsapp {
+    background: #25d366;
+    color: #103b26;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .2);
+    transition: background-color .2s ease, transform .2s ease;
+}
+.click-grow-footer__whatsapp:hover { background: #54e184; transform: translateY(-2px); }
+.click-grow-footer__sunrise {
+    width: 100%;
+    aspect-ratio: 8 / 3;
+    border-top: 1px solid rgba(255, 255, 255, .2);
+    border-bottom: 1px solid rgba(255, 255, 255, .2);
+    background-color: transparent;
+}
+.click-grow-footer__copyright { background: #143d2a; }
+.click-grow-footer__copyright a { color: #d9f99d; }
+.click-grow-footer a:focus-visible { outline: 3px solid #bef264; outline-offset: 3px; }
+@media (max-width: 640px) {
+    .click-grow-footer { background-position: center calc(100% - 96px) !important; }
+}
+
 .expert-visit-hero {
     position: relative;
     isolation: isolate;

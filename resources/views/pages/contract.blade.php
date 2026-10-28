@@ -2,9 +2,9 @@
 
     <section class="contract-home-hero">
         <picture>
-            <source media="(max-width: 767px)" srcset="{{ asset('images/client-assets/farmers-at-harvest.jpg') }}">
-            <img class="contract-home-hero__image" src="{{ asset('images/client-assets/farmers-at-harvest.jpg') }}"
-                alt="Farmer holding fresh herbs in a green field" fetchpriority="high">
+            <source media="(max-width: 767px)" srcset="{{ asset('images/client-assets/header.png') }}">
+            <img class="contract-home-hero__image" src="{{ asset('images/client-assets/header.png') }}"
+                alt="Indian farmer tending medicinal plants in a sunlit field" fetchpriority="high">
         </picture>
         <div class="contract-home-hero__wash" aria-hidden="true"></div>
         <div class="contract-home-hero__content">
