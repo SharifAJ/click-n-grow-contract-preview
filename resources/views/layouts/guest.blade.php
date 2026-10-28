@@ -1,4 +1,4 @@
-@props(['contract_var' => null, 'brand' => 'kisansat', 'title' => null, 'description' => null, 'seoImage' => null])
+﻿@props(['contract_var' => null, 'brand' => 'kisansat', 'title' => null, 'description' => null, 'seoImage' => null])
 
 @php
 	$routeName = request()->route()?->getName() ?? '';
@@ -217,59 +217,62 @@
 			<main>
 				{{ $slot }}
 			</main>
-            <footer class="click-grow-footer relative isolate overflow-hidden bg-[#143d2a] text-white" style="background-image: url('{{ asset('images/client-assets/golden-sunrise-footer.png') }}'); background-position: center calc(100% - 72px); background-size: 100% auto; background-repeat: no-repeat;">
-                <div class="click-grow-footer__content relative z-10">
-                    <section class="click-grow-footer__cta px-5 pb-8 pt-10 text-center sm:pb-9 sm:pt-12">
-                        <h2 class="text-3xl font-bold leading-tight text-white sm:text-5xl">Ready to Grow a Healthier, Greener Tomorrow?</h2>
-                        <p class="mt-3 text-lg text-white sm:text-2xl">Partner with Click-N-Grow and be a part of India's herbal farming journey.</p>
-                        <a class="click-grow-footer__whatsapp mt-6 inline-flex items-center gap-2 rounded-full px-6 py-3 font-bold" href="https://wa.me/917775008660?text=Namaste%20Click-N-Grow%20Team!%20I%20am%20interested%20in%20your%20Medicinal%20Plant%20Contract%20Farming%20Program.%20Please%20share%20details%20about%20crop%20selection%2C%20minimum%20land%20requirements%2C%20cultivation%20support%2C%20and%20buyback%20arrangements." target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp text-xl" aria-hidden="true"></i> Chat with us on WhatsApp</a>
-                        <div class="mt-7 flex justify-center gap-6 text-2xl sm:gap-8" aria-label="Click-N-Grow social media">
-                            <a class="hover:text-lime-300" href="https://www.facebook.com/FarmTradecom" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                            <a class="hover:text-lime-300" href="https://www.linkedin.com/company/89865876/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                            <a class="hover:text-lime-300" href="https://www.instagram.com/herbal_contract_farming?dlrf=MXZzY2FhYmx6c2lyeA==" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                            <a class="hover:text-lime-300" href="https://www.youtube.com/@ClickNGrowAgro" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <footer class="click-grow-footer relative isolate flex flex-col overflow-hidden text-[#173a27]" style="--footer-bg: url('{{ asset('images/client-assets/golden-sunrise-footer.png') }}');">
+                <div class="click-grow-footer__container relative z-10 flex flex-1 flex-col">
+                    <section class="click-grow-footer__cta">
+                        <h2>Ready to Grow a Healthier, Greener Tomorrow?</h2>
+                        <p>Partner with Click-N-Grow and be a part of India's herbal farming journey.</p>
+                        <a class="click-grow-footer__whatsapp" href="https://wa.me/917775008660?text=Namaste%20Click-N-Grow%20Team!%20I%20am%20interested%20in%20your%20Medicinal%20Plant%20Contract%20Farming%20Program.%20Please%20share%20details%20about%20crop%20selection%2C%20minimum%20land%20requirements%2C%20cultivation%20support%2C%20and%20buyback%20arrangements." target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i> Chat with us on WhatsApp</a>
+                        <div class="click-grow-footer__socials" aria-label="Click-N-Grow social media">
+                            <a href="https://www.facebook.com/FarmTradecom" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                            <a href="https://www.linkedin.com/company/89865876/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://www.instagram.com/herbal_contract_farming?dlrf=MXZzY2FhYmx6c2lyeA==" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.youtube.com/@ClickNGrowAgro" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                         </div>
                     </section>
-                    <div class="mx-5 border-t border-white/50 sm:mx-8"></div>
-                    <div class="mx-auto grid max-w-[1500px] gap-9 px-6 py-8 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1.2fr] lg:gap-10 lg:px-9">
-                        <section>
-                            <h2 class="mb-5 text-xl font-bold uppercase tracking-wide">Contact Us</h2>
-                            <ul class="space-y-3 text-base leading-relaxed sm:text-lg">
-                                <li class="flex gap-3"><i class="fas fa-location-dot mt-1 shrink-0" aria-hidden="true"></i><span>C/17-18, 1st Floor, Dakshata Nagar Vyapar Sankul, Opp. New SP Office, Sindhi Camp Chowk, Mangrulpir Road, Akola, Maharashtra - 444001</span></li>
-                                <li class="flex gap-3"><i class="fas fa-phone mt-1 shrink-0" aria-hidden="true"></i><a href="tel:+917775008660">+91 77750 08660</a></li>
-                                <li class="flex gap-3"><i class="fas fa-phone mt-1 shrink-0" aria-hidden="true"></i><a href="tel:+917028301210">+91 70283 01210</a></li>
-                                <li class="flex gap-3"><i class="fas fa-phone mt-1 shrink-0" aria-hidden="true"></i><a href="tel:+919096338660">+91 90963 38660</a></li>
-                                <li class="flex gap-3"><i class="fas fa-envelope mt-1 shrink-0" aria-hidden="true"></i><a class="break-all" href="mailto:info.clickngrow@gmail.com">info.clickngrow@gmail.com</a></li>
-                                <li class="flex gap-3"><i class="fas fa-envelope mt-1 shrink-0" aria-hidden="true"></i><a class="break-all" href="mailto:info@ekisanzone.com">info@ekisanzone.com</a></li>
+                    <div class="click-grow-footer__divider" aria-hidden="true"></div>
+                    <div class="click-grow-footer__columns">
+                        <section class="click-grow-footer__col">
+                            <h3>Contact Us</h3>
+                            <ul>
+                                <li class="click-grow-footer__contact-item"><i class="fas fa-location-dot" aria-hidden="true"></i><span>C/17-18, 1st Floor, Dakshata Nagar Vyapar Sankul, Opp. New SP Office, Sindhi Camp Chowk, Mangrulpir Road, Akola, Maharashtra - 444001</span></li>
+                                <li class="click-grow-footer__contact-item"><i class="fas fa-phone" aria-hidden="true"></i><a href="tel:+917775008660">+91 77750 08660</a></li>
+                                <li class="click-grow-footer__contact-item"><i class="fas fa-phone" aria-hidden="true"></i><a href="tel:+917028301210">+91 70283 01210</a></li>
+                                <li class="click-grow-footer__contact-item"><i class="fas fa-phone" aria-hidden="true"></i><a href="tel:+919096338660">+91 90963 38660</a></li>
+                                <li class="click-grow-footer__contact-item"><i class="fas fa-envelope" aria-hidden="true"></i><a class="break-all" href="mailto:info.clickngrow@gmail.com">info.clickngrow@gmail.com</a></li>
+                                <li class="click-grow-footer__contact-item"><i class="fas fa-envelope" aria-hidden="true"></i><a class="break-all" href="mailto:info@ekisanzone.com">info@ekisanzone.com</a></li>
                             </ul>
                         </section>
-                        <section>
-                            <h2 class="mb-5 text-xl font-bold uppercase tracking-wide">Quick Links</h2>
-                            <ul class="space-y-3 text-base sm:text-lg">
-                                <li><a class="hover:underline" href="{{ route('home') }}">Home</a></li>
-                                <li><a class="hover:underline" href="{{ route('about') }}">About Us</a></li>
-                                <li><a class="hover:underline" href="{{ route('contract') }}">Contract Farming</a></li>
-                                <li><a class="hover:underline" href="{{ route('trading-export') }}">Trading &amp; Export</a></li>
-                                <li><a class="hover:underline" href="{{ route('expert-visit-registration') }}">Expert Visit Registration</a></li>
-                                <li><a class="hover:underline" href="{{ route('blogs.index') }}">Blogs</a></li>
-                                <li><a class="hover:underline" href="{{ route('contact-us') }}">Contact Us</a></li>
-                                <li><a class="hover:underline" href="{{ route('careers') }}">Careers</a></li>
+                        <section class="click-grow-footer__col">
+                            <h3>Quick Links</h3>
+                            <ul>
+                                <li><a href="{{ route('home') }}">Home</a></li>
+                                <li><a href="{{ route('about') }}">About Us</a></li>
+                                <li><a href="{{ route('contract') }}">Contract Farming</a></li>
+                                <li><a href="{{ route('trading-export') }}">Trading &amp; Export</a></li>
+                                <li><a href="{{ route('expert-visit-registration') }}">Expert Visit Registration</a></li>
+                                <li><a href="{{ route('blogs.index') }}">Blogs</a></li>
+                                <li><a href="{{ route('contact-us') }}">Contact Us</a></li>
+                                <li><a href="{{ route('careers') }}">Careers</a></li>
                             </ul>
                         </section>
-                        <section>
-                            <h2 class="mb-5 text-xl font-bold uppercase tracking-wide">Our Services</h2>
-                            <ul class="space-y-3 text-base sm:text-lg">
-                                <li><a class="hover:underline" href="{{ route('contract') }}">Contract Farming</a></li>
-                                <li><a class="hover:underline" href="{{ route('contract') }}#contract-crops">Crops Available for Contract Farming</a></li>
-                                <li><a class="hover:underline" href="{{ route('trading-export') }}">Trading &amp; Export</a></li>
-                                <li><a class="hover:underline" href="{{ route('trading-export') }}">Third Party Manufacturing</a></li>
-                                <li><a class="inline-flex items-center gap-2 font-semibold hover:underline" href="{{ route('contract') }}"><i class="fas fa-magnifying-glass" aria-hidden="true"></i>See All Services</a></li>
+                        <section class="click-grow-footer__col">
+                            <h3>Our Services</h3>
+                            <ul>
+                                <li><a href="{{ route('contract') }}">Contract Farming</a></li>
+                                <li><a href="{{ route('contract') }}#contract-crops">Crops Available for Contract Farming</a></li>
+                                <li><a href="{{ route('trading-export') }}">Trading &amp; Export</a></li>
+                                <li><a href="{{ route('trading-export') }}">Third Party Manufacturing</a></li>
+                                <li><a href="{{ route('contract') }}" class="font-semibold"><i class="fas fa-magnifying-glass mr-1.5" aria-hidden="true"></i>See All Services</a></li>
                             </ul>
                         </section>
                     </div>
+                    <div class="click-grow-footer__desktop-spacer" aria-hidden="true"></div>
                 </div>
-                <div class="click-grow-footer__sunrise" aria-hidden="true"></div>
-                <div class="click-grow-footer__copyright relative z-10 border-t border-white/40 px-5 py-5 text-center text-base sm:text-lg">&copy; 2026 Click-N-Grow Agroventures Pvt. Ltd. All rights reserved. <span class="mx-1">|</span><a class="hover:underline" href="{{ route('privacy-policy') }}">Privacy Policy</a><span class="mx-1">|</span><a class="hover:underline" href="{{ route('terms-and-conditions') }}">Terms &amp; Conditions</a></div>
+                <div class="click-grow-footer__mobile-artwork">
+                    <img src="{{ asset('images/client-assets/golden-sunrise-footer.png') }}" alt="Click-N-Grow, KisanZone, KisanSAT branding" loading="lazy">
+                </div>
+                <div class="click-grow-footer__copyright relative z-10">&copy; 2026 Click-N-Grow Agroventures Pvt. Ltd. All rights reserved. <span aria-hidden="true">|</span> <a href="{{ route('privacy-policy') }}">Privacy Policy</a> <span aria-hidden="true">|</span> <a href="{{ route('terms-and-conditions') }}">Terms &amp; Conditions</a></div>
             </footer>
 
 
