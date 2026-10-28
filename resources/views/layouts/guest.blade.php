@@ -166,7 +166,7 @@
 
 						<li><a href="#">{{ __('messages.faq') }}</a></li>
 						--}}
-						<li><a href="{{ route('contact-us') }}">{{ __('messages.contact_us') }}</a></li>
+						<li><a href="{{ route('careers') }}">Careers</a></li>
 
 						<li class="group dropdown dropdown-hover">
 							<label class="flex cursor-pointer items-center space-x-2" tabindex="0">
@@ -288,7 +288,7 @@
 				<li><a href="{{ route('trading-export') }}"><b>Trading and Export</b></a></li>
 				<li><a href="{{ route('expert-visit-registration') }}"><b>Expert Visit Registration</b></a></li>
 				<li><a href="{{ route('blogs.index') }}"><b>Blogs</b></a></li>
-				<li><a href="{{ route('contact-us') }}"><b>{{ __('messages.contact_us') }}</b></a></li>
+				<li><a href="{{ route('careers') }}"><b>Careers</b></a></li>
 				{{--
 				<li><a href="#"><b>{{ __('messages.footer.home') }}</b></a></li>
 
