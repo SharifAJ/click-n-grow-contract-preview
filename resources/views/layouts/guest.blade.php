@@ -232,7 +232,7 @@
                     </section>
                     <div class="click-grow-footer__divider" aria-hidden="true"></div>
                     <div class="click-grow-footer__columns">
-                        <section class="click-grow-footer__col">
+                        <section class="click-grow-footer__col click-grow-footer__col--card">
                             <h3>Contact Us</h3>
                             <ul>
                                 <li class="click-grow-footer__contact-item"><i class="fas fa-location-dot" aria-hidden="true"></i><span>C/17-18, 1st Floor, Dakshata Nagar Vyapar Sankul, Opp. New SP Office, Sindhi Camp Chowk, Mangrulpir Road, Akola, Maharashtra - 444001</span></li>
@@ -243,7 +243,7 @@
                                 <li class="click-grow-footer__contact-item"><i class="fas fa-envelope" aria-hidden="true"></i><a class="break-all" href="mailto:info@ekisanzone.com">info@ekisanzone.com</a></li>
                             </ul>
                         </section>
-                        <section class="click-grow-footer__col">
+                        <section class="click-grow-footer__col click-grow-footer__col--card">
                             <h3>Quick Links</h3>
                             <ul>
                                 <li><a href="{{ route('home') }}">Home</a></li>
@@ -256,7 +256,7 @@
                                 <li><a href="{{ route('careers') }}">Careers</a></li>
                             </ul>
                         </section>
-                        <section class="click-grow-footer__col">
+                        <section class="click-grow-footer__col click-grow-footer__col--card">
                             <h3>Our Services</h3>
                             <ul>
                                 <li><a href="{{ route('contract') }}">Contract Farming</a></li>
