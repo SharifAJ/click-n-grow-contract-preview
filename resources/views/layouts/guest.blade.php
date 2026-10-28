@@ -217,7 +217,7 @@
 			<main>
 				{{ $slot }}
 			</main>
-            <footer class="click-grow-footer relative isolate flex flex-col overflow-hidden text-[#173a27]" style="--footer-bg: url('{{ asset('images/client-assets/golden-sunrise-footer.png') }}');">
+            <footer class="click-grow-footer relative isolate flex flex-col overflow-hidden text-[#173a27]" style="--footer-bg: url('{{ asset('images/client-assets/golden-sunrise-backdrop.png') }}');">
                 <div class="click-grow-footer__container relative z-10 flex flex-1 flex-col">
                     <section class="click-grow-footer__cta">
                         <h2>Ready to Grow a Healthier, Greener Tomorrow?</h2>
@@ -267,10 +267,9 @@
                             </ul>
                         </section>
                     </div>
-                    <div class="click-grow-footer__desktop-spacer" aria-hidden="true"></div>
-                </div>
-                <div class="click-grow-footer__mobile-artwork">
-                    <img src="{{ asset('images/client-assets/golden-sunrise-footer.png') }}" alt="Click-N-Grow, KisanZone, KisanSAT branding" loading="lazy">
+                    <div class="click-grow-footer__brands">
+                        <img src="{{ asset('images/client-assets/footer-brand-logos.png') }}" alt="Click-N-Grow, KisanZone, KisanSAT" loading="lazy">
+                    </div>
                 </div>
                 <div class="click-grow-footer__copyright relative z-10">&copy; 2026 Click-N-Grow Agroventures Pvt. Ltd. All rights reserved. <span aria-hidden="true">|</span> <a href="{{ route('privacy-policy') }}">Privacy Policy</a> <span aria-hidden="true">|</span> <a href="{{ route('terms-and-conditions') }}">Terms &amp; Conditions</a></div>
             </footer>

@@ -1990,7 +1990,7 @@ table tbody tr td {
 
 @media (min-width: 960px) {
     .click-grow-footer {
-        background-image: var(--footer-bg, url('/images/client-assets/golden-sunrise-footer.png'));
+        background-image: var(--footer-bg, url('/images/client-assets/golden-sunrise-backdrop.png'));
         background-repeat: no-repeat;
         background-position: center bottom;
         background-size: 100% auto;
@@ -2170,38 +2170,30 @@ table tbody tr td {
     flex-shrink: 0;
 }
 
-/* On desktop, keep room below columns for the artwork's 3 brand logos */
-.click-grow-footer__desktop-spacer {
-    height: 74px;
-    display: none;
-}
-
-@media (min-width: 960px) {
-    .click-grow-footer__desktop-spacer {
-        display: block;
-    }
-}
-
-/* On mobile/tablet, show artwork banner above copyright with zero distortion */
-.click-grow-footer__mobile-artwork {
-    display: block;
+/* Dedicated brand logos banner */
+.click-grow-footer__brands {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 28px auto 20px auto;
+    padding: 0 16px;
     width: 100%;
-    margin-top: 24px;
-    padding: 0 16px 8px 16px;
-    text-align: center;
 }
 
-.click-grow-footer__mobile-artwork img {
-    max-width: 520px;
+.click-grow-footer__brands img {
+    max-width: 680px;
     width: 100%;
     height: auto;
     object-fit: contain;
-    border-radius: 6px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
 }
 
-@media (min-width: 960px) {
-    .click-grow-footer__mobile-artwork {
-        display: none;
+@media (max-width: 640px) {
+    .click-grow-footer__brands {
+        margin: 20px auto 16px auto;
+    }
+    .click-grow-footer__brands img {
+        max-width: 360px;
     }
 }
 
