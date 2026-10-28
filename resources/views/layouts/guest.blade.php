@@ -218,7 +218,7 @@
 				{{ $slot }}
 			</main>
             <footer class="click-grow-footer relative isolate overflow-hidden bg-[#143d2a] text-white" style="background-image: url('{{ asset('images/client-assets/golden-sunrise-footer.png') }}'); background-position: center calc(100% - 72px); background-size: 100% auto; background-repeat: no-repeat;">
-                <div class="relative z-10">
+                <div class="click-grow-footer__content relative z-10">
                     <section class="click-grow-footer__cta px-5 pb-8 pt-10 text-center sm:pb-9 sm:pt-12">
                         <h2 class="text-3xl font-bold leading-tight text-white sm:text-5xl">Ready to Grow a Healthier, Greener Tomorrow?</h2>
                         <p class="mt-3 text-lg text-white sm:text-2xl">Partner with Click-N-Grow and be a part of India's herbal farming journey.</p>
@@ -267,10 +267,9 @@
                             </ul>
                         </section>
                     </div>
-                    <div class="click-grow-footer__sunrise" role="img" aria-label="Golden sunrise over farms with Click-N-Grow, KisanZone and KisanSAT branding"></div>
-                    <div class="mx-5 border-t border-white/50 sm:mx-8"></div>
-                    <div class="click-grow-footer__copyright px-5 py-5 text-center text-base sm:text-lg">&copy; 2026 Click-N-Grow Agroventures Pvt. Ltd. All rights reserved. <span class="mx-1">|</span><a class="hover:underline" href="{{ route('privacy-policy') }}">Privacy Policy</a><span class="mx-1">|</span><a class="hover:underline" href="{{ route('terms-and-conditions') }}">Terms &amp; Conditions</a></div>
                 </div>
+                <div class="click-grow-footer__sunrise" aria-hidden="true"></div>
+                <div class="click-grow-footer__copyright relative z-10 border-t border-white/40 px-5 py-5 text-center text-base sm:text-lg">&copy; 2026 Click-N-Grow Agroventures Pvt. Ltd. All rights reserved. <span class="mx-1">|</span><a class="hover:underline" href="{{ route('privacy-policy') }}">Privacy Policy</a><span class="mx-1">|</span><a class="hover:underline" href="{{ route('terms-and-conditions') }}">Terms &amp; Conditions</a></div>
             </footer>
 
 
