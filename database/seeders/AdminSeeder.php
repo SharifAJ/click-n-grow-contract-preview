@@ -10,9 +10,14 @@ class AdminSeeder extends Seeder
 {
     public function run()
     {
-        Admin::create([
-            'email' => 'admin@kisansat.com',
-            'password' => Hash::make('12345678'),
-        ]); 
+        Admin::updateOrCreate(
+            ['email' => 'admin@kisansat.com'],
+            ['password' => Hash::make('12345678')]
+        );
+
+        Admin::updateOrCreate(
+            ['email' => 'admin@admin.com'],
+            ['password' => Hash::make('admin123')]
+        );
     }
 }
