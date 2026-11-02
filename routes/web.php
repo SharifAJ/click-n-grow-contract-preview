@@ -122,10 +122,17 @@ Route::middleware(['auth:admin'])->group(function () {
 
     // ============For contact us Controller================
     Route::resource('dashboard/contact-us', ContactUsController::class);
+
+    // ============For Blog Posts (Admin) ================
     Route::resource('admin/blogs', BlogPostController::class)
-        ->except(['show']);
+        ->except(['show'])
+        ->name('admin.blogs.');
+
+    // ============For Gallery Items (Admin) ================
     Route::resource('admin/gallery', GalleryItemController::class)
-        ->except(['show']);
+        ->except(['show'])
+        ->name('admin.gallery.');
+
     Route::get('/admin/careers', [CareerController::class, 'applications'])->name('admin.careers.index');
     Route::get('/admin/careers/{careerApplication}/resume', [CareerController::class, 'resume'])->name('admin.careers.resume');
 
@@ -187,6 +194,7 @@ Route::post('/contract-farming/enquiry/fpo', [FPOController::class, 'publicStore
 Route::post('/contract-farming-enquiry', [EnquiryController::class, 'store'])
     ->middleware('throttle:8,1')
     ->name('contract_farming.enquiry.public.store');
+
 
 
 
