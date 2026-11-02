@@ -126,12 +126,26 @@ Route::middleware(['auth:admin'])->group(function () {
     // ============For Blog Posts (Admin) ================
     Route::resource('admin/blogs', BlogPostController::class)
         ->except(['show'])
-        ->name('admin.blogs.');
+        ->names([
+            'index'   => 'admin.blogs.index',
+            'create'  => 'admin.blogs.create',
+            'store'   => 'admin.blogs.store',
+            'edit'    => 'admin.blogs.edit',
+            'update'  => 'admin.blogs.update',
+            'destroy' => 'admin.blogs.destroy',
+        ]);
 
     // ============For Gallery Items (Admin) ================
     Route::resource('admin/gallery', GalleryItemController::class)
         ->except(['show'])
-        ->name('admin.gallery.');
+        ->names([
+            'index'   => 'admin.gallery.index',
+            'create'  => 'admin.gallery.create',
+            'store'   => 'admin.gallery.store',
+            'edit'    => 'admin.gallery.edit',
+            'update'  => 'admin.gallery.update',
+            'destroy' => 'admin.gallery.destroy',
+        ]);
 
     Route::get('/admin/careers', [CareerController::class, 'applications'])->name('admin.careers.index');
     Route::get('/admin/careers/{careerApplication}/resume', [CareerController::class, 'resume'])->name('admin.careers.resume');
@@ -212,12 +226,12 @@ Route::prefix('contract-farming')->middleware('auth:admin')->group(function () {
     // Crop resource routes
     Route::resource('crops', CropController::class)
         ->names([
-            'index' => 'contract_farming.crops.index',
-            'create' => 'contract_farming.crops.create',
-            'store' => 'contract_farming.crops.store',
-            'show' => 'contract_farming.crops.show',
-            'edit' => 'contract_farming.crops.edit',
-            'update' => 'contract_farming.crops.update',
+            'index'   => 'contract_farming.crops.index',
+            'create'  => 'contract_farming.crops.create',
+            'store'   => 'contract_farming.crops.store',
+            'show'    => 'contract_farming.crops.show',
+            'edit'    => 'contract_farming.crops.edit',
+            'update'  => 'contract_farming.crops.update',
             'destroy' => 'contract_farming.crops.destroy',
         ]);
 
