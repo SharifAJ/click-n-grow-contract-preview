@@ -1,97 +1,8 @@
 ================================================================================
-EXPERT VISIT REGISTRATION - ADMIN PANEL & SINGLE DATABASE INTEGRATION
-DEVELOPER CHANGELOG AND DEPLOYMENT GUIDE
+STEP 1 OF 10
+FILE: app/Models/ExpertVisitRegistration.php
+ACTION: Replace the entire content of this file with the code below:
 ================================================================================
-
-OVERVIEW:
-This update:
-1. Adds an Admin Panel interface under /admin/expert-visits to list, filter,
-   search, view full details, and manage Expert Visit submissions.
-2. Unifies all Expert Visit tables into the application's single primary
-   database (removes the requirement for a separate 'expert_visits' connection).
-3. Adds support for both live payment (Razorpay) and test/offline registration
-   modes if Razorpay credentials are not yet configured in .env.
-
---------------------------------------------------------------------------------
-TABLE OF CONTENTS:
-1. Summary of Changed and New Files
-2. Migration Instructions
-3. Exact Code Changes by File
---------------------------------------------------------------------------------
-
-================================================================================
-1. SUMMARY OF CHANGED AND NEW FILES
-================================================================================
-
-NEW FILES TO ADD:
-- app/Http/Controllers/Web/ExpertVisitController.php
-- resources/views/dashboard/expert_visits/index.blade.php
-- resources/views/dashboard/expert_visits/show.blade.php
-- database/migrations/2026_10_06_000001_create_expert_visit_registrations_table.php
-
-EXISTING FILES MODIFIED:
-- routes/web.php
-- resources/views/components/sidebar.blade.php
-- app/Models/ExpertVisitRegistration.php
-- app/Models/ExpertVisitFarm.php
-- app/Http/Controllers/ExpertVisitRegistrationController.php
-- resources/views/pages/expert-visit-registration.blade.php
-
-FILES / FOLDERS DELETED (OR REPLACED):
-- database/migrations/expert_visits/ (the migration inside it was moved to standard database/migrations/)
-
-================================================================================
-2. MIGRATION INSTRUCTIONS FOR THE SERVER
-================================================================================
-
-On the server, run the following Artisan command:
-
-    php artisan migrate
-
-This will create `expert_visit_registrations` and `expert_visit_farms` tables in
-your main database. The migration file has `if (!Schema::hasTable(...))` checks,
-so if the tables already exist in your database, it will safely skip without errors.
-
-================================================================================
-3. EXACT CODE CHANGES BY FILE
-================================================================================
-
---------------------------------------------------------------------------------
-FILE 1: routes/web.php
---------------------------------------------------------------------------------
-ACTION: Add controller import at the top, and add 3 admin routes inside the
-`Route::middleware(['auth:admin'])->group(function () { ... });` block.
-
-1. Top of routes/web.php:
-   Add:
-   use App\Http\Controllers\Web\ExpertVisitController;
-
-2. Inside `Route::middleware(['auth:admin'])->group(...)`:
-   Add:
-   // ============For Expert Visit Registrations (Admin) ================
-   Route::get('/admin/expert-visits', [ExpertVisitController::class, 'index'])->name('admin.expert-visits.index');
-   Route::get('/admin/expert-visits/{id}', [ExpertVisitController::class, 'show'])->name('admin.expert-visits.show');
-   Route::delete('/admin/expert-visits/{id}', [ExpertVisitController::class, 'destroy'])->name('admin.expert-visits.destroy');
-
---------------------------------------------------------------------------------
-FILE 2: resources/views/components/sidebar.blade.php
---------------------------------------------------------------------------------
-ACTION: Add the "Expert Visits" menu link in the sidebar menu items list.
-
-Add this line under the existing admin links (e.g. after Career Applications):
-
-    <x-sidebar-link :href="route('admin.expert-visits.index')" :active="request()->routeIs('admin.expert-visits.*')" icon="fa-solid fa-calendar-check" text="Expert Visits" />
-
---------------------------------------------------------------------------------
-FILE 3: app/Models/ExpertVisitRegistration.php
---------------------------------------------------------------------------------
-ACTION: Remove the `$connection = 'expert_visits'` property so the model uses
-the application's default database connection.
-
-REMOVE THIS LINE:
-    protected $connection = 'expert_visits';
-
-Full model code:
 <?php
 
 namespace App\Models;
@@ -140,16 +51,12 @@ class ExpertVisitRegistration extends Model
     }
 }
 
---------------------------------------------------------------------------------
-FILE 4: app/Models/ExpertVisitFarm.php
---------------------------------------------------------------------------------
-ACTION: Remove the `$connection = 'expert_visits'` property so the model uses
-the application's default database connection.
 
-REMOVE THIS LINE:
-    protected $connection = 'expert_visits';
-
-Full model code:
+================================================================================
+STEP 2 OF 10
+FILE: app/Models/ExpertVisitFarm.php
+ACTION: Replace the entire content of this file with the code below:
+================================================================================
 <?php
 
 namespace App\Models;
@@ -182,19 +89,279 @@ class ExpertVisitFarm extends Model
     }
 }
 
---------------------------------------------------------------------------------
-FILE 5: app/Http/Controllers/ExpertVisitRegistrationController.php
---------------------------------------------------------------------------------
-ACTION:
-1. In `create()`: pass `'hasRazorpay' => $this->hasRazorpay()`.
-2. In `store()` and `verifyPayment()`: replace `DB::connection('expert_visits')->transaction(...)`
-   with `DB::transaction(...)`.
-3. In `store()`: if Razorpay credentials are not configured, gracefully save
-   as pending and return a test_mode response rather than failing.
-4. Replace `checkoutIsConfigured()` to return `true` (since the main database is always available).
-5. Add helper `hasRazorpay()` to check if RAZORPAY_KEY_ID & RAZORPAY_KEY_SECRET exist in config.
 
-Key updated methods:
+================================================================================
+STEP 3 OF 10
+FILE: app/Http/Controllers/ExpertVisitRegistrationController.php
+ACTION: Replace the entire content of this file with the code below:
+================================================================================
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\ExpertVisitRegistration;
+use App\Services\ExpertVisitPricing;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
+use Razorpay\Api\Api;
+use Razorpay\Api\Errors\SignatureVerificationError;
+use Razorpay\Api\Errors\Error as RazorpayError;
+use WpOrg\Requests\Exception as RequestException;
+
+class ExpertVisitRegistrationController extends Controller
+{
+    public function create()
+    {
+        return view('pages.expert-visit-registration', [
+            'states' => ExpertVisitPricing::states(),
+            'stateRates' => ExpertVisitPricing::stateRates(),
+            'feeGroups' => ExpertVisitPricing::feeGroups(),
+            'checkoutReady' => $this->checkoutIsConfigured(),
+            'hasRazorpay' => $this->hasRazorpay(),
+        ]);
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:100'],
+            'father_name' => ['required', 'string', 'max:100'],
+            'surname' => ['required', 'string', 'max:100'],
+            'mobile' => ['required', 'regex:/^[6-9][0-9]{9}$/'],
+            'residential.village' => ['required', 'string', 'max:120'],
+            'residential.taluka' => ['required', 'string', 'max:120'],
+            'residential.district' => ['required', 'string', 'max:120'],
+            'residential.state' => ['required', 'string', Rule::in(ExpertVisitPricing::states())],
+            'residential.pincode' => ['required', 'digits:6'],
+            'farms' => ['required', 'array', 'min:1', 'max:5'],
+            'farms.*.village' => ['required', 'string', 'max:120'],
+            'farms.*.taluka' => ['required', 'string', 'max:120'],
+            'farms.*.district' => ['required', 'string', 'max:120'],
+            'farms.*.state' => ['required', 'string', Rule::in(ExpertVisitPricing::states())],
+            'farms.*.pincode' => ['required', 'digits:6'],
+            'farms.*.mobile' => ['required', 'regex:/^[6-9][0-9]{9}$/'],
+            'farms.*.area_acres' => ['required', 'numeric', 'gt:0', 'max:100000'],
+            'nearest_railway_station' => ['required', 'string', 'max:150'],
+            'preferred_visit_date' => ['required', 'date', 'after_or_equal:today'],
+            'visit_days' => ['required', 'integer', 'min:1', 'max:30'],
+            'policy_accepted' => ['accepted'],
+        ], [
+            'mobile.regex' => 'Enter a valid 10-digit Indian mobile number.',
+            'farms.*.mobile.regex' => 'Enter a valid 10-digit Indian mobile number for each farm.',
+            'policy_accepted.accepted' => 'You must accept the registration and visit policies to continue.',
+        ]);
+
+        $feePerDay = max(array_map(
+            fn (array $farm) => ExpertVisitPricing::rateForState($farm['state']),
+            $validated['farms']
+        ));
+        $totalFee = $feePerDay * (int) $validated['visit_days'];
+        $reference = (string) Str::uuid();
+
+        try {
+            $registration = DB::transaction(function () use (
+                $validated,
+                $feePerDay,
+                $totalFee,
+                $reference
+            ) {
+                $registration = ExpertVisitRegistration::create([
+                    'reference' => $reference,
+                    'name' => $validated['name'],
+                    'father_name' => $validated['father_name'],
+                    'surname' => $validated['surname'],
+                    'mobile' => $validated['mobile'],
+                    'residential_village' => $validated['residential']['village'],
+                    'residential_taluka' => $validated['residential']['taluka'],
+                    'residential_district' => $validated['residential']['district'],
+                    'residential_state' => $validated['residential']['state'],
+                    'residential_pincode' => $validated['residential']['pincode'],
+                    'nearest_railway_station' => $validated['nearest_railway_station'],
+                    'preferred_visit_date' => $validated['preferred_visit_date'],
+                    'visit_days' => $validated['visit_days'],
+                    'fee_per_day' => $feePerDay,
+                    'total_fee' => $totalFee,
+                    'payment_status' => 'pending',
+                    'terms_accepted_at' => now(),
+                ]);
+
+                $registration->farms()->createMany($validated['farms']);
+
+                return $registration;
+            });
+        } catch (\Throwable $exception) {
+            Log::error('Expert visit registration could not be saved.', [
+                'error' => $exception->getMessage(),
+            ]);
+
+            return response()->json([
+                'message' => 'We could not save your registration. Please try again later.',
+            ], 500);
+        }
+
+        // Live Mode: If Razorpay keys are configured, create online order
+        if ($this->hasRazorpay()) {
+            $receipt = 'evr_' . Str::lower(Str::random(20));
+
+            try {
+                $order = (new Api(
+                    config('services.razorpay.key_id'),
+                    config('services.razorpay.key_secret')
+                ))->order->create([
+                    'receipt' => $receipt,
+                    'amount' => $totalFee * 100,
+                    'currency' => 'INR',
+                    'notes' => [
+                        'registration_reference' => $reference,
+                        'purpose' => 'Expert farm visit registration',
+                    ],
+                ]);
+            } catch (RazorpayError|RequestException $exception) {
+                Log::error('Razorpay expert visit order creation failed.', [
+                    'registration_reference' => $reference,
+                    'error' => $exception->getMessage(),
+                ]);
+
+                $registration->update(['payment_status' => 'order_failed']);
+
+                return response()->json([
+                    'message' => 'Your registration details were saved, but payment could not be started. Please retry or contact us.',
+                ], 502);
+            }
+
+            try {
+                $registration->update([
+                    'razorpay_order_id' => $order->id,
+                    'payment_status' => 'pending',
+                ]);
+            } catch (QueryException $exception) {
+                Log::critical('Razorpay order could not be linked to expert visit registration.', [
+                    'registration_reference' => $reference,
+                    'razorpay_order_id' => $order->id,
+                    'error' => $exception->getMessage(),
+                ]);
+
+                return response()->json([
+                    'message' => 'Payment was created but could not be linked to your registration. Please contact us before retrying.',
+                ], 503);
+            }
+
+            return response()->json([
+                'key' => config('services.razorpay.key_id'),
+                'order_id' => $order->id,
+                'amount' => $order->amount,
+                'currency' => 'INR',
+                'reference' => $reference,
+                'name' => trim($validated['name'] . ' ' . $validated['surname']),
+                'mobile' => $validated['mobile'],
+            ]);
+        }
+
+        // Test/Offline Mode: Razorpay not configured yet, registration saved as pending directly
+        return response()->json([
+            'test_mode' => true,
+            'reference' => $reference,
+            'message' => 'Registration saved successfully! (Test Mode / Payment Pending)',
+        ]);
+    }
+
+    public function verifyPayment(Request $request): JsonResponse
+    {
+        if (!$this->hasRazorpay()) {
+            return response()->json(['message' => 'Payment verification is unavailable.'], 503);
+        }
+
+        $validated = $request->validate([
+            'reference' => ['required', 'uuid'],
+            'razorpay_order_id' => ['required', 'string', 'max:100'],
+            'razorpay_payment_id' => ['required', 'string', 'max:100'],
+            'razorpay_signature' => ['required', 'string', 'max:255'],
+        ]);
+
+        $registration = ExpertVisitRegistration::query()
+            ->where('reference', $validated['reference'])
+            ->where('razorpay_order_id', $validated['razorpay_order_id'])
+            ->firstOrFail();
+
+        if ($registration->payment_status === 'paid') {
+            return response()->json(['message' => 'Payment was already verified.']);
+        }
+
+        $api = new Api(
+            config('services.razorpay.key_id'),
+            config('services.razorpay.key_secret')
+        );
+
+        try {
+            $api->utility->verifyPaymentSignature([
+                'razorpay_order_id' => $validated['razorpay_order_id'],
+                'razorpay_payment_id' => $validated['razorpay_payment_id'],
+                'razorpay_signature' => $validated['razorpay_signature'],
+            ]);
+
+            $payment = $api->payment->fetch($validated['razorpay_payment_id']);
+        } catch (SignatureVerificationError $exception) {
+            Log::warning('Invalid Razorpay signature for expert visit registration.', [
+                'registration_reference' => $registration->reference,
+            ]);
+
+            return response()->json(['message' => 'Payment verification failed. Please contact us if your account was charged.'], 422);
+        } catch (RazorpayError|RequestException $exception) {
+            Log::error('Razorpay expert visit payment verification request failed.', [
+                'registration_reference' => $registration->reference,
+                'error' => $exception->getMessage(),
+            ]);
+
+            return response()->json(['message' => 'Payment status could not be confirmed yet. Please try again shortly.'], 502);
+        }
+
+        if (
+            $payment->order_id !== $registration->razorpay_order_id ||
+            (int) $payment->amount !== $registration->total_fee * 100 ||
+            $payment->currency !== 'INR' ||
+            $payment->status !== 'captured'
+        ) {
+            Log::warning('Razorpay expert visit payment did not match expected order details.', [
+                'registration_reference' => $registration->reference,
+                'razorpay_payment_id' => $validated['razorpay_payment_id'],
+                'payment_status' => $payment->status,
+            ]);
+
+            return response()->json([
+                'message' => 'Payment is not confirmed yet. If your account was charged, please contact us.',
+            ], 409);
+        }
+
+        try {
+            DB::transaction(function () use ($registration, $validated) {
+                $registration->update([
+                    'razorpay_payment_id' => $validated['razorpay_payment_id'],
+                    'payment_status' => 'paid',
+                ]);
+            });
+        } catch (QueryException $exception) {
+            Log::critical('Verified expert visit payment could not be saved.', [
+                'registration_reference' => $registration->reference,
+                'razorpay_payment_id' => $validated['razorpay_payment_id'],
+                'error' => $exception->getMessage(),
+            ]);
+
+            return response()->json([
+                'message' => 'Payment was received but confirmation could not be saved. Please contact us with your registration reference.',
+            ], 503);
+        }
+
+        return response()->json([
+            'message' => 'Payment confirmed. Your expert visit registration is complete.',
+            'reference' => $registration->reference,
+        ]);
+    }
+
     private function checkoutIsConfigured(): bool
     {
         return true;
@@ -205,13 +372,14 @@ Key updated methods:
         return filled(config('services.razorpay.key_id')) &&
             filled(config('services.razorpay.key_secret'));
     }
+}
 
---------------------------------------------------------------------------------
-FILE 6: app/Http/Controllers/Web/ExpertVisitController.php (NEW FILE)
---------------------------------------------------------------------------------
-ACTION: Create this controller to manage the admin listing and detail views.
 
-Content:
+================================================================================
+STEP 4 OF 10
+FILE: app/Http/Controllers/Web/ExpertVisitController.php
+ACTION: CREATE this new file and paste the code below inside it:
+================================================================================
 <?php
 
 namespace App\Http\Controllers\Web;
@@ -305,13 +473,366 @@ class ExpertVisitController extends Controller
     }
 }
 
---------------------------------------------------------------------------------
-FILE 7: database/migrations/2026_10_06_000001_create_expert_visit_registrations_table.php (NEW)
---------------------------------------------------------------------------------
-ACTION: Place directly in `database/migrations/` so standard `php artisan migrate`
-creates both tables in the main database.
 
-Content:
+================================================================================
+STEP 5 OF 10
+FILE: routes/web.php
+ACTION: Replace the entire content of this file with the code below:
+================================================================================
+<?php
+
+use App\Http\Controllers\Api\ApiUsageController;
+use App\Http\Controllers\Auth\AdminAuthenticatedSessionController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\FarmMonitoringController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\TradingEnquiryController;
+use App\Http\Controllers\Web\ContactUsController;
+use App\Http\Controllers\Web\BlogPostController;
+use App\Http\Controllers\Web\GalleryItemController;
+use App\Http\Controllers\Web\DashboardController;
+use App\Http\Controllers\Web\ExpertVisitController;
+use App\Http\Controllers\Web\FarmerController;
+use App\Http\Controllers\Web\PackageMasterController;
+use App\Http\Controllers\Web\PaymentController;
+use App\Http\Controllers\Web\ServiceController;
+use App\Http\Controllers\Web\FarmController;
+use App\Http\Controllers\Web\ServiceMasterController;
+use App\Http\Controllers\Web\FarmerSubscriptionController;
+use App\Http\Controllers\Web\SettingController;
+use App\Http\Controllers\WebhookController;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContractFarmingController;
+use App\Http\Controllers\ContractFarming\CropController;
+use App\Http\Controllers\ContractFarming\EnquiryController;
+use App\Http\Controllers\ContractFarming\BusinessAssociateController;
+use App\Http\Controllers\ContractFarming\FPOController;
+use App\Http\Controllers\ContractFarming\FarmersController;
+use App\Http\Controllers\ExpertVisitRegistrationController;
+use App\Http\Controllers\CareerController;
+
+
+
+// Admin login/logout routes (no middleware)
+Route::prefix('admin')->group(function () {
+    Route::get('/login', [AdminAuthenticatedSessionController::class, 'create'])
+        ->name('admin.login');
+
+    Route::post('/login', [AdminAuthenticatedSessionController::class, 'store']);
+
+    Route::post('/logout', [AdminAuthenticatedSessionController::class, 'destroy'])
+        ->name('admin.logout');
+});
+
+// for lanuages support ✅ Change language route
+Route::get('change-language/{lang}', function ($lang) {
+    Session::put('applocale', $lang);
+    return redirect()->back();
+})->name('change.language');
+
+
+// Admin dashboard route (protected by auth:admin middleware)
+Route::middleware(['auth:admin'])->group(function () {
+
+    Route::get('/admin/dashboard', [DashboardController::class, 'home'])->name('dashboard');
+
+    // ============For Farmer Controller================
+    Route::resource('farmer', FarmerController::class);
+    Route::get('/get-farmer-data/{id}', [FarmerController::class, 'farmer_data']);
+    Route::delete('/farmer/{id}/restore', [FarmerController::class, 'farmer_restore'])->name('farmer.restore');
+    Route::post('/change-farmer-status', [FarmerController::class, 'farmer_status']);
+
+
+    // ============For Farmer Controller================
+    Route::resource('subscription', FarmerSubscriptionController::class);
+    Route::get('/user-subscription-show/{id}', [FarmerSubscriptionController::class, 'user_show'])->name('user_subscription.show');
+    Route::post('/farmer-subscription_get-farmer-data', [FarmerSubscriptionController::class, 'farmer_subscription_get_data']);
+    Route::post('/get-farm-area', [FarmerSubscriptionController::class, 'get_farm_area']);
+    Route::get('/get-package-data-from-master', [FarmerSubscriptionController::class, 'get_package_data']);
+    Route::get('/get-service-data-from-master', [FarmerSubscriptionController::class, 'get_service_data']);
+    Route::get('/get-freeservice-data-from-master', [FarmerSubscriptionController::class, 'get_freeservice_data']);
+    Route::POST('/get-packageduration-data-from-master', [FarmerSubscriptionController::class, 'get_packageduration_data']);
+    Route::POST('/get-serviceduration-data-from-master', [FarmerSubscriptionController::class, 'get_serviceduration_data']);
+    Route::POST('/get-freeduration-data-from-master', [FarmerSubscriptionController::class, 'get_freeduration_data']);
+    Route::post('/change-farm_subscriptions-status', [FarmerSubscriptionController::class, 'farm_subscriptions']);
+    Route::post('/dupplicate-subscritption-data', [FarmerSubscriptionController::class, 'package_dupplicate']);
+    Route::post('/existing-subscription', [FarmerSubscriptionController::class, 'existing_subscription']);
+    Route::post('/checkpackage_service_name', [FarmerSubscriptionController::class, 'checkpackage_service_name']);
+    Route::post('/premiumvalue', [FarmerSubscriptionController::class, 'premiumvalue']);
+
+
+    // ============For farm Controller================
+    Route::resource('addfarm', FarmController::class);
+    Route::delete('/farm/{id}/restore', [FarmController::class, 'farm_restore'])->name('addfarm.restore');
+    // Route::get('/farm-monitoring-api-error-log/{farmid}', [FarmController::class, 'farm_monitoring_api_error_log'])->name('monitoring-api_error_log');
+    Route::get('/get-farm-data/{id}', [FarmController::class, 'farm_data']);
+    Route::post('/change-farm-status', [FarmController::class, 'farm_status']);
+    Route::get('/farm-monitoring/{farm_id}/{crop_name}', [FarmController::class, 'farm_monitoring']);
+    Route::post('/get-irrigation-data', [FarmController::class, 'irrigation_data']);
+    Route::post('/get_city_list', [FarmController::class, 'get_city_list']);
+    Route::get('/mandi-rates', [FarmController::class, 'fetchMandiRates'])->name('mandi.rates');
+
+
+    // ============For payment Controller================
+    Route::resource('payment', PaymentController::class);
+    Route::post('payment/create', [PaymentController::class, 'create'])->name('paymentcreate');
+
+
+
+    Route::get('/service-index', [ServiceController::class, 'index'])->name('service.index');
+    Route::get('/logs-index', [ApiUsageController::class, 'log_index'])->name('logs.index');
+
+    // ============For farmMonitoring Controller================
+    Route::resource('/monitoring', FarmMonitoringController::class);
+    Route::get('/farm-monitoring-api-error-log/{farmid}', [FarmMonitoringController::class, 'farm_monitoring_api_error_log'])->name('monitoring-api_error_log');
+
+
+    Route::get('/sidebar-links', [FarmMonitoringController::class, 'getSidebarLinks']);
+    Route::get('/page-content/{id}', [FarmMonitoringController::class, 'getPageContent']);
+
+    // ============For ServiceMaster Controller================
+    Route::resource('setting/servicemaster', ServiceMasterController::class);
+    Route::post('/change-service_master-status', [ServiceMasterController::class, 'serv_master_status']);
+
+    // ============For packageMaster Controller================
+    Route::resource('setting/packagemaster', PackageMasterController::class);
+    Route::post('/change-package_master-status', [PackageMasterController::class, 'package_master_status']);
+
+    // ============For contact us Controller================
+    Route::resource('dashboard/contact-us', ContactUsController::class);
+
+    // ============For Blog Posts (Admin) ================
+    Route::resource('admin/blogs', BlogPostController::class)
+        ->except(['show'])
+        ->names([
+            'index'   => 'admin.blogs.index',
+            'create'  => 'admin.blogs.create',
+            'store'   => 'admin.blogs.store',
+            'edit'    => 'admin.blogs.edit',
+            'update'  => 'admin.blogs.update',
+            'destroy' => 'admin.blogs.destroy',
+        ]);
+
+    // ============For Gallery Items (Admin) ================
+    Route::resource('admin/gallery', GalleryItemController::class)
+        ->except(['show'])
+        ->names([
+            'index'   => 'admin.gallery.index',
+            'create'  => 'admin.gallery.create',
+            'store'   => 'admin.gallery.store',
+            'edit'    => 'admin.gallery.edit',
+            'update'  => 'admin.gallery.update',
+            'destroy' => 'admin.gallery.destroy',
+        ]);
+
+    Route::get('/admin/careers', [CareerController::class, 'applications'])->name('admin.careers.index');
+    Route::get('/admin/careers/{careerApplication}/resume', [CareerController::class, 'resume'])->name('admin.careers.resume');
+
+    // ============For Expert Visit Registrations (Admin) ================
+    Route::get('/admin/expert-visits', [ExpertVisitController::class, 'index'])->name('admin.expert-visits.index');
+    Route::get('/admin/expert-visits/{id}', [ExpertVisitController::class, 'show'])->name('admin.expert-visits.show');
+    Route::delete('/admin/expert-visits/{id}', [ExpertVisitController::class, 'destroy'])->name('admin.expert-visits.destroy');
+
+    /* ---------------------------------------------------------------- GENERAL SETTING --------------------------------------------------------------- */
+    Route::get('/settings/application', [SettingController::class, 'index'])->name('setting.index');
+    Route::post('/settings/update', [SettingController::class, 'update'])->name('setting.update');
+});
+
+// User-specific routes
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+// Guest-specific routes
+Route::get('/', [PageController::class, 'contract'])->name('home');
+Route::get('/service/{service}', [PageController::class, 'showSingleServicePage'])->name('services.show');
+Route::view('/grievance-redressal', 'pages/grievance-redressal')->name('grievance-redressal');
+Route::view('/privacy-policy', 'pages/privacy-policy')->name('privacy-policy');
+Route::view('/refund-policy', 'pages/refund-policy')->name('refund-policy');
+Route::view('/terms-and-conditions', 'pages/terms-and-conditions')->name('terms-and-conditions');
+Route::view('/about', 'pages/about')->name('about');
+Route::get('/careers', [CareerController::class, 'index'])->name('careers');
+Route::post('/careers', [CareerController::class, 'store'])->middleware('throttle:5,1')->name('careers.store');
+Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
+Route::get('/blogs/{slug}', [BlogController::class, 'show'])->name('blogs.show');
+Route::get('/trading-and-export', [PageController::class, 'tradingExport'])->name('trading-export');
+Route::get('/trading-enquiry-form', [TradingEnquiryController::class, 'create'])->name('trading-enquiry-form');
+Route::post('/trading-enquiry-form', [TradingEnquiryController::class, 'store'])
+    ->middleware('throttle:8,1')
+    ->name('trading-enquiry-form.store');
+Route::get('/expert-visit-registration', [ExpertVisitRegistrationController::class, 'create'])
+    ->name('expert-visit-registration');
+Route::post('/expert-visit-registration', [ExpertVisitRegistrationController::class, 'store'])
+    ->middleware('throttle:5,1')
+    ->name('expert-visit-registration.store');
+Route::post('/expert-visit-registration/payment/verify', [ExpertVisitRegistrationController::class, 'verifyPayment'])
+    ->middleware('throttle:10,1')
+    ->name('expert-visit-registration.payment.verify');
+// Show contact form
+Route::get('/contact-us', [ContactUsController::class, 'create'])->name('contact-us');
+Route::post('/contact-us/submit', [ContactUsController::class, 'store'])
+    ->middleware('throttle:8,1')
+    ->name('contact-us.submit');
+// Route::view('/contact-us', 'pages/contact-us')->name('contact-us');
+Route::get('/contract-farming-medicinal-plants', [PageController::class, 'contract'])->name('contract');
+// Public submissions from the contract-farming enquiry tabs.
+Route::post('/contract-farming/enquiry/business', [BusinessAssociateController::class, 'store'])
+    ->middleware('throttle:8,1')
+    ->name('public.enquiry.business.store');
+Route::post('/contract-farming/enquiry/farmer', [FarmersController::class, 'publicStore'])
+    ->middleware('throttle:8,1')
+    ->name('public.enquiry.farmer.store');
+Route::post('/contract-farming/enquiry/fpo', [FPOController::class, 'publicStore'])
+    ->middleware('throttle:8,1')
+    ->name('public.enquiry.fpo.store');
+// Public submission of the general contract-farming enquiry form.
+Route::post('/contract-farming-enquiry', [EnquiryController::class, 'store'])
+    ->middleware('throttle:8,1')
+    ->name('contract_farming.enquiry.public.store');
+
+
+
+
+// Disable CSRF protection for this specific endpoint
+Route::post('/satyukt_notify', [WebhookController::class, 'handleWebhook'])
+    ->withoutMiddleware(['csrf']); // Completely removes session/CSRF
+
+
+Route::prefix('contract-farming')->middleware('auth:admin')->group(function () {
+
+    Route::get('/', [ContractFarmingController::class, 'index'])->name('contract_farming.index');
+    Route::get('/create', [ContractFarmingController::class, 'create'])->name('contract_farming.create');
+    Route::get('/reports', [ContractFarmingController::class, 'reports'])->name('contract_farming.reports');
+
+    // Crop resource routes
+    Route::resource('crops', CropController::class)
+        ->names([
+            'index'   => 'contract_farming.crops.index',
+            'create'  => 'contract_farming.crops.create',
+            'store'   => 'contract_farming.crops.store',
+            'show'    => 'contract_farming.crops.show',
+            'edit'    => 'contract_farming.crops.edit',
+            'update'  => 'contract_farming.crops.update',
+            'destroy' => 'contract_farming.crops.destroy',
+        ]);
+
+    // Enquiry, business associate, farmers, FPO
+    Route::resource('enquiries', EnquiryController::class)->names('contract_farming.enquiry');
+    Route::resource('business_associate', BusinessAssociateController::class)->names('contract_farming.business_associate');
+    Route::resource('farmers', FarmersController::class)->names('contract_farming.farmers');
+    Route::resource('fpo', FPOController::class)->names('contract_farming.fpo');
+
+});
+
+
+
+
+require __DIR__ . '/auth.php';
+
+
+/* DOCS */
+/*
+? When you use Route::resource, Laravel automatically creates multiple routes for the specified controller, mapping them to the appropriate controller methods.
+
+For example, the line:
+Route::resource('farmer', FarmerController::class);
+
+generates the following routes:
+
+* GET /farmer - index method (list all farmers)
+* GET /farmer/create - create method (show farm to create a new farmer)
+* POST /farmer - store method (store a new farmer)
+* GET /farmer/{id} - show method (show a specific farmer)
+* GET /farmer/{id}/edit - edit method (show farm to edit a specific farmer)
+* PUT/PATCH /farmer/{id} - update method (update a specific farmer)
+* DELETE /farmer/{id} - destroy method (delete a specific farmer)
+*/
+
+
+================================================================================
+STEP 6 OF 10
+FILE: resources/views/components/sidebar.blade.php
+ACTION: Replace the entire content of this file with the code below:
+================================================================================
+<aside
+    class="fixed left-0 top-0 z-[9999] flex h-screen w-72 flex-col overflow-y-hidden bg-gray-700 transition-all duration-300 ease-in-out lg:static"
+    :class="sidebarToggle ? 'translate-x-0 w-72' : '-translate-x-full w-0 lg:w-0'"> {{-- @click.outside="sidebarToggle = false" --}}
+    <!-- SIDEBAR HEADER -->
+    <div class="mb-4 flex items-center justify-between gap-2 px-4 py-4 sm:px-6 lg:px-8">
+        <a href="{{ route('dashboard') }}">
+            @if (!empty($setting->application_logo) && file_exists(public_path('storage/' . $setting->application_logo)))
+                <img class="w-20" src="{{ asset('storage/' . $setting->application_logo) }}" alt="KisanSAT Logo">
+            @else
+                <img class="w-20" src="{{ asset('images/kisansat-logo.png') }}" alt="KisanSAT Logo">
+            @endif
+        </a>
+
+        <button class="block px-2 py-1 shadow-sm lg:hidden" @click.stop="sidebarToggle = !sidebarToggle">
+            <i class="fa-solid fa-arrow-left text-2xl text-white"></i>
+        </button>
+    </div>
+    <!-- Menu -->
+    <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
+        <ul>
+            <x-sidebar-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" icon="fa-solid fa-tachometer-alt" text="Dashboard" />
+            <x-sidebar-link :href="route('admin.blogs.index')" :active="request()->routeIs('admin.blogs.*')" icon="fa-solid fa-newspaper" text="Blog Posts" />
+            <x-sidebar-link :href="route('admin.gallery.index')" :active="request()->routeIs('admin.gallery.*')" icon="fa-solid fa-images" text="Image Gallery" />
+            <x-sidebar-link :href="route('admin.careers.index')" :active="request()->routeIs('admin.careers.*')" icon="fa-solid fa-briefcase" text="Career Applications" />
+            <x-sidebar-link :href="route('admin.expert-visits.index')" :active="request()->routeIs('admin.expert-visits.*')" icon="fa-solid fa-calendar-check" text="Expert Visits" />
+            {{--
+            <x-sidebar-link :href="route('farmer.index')" :active="request()->routeIs('farmer.*')" icon="fa-solid fa-users" text="Farmers" />
+            <x-sidebar-link :href="route('subscription.index')" :active="request()->routeIs('subscription.index')" icon="fa-solid fa-money-check-alt"
+                text="Subscriptions" />
+
+            <x-sidebar-link :href="route('addfarm.index')" :active="request()->routeIs('addfarm.index')" icon="fa-solid fa-seedling" text="Farms" />
+            <x-sidebar-link :href="route('logs.index')" :active="request()->routeIs('logs.index')" icon="fa-solid fa-file-alt" text="API Logs" />
+            <x-sidebar-link :href="route('monitoring.index')" :active="request()->routeIs('monitoring.index')" icon="fa-solid fa-file-alt"
+                text="Farm Monitoring API Logs" />
+            <x-sidebar-link :href="route('contact-us.index')" :active="request()->routeIs('contact-us.index')" icon="fa-solid fa-address-book" text="ContactUs" />
+            --}}
+
+
+                <x-sidebar-submenu-link title="Contract Farming" icon="fa-solid fa-seedling">
+                   <x-sidebar-link :href="route('contract_farming.crops.index')" :active="request()->routeIs('contract_farming.crops.index')" icon="fa-solid fa-seedling" text="Crop details" />
+                   <x-sidebar-link :href="route('contract_farming.enquiry.index')" :active="request()->routeIs('contract_farming.enquiry.index')" icon="fa-solid fa-plus" text="Enquiry Form details" />
+               </x-sidebar-submenu-link>
+
+
+            {{-- <x-sidebar-link :href="route('servicemaster.index')" :active="request()->routeIs('servicemaster.index')" icon="fa-solid fa-file-alt" text="Service Master" />
+			<x-sidebar-link :href="route('packagemaster.index')" :active="request()->routeIs('packagemaster.index')" icon="fa-solid fa-file-alt" text="Package Master" /> --}}
+
+            <!-- Collapsible Submenu -->
+            <x-sidebar-submenu-link title="Settings" icon="fa-solid fa-cogs">
+                {{-- <x-sidebar-link :href="route('servicemaster.index')" :active="request()->routeIs('servicemaster.index')" icon="fa-solid fa-file-alt" text="Services" /> --}}
+                <x-sidebar-link :href="route('setting.index')" :active="request()->routeIs('setting.index')" icon="fa-solid fa-cog" text="General Setting" />
+            </x-sidebar-submenu-link>
+
+
+
+
+            {{-- <li class="whitespace-nowrap">
+				<button class="z-50 mt-5 w-full bg-gray-600 px-5 py-3 text-left text-white" id="sidebarToggle1">
+					<i class="fa fa-chevron-left me-5 text-xl transition-all duration-500"></i>
+					<span class="menu-text text-md">Collapse</span>
+				</button>
+			</li> --}}
+        </ul>
+    </div>
+</aside>
+
+
+================================================================================
+STEP 7 OF 10
+FILE: database/migrations/2026_10_06_000001_create_expert_visit_registrations_table.php
+ACTION: CREATE this new file and paste the code below inside it:
+(Note: delete the subfolder `database/migrations/expert_visits/` if it exists)
+================================================================================
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -374,27 +895,855 @@ return new class extends Migration
     }
 };
 
---------------------------------------------------------------------------------
-FILE 8: resources/views/dashboard/expert_visits/index.blade.php (NEW FILE)
---------------------------------------------------------------------------------
-ACTION: Create this view in `resources/views/dashboard/expert_visits/`.
-Displays the registrations table with status badges, filters, search, and pagination.
 
---------------------------------------------------------------------------------
-FILE 9: resources/views/dashboard/expert_visits/show.blade.php (NEW FILE)
---------------------------------------------------------------------------------
-ACTION: Create this view in `resources/views/dashboard/expert_visits/`.
-Displays full registration details, applicant information, residential address,
-visit date/station, fee, Razorpay IDs, and the table of all registered farms.
-
---------------------------------------------------------------------------------
-FILE 10: resources/views/pages/expert-visit-registration.blade.php
---------------------------------------------------------------------------------
-ACTION:
-1. In the submit button area:
-   Display `Proceed to Pay` when `$hasRazorpay` is true, or `Submit Registration`
-   when testing without Razorpay.
-2. In the JavaScript `form.addEventListener('submit', ...)`:
-   Handle `order.test_mode` by showing the success message with the reference UUID
-   and resetting the form.
 ================================================================================
+STEP 8 OF 10
+FILE: resources/views/dashboard/expert_visits/index.blade.php
+ACTION: CREATE this new file and paste the code below inside it:
+================================================================================
+<x-app-layout>
+    <x-header-title :title="__('Expert Visit Registrations')" />
+
+    <div class="mt-5 rounded-sm border border-stroke bg-white p-6 shadow-default">
+        {{-- Header description & count badges --}}
+        <div class="mb-6 flex flex-wrap items-center justify-between gap-4">
+            <div>
+                <h3 class="text-lg font-semibold text-gray-800">Pre-Sowing Expert Visit Registrations</h3>
+                <p class="text-sm text-gray-500">Track farmer registrations, visit requests, farm details, and payment status.</p>
+            </div>
+        </div>
+
+        {{-- Session Flash Alerts --}}
+        @if (session('success'))
+            <div class="alert alert-success mb-4 rounded-md p-3 text-sm">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-error mb-4 rounded-md p-3 text-sm">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if (!empty($dbError))
+            <div class="mb-4 rounded-md border border-amber-300 bg-amber-50 p-4 text-amber-900">
+                <div class="flex items-start gap-3">
+                    <i class="fa-solid fa-triangle-exclamation mt-0.5 text-amber-600"></i>
+                    <div>
+                        <p class="font-semibold">Notice</p>
+                        <p class="text-sm">{{ $dbError }}</p>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        {{-- Filter and Search Controls --}}
+        @if (empty($dbError))
+            <div class="mb-6 flex flex-col gap-4 border-b border-gray-200 pb-5 lg:flex-row lg:items-center lg:justify-between">
+                {{-- Status Pills --}}
+                <div class="flex flex-wrap items-center gap-2">
+                    <a href="{{ route('admin.expert-visits.index', array_merge(request()->except('status', 'page'), [])) }}"
+                       class="btn btn-sm {{ !request()->filled('status') ? 'btn-primary' : 'btn-outline' }}">
+                        All ({{ $statusCounts['all'] }})
+                    </a>
+                    <a href="{{ route('admin.expert-visits.index', array_merge(request()->except('page'), ['status' => 'paid'])) }}"
+                       class="btn btn-sm {{ request('status') === 'paid' ? 'btn-success text-white' : 'btn-outline' }}">
+                        Paid ({{ $statusCounts['paid'] }})
+                    </a>
+                    <a href="{{ route('admin.expert-visits.index', array_merge(request()->except('page'), ['status' => 'pending'])) }}"
+                       class="btn btn-sm {{ request('status') === 'pending' ? 'btn-warning text-white' : 'btn-outline' }}">
+                        Pending ({{ $statusCounts['pending'] }})
+                    </a>
+                    <a href="{{ route('admin.expert-visits.index', array_merge(request()->except('page'), ['status' => 'order_failed'])) }}"
+                       class="btn btn-sm {{ request('status') === 'order_failed' ? 'btn-error text-white' : 'btn-outline' }}">
+                        Failed ({{ $statusCounts['order_failed'] }})
+                    </a>
+                </div>
+
+                {{-- Search Form --}}
+                <form method="GET" action="{{ route('admin.expert-visits.index') }}" class="flex items-center gap-2">
+                    @if (request()->filled('status'))
+                        <input type="hidden" name="status" value="{{ request('status') }}">
+                    @endif
+                    <div class="relative">
+                        <input type="text"
+                               name="search"
+                               value="{{ request('search') }}"
+                               placeholder="Search applicant, phone, reference..."
+                               class="input input-bordered input-sm w-64 pr-8">
+                        @if (request()->filled('search'))
+                            <a href="{{ route('admin.expert-visits.index', request()->except('search', 'page')) }}"
+                               class="absolute right-2 top-2 text-xs text-gray-400 hover:text-gray-600">
+                                <i class="fa-solid fa-times"></i>
+                            </a>
+                        @endif
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-outline">
+                        <i class="fa-solid fa-search"></i>
+                    </button>
+                </form>
+            </div>
+        @endif
+
+        {{-- Table --}}
+        @if ($registrations && $registrations->isNotEmpty())
+            <div class="overflow-x-auto">
+                <table class="table w-full text-left text-sm">
+                    <thead>
+                        <tr class="border-b text-gray-600">
+                            <th class="p-3">Applicant</th>
+                            <th class="p-3">Contact</th>
+                            <th class="p-3">Residential Location</th>
+                            <th class="p-3">Farms</th>
+                            <th class="p-3">Preferred Visit</th>
+                            <th class="p-3">Fee</th>
+                            <th class="p-3">Payment</th>
+                            <th class="p-3">Submitted</th>
+                            <th class="p-3 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y">
+                        @foreach ($registrations as $reg)
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3 font-semibold text-gray-900">
+                                    {{ $reg->name }} {{ $reg->surname }}
+                                    <span class="block text-xs font-normal text-gray-500">S/O: {{ $reg->father_name }}</span>
+                                    <span class="block font-mono text-[11px] text-gray-400" title="Reference UUID">{{ Str::limit($reg->reference, 13) }}</span>
+                                </td>
+                                <td class="p-3">
+                                    <a href="tel:{{ $reg->mobile }}" class="font-medium text-emerald-700 hover:underline">
+                                        {{ $reg->mobile }}
+                                    </a>
+                                </td>
+                                <td class="p-3 text-gray-700">
+                                    {{ $reg->residential_village }}, {{ $reg->residential_district }}
+                                    <span class="block text-xs text-gray-500">{{ $reg->residential_state }} - {{ $reg->residential_pincode }}</span>
+                                </td>
+                                <td class="p-3">
+                                    <span class="badge badge-neutral text-xs">
+                                        {{ $reg->farms->count() }} {{ Str::plural('Farm', $reg->farms->count()) }}
+                                    </span>
+                                    <span class="block text-xs text-gray-500">
+                                        Total: {{ number_format($reg->farms->sum('area_acres'), 1) }} acres
+                                    </span>
+                                </td>
+                                <td class="p-3">
+                                    <span class="font-medium text-gray-800">{{ $reg->preferred_visit_date?->format('d M Y') ?? '—' }}</span>
+                                    <span class="block text-xs text-gray-500">{{ $reg->visit_days }} {{ Str::plural('day', $reg->visit_days) }}</span>
+                                </td>
+                                <td class="p-3 font-semibold text-gray-900">
+                                    ₹{{ number_format($reg->total_fee) }}
+                                    <span class="block text-xs font-normal text-gray-500">₹{{ number_format($reg->fee_per_day) }}/day</span>
+                                </td>
+                                <td class="p-3">
+                                    @if ($reg->payment_status === 'paid')
+                                        <span class="badge badge-success text-xs text-white">Paid</span>
+                                    @elseif ($reg->payment_status === 'order_failed')
+                                        <span class="badge badge-error text-xs text-white">Order Failed</span>
+                                    @else
+                                        <span class="badge badge-warning text-xs text-white">Pending</span>
+                                    @endif
+                                </td>
+                                <td class="p-3 text-xs text-gray-500">
+                                    {{ $reg->created_at?->format('d M Y, h:i A') ?? '—' }}
+                                </td>
+                                <td class="p-3 text-right">
+                                    <div class="flex items-center justify-end gap-2">
+                                        <a href="{{ route('admin.expert-visits.show', $reg->id) }}"
+                                           class="btn btn-xs btn-outline btn-info">
+                                            <i class="fa-solid fa-eye"></i> View
+                                        </a>
+                                        <form method="POST"
+                                              action="{{ route('admin.expert-visits.destroy', $reg->id) }}"
+                                              onsubmit="return confirm('Are you sure you want to delete this registration?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-xs btn-outline btn-error" title="Delete">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-5">
+                {{ $registrations->links() }}
+            </div>
+        @elseif (empty($dbError))
+            <div class="py-12 text-center text-gray-500">
+                <i class="fa-solid fa-clipboard-question mb-3 text-4xl text-gray-300"></i>
+                <p class="text-base font-medium">No expert visit registrations found.</p>
+                <p class="text-xs text-gray-400">Submissions made from the public form will appear here.</p>
+            </div>
+        @endif
+    </div>
+</x-app-layout>
+
+
+================================================================================
+STEP 9 OF 10
+FILE: resources/views/dashboard/expert_visits/show.blade.php
+ACTION: CREATE this new file and paste the code below inside it:
+================================================================================
+<x-app-layout>
+    <x-header-title :title="__('Expert Visit Registration Details')" />
+
+    <div class="mt-5 space-y-6">
+        {{-- Top action bar --}}
+        <div class="flex flex-wrap items-center justify-between gap-4">
+            <a href="{{ route('admin.expert-visits.index') }}" class="btn btn-sm btn-outline">
+                <i class="fa-solid fa-arrow-left"></i> Back to Registrations
+            </a>
+
+            <div class="flex items-center gap-3">
+                <form method="POST"
+                      action="{{ route('admin.expert-visits.destroy', $registration->id) }}"
+                      onsubmit="return confirm('Are you sure you want to permanently delete this registration?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-outline btn-error">
+                        <i class="fa-solid fa-trash"></i> Delete Registration
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        {{-- Overview Cards --}}
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-4">
+            <div class="rounded-sm border border-stroke bg-white p-5 shadow-default">
+                <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Payment Status</span>
+                <div class="mt-2 flex items-center gap-2">
+                    @if ($registration->payment_status === 'paid')
+                        <span class="badge badge-success text-sm text-white">Paid</span>
+                    @elseif ($registration->payment_status === 'order_failed')
+                        <span class="badge badge-error text-sm text-white">Order Failed</span>
+                    @else
+                        <span class="badge badge-warning text-sm text-white">Pending</span>
+                    @endif
+                </div>
+                <span class="mt-1 block text-xs text-gray-400">Reference: {{ Str::limit($registration->reference, 18) }}</span>
+            </div>
+
+            <div class="rounded-sm border border-stroke bg-white p-5 shadow-default">
+                <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Total Fee</span>
+                <p class="mt-2 text-2xl font-bold text-gray-900">₹{{ number_format($registration->total_fee) }}</p>
+                <span class="text-xs text-gray-500">Rate: ₹{{ number_format($registration->fee_per_day) }}/day ({{ $registration->visit_days }} {{ Str::plural('day', $registration->visit_days) }})</span>
+            </div>
+
+            <div class="rounded-sm border border-stroke bg-white p-5 shadow-default">
+                <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Preferred Visit Date</span>
+                <p class="mt-2 text-lg font-bold text-gray-900">{{ $registration->preferred_visit_date?->format('d M Y') ?? '—' }}</p>
+                <span class="text-xs text-gray-500">Nearest Station: {{ $registration->nearest_railway_station }}</span>
+            </div>
+
+            <div class="rounded-sm border border-stroke bg-white p-5 shadow-default">
+                <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Registered Farms</span>
+                <p class="mt-2 text-2xl font-bold text-gray-900">{{ $registration->farms->count() }}</p>
+                <span class="text-xs text-gray-500">Total Land: {{ number_format($registration->farms->sum('area_acres'), 2) }} acres</span>
+            </div>
+        </div>
+
+        {{-- Details Grid --}}
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            {{-- Applicant Details --}}
+            <div class="rounded-sm border border-stroke bg-white p-6 shadow-default">
+                <h4 class="mb-4 text-base font-semibold text-gray-800 border-b border-gray-100 pb-2">
+                    <i class="fa-solid fa-user me-2 text-emerald-600"></i> Personal & Contact Information
+                </h4>
+                <dl class="space-y-3 text-sm">
+                    <div class="flex justify-between border-b border-gray-50 py-1">
+                        <dt class="text-gray-500">Applicant Full Name:</dt>
+                        <dd class="font-medium text-gray-900">{{ $registration->name }} {{ $registration->surname }}</dd>
+                    </div>
+                    <div class="flex justify-between border-b border-gray-50 py-1">
+                        <dt class="text-gray-500">Father's Name:</dt>
+                        <dd class="font-medium text-gray-900">{{ $registration->father_name }}</dd>
+                    </div>
+                    <div class="flex justify-between border-b border-gray-50 py-1">
+                        <dt class="text-gray-500">Mobile Number:</dt>
+                        <dd class="font-medium">
+                            <a href="tel:{{ $registration->mobile }}" class="text-emerald-700 hover:underline">
+                                {{ $registration->mobile }}
+                            </a>
+                        </dd>
+                    </div>
+                    <div class="flex justify-between border-b border-gray-50 py-1">
+                        <dt class="text-gray-500">Terms Accepted:</dt>
+                        <dd class="text-gray-700">{{ $registration->terms_accepted_at?->format('d M Y, h:i A') ?? 'Yes' }}</dd>
+                    </div>
+                    <div class="flex justify-between py-1">
+                        <dt class="text-gray-500">Submission Date:</dt>
+                        <dd class="text-gray-700">{{ $registration->created_at?->format('d M Y, h:i A') ?? '—' }}</dd>
+                    </div>
+                </dl>
+            </div>
+
+            {{-- Residential Address --}}
+            <div class="rounded-sm border border-stroke bg-white p-6 shadow-default">
+                <h4 class="mb-4 text-base font-semibold text-gray-800 border-b border-gray-100 pb-2">
+                    <i class="fa-solid fa-house me-2 text-emerald-600"></i> Residential Address
+                </h4>
+                <dl class="space-y-3 text-sm">
+                    <div class="flex justify-between border-b border-gray-50 py-1">
+                        <dt class="text-gray-500">Village:</dt>
+                        <dd class="font-medium text-gray-900">{{ $registration->residential_village }}</dd>
+                    </div>
+                    <div class="flex justify-between border-b border-gray-50 py-1">
+                        <dt class="text-gray-500">Taluka:</dt>
+                        <dd class="font-medium text-gray-900">{{ $registration->residential_taluka }}</dd>
+                    </div>
+                    <div class="flex justify-between border-b border-gray-50 py-1">
+                        <dt class="text-gray-500">District:</dt>
+                        <dd class="font-medium text-gray-900">{{ $registration->residential_district }}</dd>
+                    </div>
+                    <div class="flex justify-between border-b border-gray-50 py-1">
+                        <dt class="text-gray-500">State:</dt>
+                        <dd class="font-medium text-gray-900">{{ $registration->residential_state }}</dd>
+                    </div>
+                    <div class="flex justify-between py-1">
+                        <dt class="text-gray-500">Pincode:</dt>
+                        <dd class="font-medium text-gray-900">{{ $registration->residential_pincode }}</dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+
+        {{-- Payment & Transaction Details --}}
+        <div class="rounded-sm border border-stroke bg-white p-6 shadow-default">
+            <h4 class="mb-4 text-base font-semibold text-gray-800 border-b border-gray-100 pb-2">
+                <i class="fa-solid fa-credit-card me-2 text-emerald-600"></i> Payment & Razorpay Identifiers
+            </h4>
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-3 text-sm">
+                <div class="rounded border border-gray-100 bg-gray-50 p-3">
+                    <span class="block text-xs text-gray-500">Registration UUID Reference</span>
+                    <span class="block font-mono text-xs font-semibold text-gray-800 break-all select-all">{{ $registration->reference }}</span>
+                </div>
+                <div class="rounded border border-gray-100 bg-gray-50 p-3">
+                    <span class="block text-xs text-gray-500">Razorpay Order ID</span>
+                    <span class="block font-mono text-xs font-semibold text-gray-800 break-all select-all">{{ $registration->razorpay_order_id ?? 'None' }}</span>
+                </div>
+                <div class="rounded border border-gray-100 bg-gray-50 p-3">
+                    <span class="block text-xs text-gray-500">Razorpay Payment ID</span>
+                    <span class="block font-mono text-xs font-semibold text-gray-800 break-all select-all">{{ $registration->razorpay_payment_id ?? 'Pending capture' }}</span>
+                </div>
+            </div>
+        </div>
+
+        {{-- Registered Farms --}}
+        <div class="rounded-sm border border-stroke bg-white p-6 shadow-default">
+            <div class="mb-4 flex items-center justify-between border-b border-gray-100 pb-2">
+                <h4 class="text-base font-semibold text-gray-800">
+                    <i class="fa-solid fa-seedling me-2 text-emerald-600"></i> Registered Farm / Land Addresses ({{ $registration->farms->count() }})
+                </h4>
+                <span class="text-sm font-semibold text-emerald-700">
+                    Total: {{ number_format($registration->farms->sum('area_acres'), 2) }} Acres
+                </span>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="table w-full text-left text-sm">
+                    <thead>
+                        <tr class="border-b text-gray-600">
+                            <th class="p-3">#</th>
+                            <th class="p-3">Village</th>
+                            <th class="p-3">Taluka</th>
+                            <th class="p-3">District</th>
+                            <th class="p-3">State</th>
+                            <th class="p-3">Pincode</th>
+                            <th class="p-3">Farm Contact Mobile</th>
+                            <th class="p-3 text-right">Area (Acres)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y">
+                        @forelse ($registration->farms as $index => $farm)
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3 font-semibold text-gray-500">{{ $index + 1 }}</td>
+                                <td class="p-3 font-semibold text-gray-800">{{ $farm->village }}</td>
+                                <td class="p-3">{{ $farm->taluka }}</td>
+                                <td class="p-3">{{ $farm->district }}</td>
+                                <td class="p-3">
+                                    <span class="badge badge-ghost text-xs">{{ $farm->state }}</span>
+                                </td>
+                                <td class="p-3">{{ $farm->pincode }}</td>
+                                <td class="p-3">
+                                    <a href="tel:{{ $farm->mobile }}" class="text-emerald-700 hover:underline">
+                                        {{ $farm->mobile }}
+                                    </a>
+                                </td>
+                                <td class="p-3 text-right font-semibold text-gray-900">
+                                    {{ number_format($farm->area_acres, 2) }}
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="8" class="p-6 text-center text-gray-400">No farm addresses recorded.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</x-app-layout>
+
+
+================================================================================
+STEP 10 OF 10
+FILE: resources/views/pages/expert-visit-registration.blade.php
+ACTION: Replace the entire content of this file with the code below:
+================================================================================
+<x-guest-layout brand="click-n-grow">
+    <section class="expert-visit-hero" aria-labelledby="expert-visit-title">
+        <img class="expert-visit-hero__image" src="{{ asset('images/home_banner.png') }}"
+            alt="Farmer standing in a flourishing crop field" fetchpriority="high">
+        <div class="expert-visit-hero__wash" aria-hidden="true"></div>
+        <div class="expert-visit-hero__content">
+            <p class="expert-visit-hero__eyebrow">Expert Visit Registration</p>
+            <h1 class="expert-visit-hero__title" id="expert-visit-title">One Step Closer to<br>Better Crop Choices</h1>
+            <p class="expert-visit-hero__description">
+                Register for an expert farm visit to get soil assessment, resources evaluation and personalized crop
+                recommendations for a successful herbal farming journey.
+            </p>
+        </div>
+    </section>
+
+    <div class="expert-registration">
+        <div class="expert-registration__layout">
+            <form class="expert-registration__form" id="expert-visit-form"
+                action="{{ route('expert-visit-registration.store') }}" method="POST">
+                @csrf
+                <header class="expert-registration__form-header">
+                    <h2>Expert Visit Registration (Pre-Sowing)</h2>
+                    <p>One-time farm assessment for soil, resources and crop selection</p>
+                </header>
+
+                <section class="expert-registration__section" aria-labelledby="expert-person-title">
+                    <h3 id="expert-person-title"><span>1.</span> Personal Information</h3>
+                    <div class="expert-registration__fields expert-registration__fields--three">
+                        <label class="expert-registration__field">Name *
+                            <input name="name" autocomplete="given-name" maxlength="100" required>
+                        </label>
+                        <label class="expert-registration__field">Father's Name *
+                            <input name="father_name" maxlength="100" required>
+                        </label>
+                        <label class="expert-registration__field">Surname *
+                            <input name="surname" autocomplete="family-name" maxlength="100" required>
+                        </label>
+                        <label class="expert-registration__field">Mobile Number *
+                            <input name="mobile" type="tel" inputmode="numeric" autocomplete="tel-national"
+                                pattern="[6-9][0-9]{9}" maxlength="10" required>
+                        </label>
+                    </div>
+                </section>
+
+                <section class="expert-registration__section" aria-labelledby="expert-residence-title">
+                    <h3 id="expert-residence-title"><span>2.</span> Residential Address</h3>
+                    <div class="expert-registration__fields expert-registration__fields--three">
+                        <label class="expert-registration__field">Village *
+                            <input name="residential[village]" maxlength="120" required>
+                        </label>
+                        <label class="expert-registration__field">Taluka *
+                            <input name="residential[taluka]" maxlength="120" required>
+                        </label>
+                        <label class="expert-registration__field">District *
+                            <input name="residential[district]" maxlength="120" required>
+                        </label>
+                        <label class="expert-registration__field">State *
+                            <select name="residential[state]" required>
+                                <option value="">Select state</option>
+                                @foreach ($states as $state)
+                                    <option value="{{ $state }}">{{ $state }}</option>
+                                @endforeach
+                            </select>
+                        </label>
+                        <label class="expert-registration__field">Pincode *
+                            <input name="residential[pincode]" inputmode="numeric" pattern="[0-9]{6}"
+                                maxlength="6" required>
+                        </label>
+                    </div>
+                </section>
+
+                <section class="expert-registration__section" aria-labelledby="expert-farm-title">
+                    <div class="expert-registration__section-heading">
+                        <h3 id="expert-farm-title"><span>3.</span> Land Address(es)</h3>
+                        <button class="expert-registration__add-farm" id="add-farm-address" type="button">
+                            <i class="fas fa-plus" aria-hidden="true"></i> Add address
+                        </button>
+                    </div>
+                    <div class="expert-registration__farm-list" id="farm-address-list">
+                        <fieldset class="expert-registration__farm" data-farm-index="0">
+                            <legend>Land Address 1</legend>
+                            <button class="expert-registration__remove-farm" type="button" aria-label="Remove land address" disabled>
+                                <i class="fas fa-times" aria-hidden="true"></i>
+                            </button>
+                            <div class="expert-registration__fields expert-registration__fields--three">
+                                <label class="expert-registration__field">Village *
+                                    <input name="farms[0][village]" maxlength="120" required>
+                                </label>
+                                <label class="expert-registration__field">Taluka *
+                                    <input name="farms[0][taluka]" maxlength="120" required>
+                                </label>
+                                <label class="expert-registration__field">District *
+                                    <input name="farms[0][district]" maxlength="120" required>
+                                </label>
+                                <label class="expert-registration__field">State *
+                                    <select name="farms[0][state]" class="farm-state" required>
+                                        <option value="">Select state</option>
+                                        @foreach ($states as $state)
+                                            <option value="{{ $state }}">{{ $state }}</option>
+                                        @endforeach
+                                    </select>
+                                </label>
+                                <label class="expert-registration__field">Pincode *
+                                    <input name="farms[0][pincode]" inputmode="numeric" pattern="[0-9]{6}"
+                                        maxlength="6" required>
+                                </label>
+                                <label class="expert-registration__field">Mobile Number *
+                                    <input name="farms[0][mobile]" type="tel" inputmode="numeric"
+                                        pattern="[6-9][0-9]{9}" maxlength="10" required>
+                                </label>
+                                <label class="expert-registration__field">Land Area (acres) *
+                                    <input name="farms[0][area_acres]" class="farm-area" type="number"
+                                        min="0.01" max="100000" step="0.01" inputmode="decimal" required>
+                                </label>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <p class="expert-registration__total-area">Total land area: <strong id="total-land-area">0 acres</strong></p>
+                </section>
+
+                <section class="expert-registration__section" aria-labelledby="expert-visit-details-title">
+                    <h3 id="expert-visit-details-title"><span>4.</span> Other Details</h3>
+                    <div class="expert-registration__fields expert-registration__fields--two">
+                        <label class="expert-registration__field">Nearest Railway Station *
+                            <input name="nearest_railway_station" maxlength="150" required>
+                        </label>
+                        <label class="expert-registration__field">Preferred Visit Date *
+                            <input name="preferred_visit_date" type="date" min="{{ now()->toDateString() }}" required>
+                        </label>
+                        <input name="visit_days" type="hidden" value="1">
+                    </div>
+                </section>
+
+                <section class="expert-registration__section expert-registration__payment" aria-labelledby="expert-payment-title">
+                    <h3 id="expert-payment-title"><span>5.</span> Payment</h3>
+                    <label class="expert-registration__consent">
+                        <input type="checkbox" name="policy_accepted" value="1" required>
+                        <span>I have read and agree to the registration, visit, travel and cancellation policies.</span>
+                    </label>
+                    <div class="expert-registration__payment-row">
+                        <div>
+                            <span class="expert-registration__field-label">Registration Fee</span>
+                            <strong class="expert-registration__fee" id="registration-fee" aria-live="polite">Select farm state</strong>
+                            <small id="registration-fee-note">The fee is based on the highest-rate farm state for one visit day.</small>
+                        </div>
+                        <button class="expert-registration__pay-button" id="pay-registration" type="submit">
+                            {{ !empty($hasRazorpay) ? 'Proceed to Pay' : 'Submit Registration' }} <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    @unless (!empty($hasRazorpay))
+                        <p class="expert-registration__setup-note" style="color: #0d9488;">
+                            <i class="fas fa-info-circle"></i> Test mode: Submissions are saved directly to the database without online payment.
+                        </p>
+                    @endunless
+                    <p class="expert-registration__secure"><i class="fas fa-lock" aria-hidden="true"></i> Secure online payment</p>
+                    <div class="expert-registration__message" id="registration-message" role="status" aria-live="polite"></div>
+                    <p class="expert-registration__receipt">
+                        <i class="fas fa-circle-check" aria-hidden="true"></i>
+                        After payment is verified, your registration reference will appear here.
+                    </p>
+                </section>
+            </form>
+
+            <aside class="expert-registration__sidebar">
+                <section class="expert-registration__side-card" aria-labelledby="expert-fee-title">
+                    <h2 id="expert-fee-title"><i class="fas fa-indian-rupee-sign" aria-hidden="true"></i> Expert Visit Registration Fee Structure</h2>
+                    <div class="expert-registration__fee-table-wrap">
+                        <table class="expert-registration__fee-table">
+                            <thead>
+                                <tr><th>Location of Farm</th><th>Registration Fee / Day</th></tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($feeGroups as $group)
+                                    <tr>
+                                        <td>
+                                            <strong>{{ $group['label'] }}</strong>
+                                            <small>{{ implode(', ', $group['states']) }}</small>
+                                        </td>
+                                        <td>₹{{ number_format($group['rate']) }}<small>per day</small></td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="expert-registration__fee-rule">For multiple farm locations, the highest applicable state rate is used for each visit day.</p>
+                </section>
+
+                <section class="expert-registration__side-card expert-registration__notes" aria-labelledby="expert-notes-title">
+                    <h2 id="expert-notes-title"><i class="fas fa-clipboard-list" aria-hidden="true"></i> Important Information</h2>
+                    <ol>
+                        <li><strong>Registration Policy</strong><span>Registration fees are non-refundable and cannot be cancelled once paid.</span></li>
+                        <li><strong>Purpose</strong><span>This one-time pre-sowing visit assesses soil and resources to recommend suitable crops and a cultivation approach.</span></li>
+                        <li><strong>Visit Charges</strong><span>Charges are calculated per day of the expert visit and based on the farm's state.</span></li>
+                        <li><strong>Travel &amp; Pickup</strong><span>The grower arranges pickup and drop-off for the expert from the nearest railway station or airport, as mutually agreed.</span></li>
+                        <li><strong>Registration Fee</strong><span>The fee covers expert fees, travel tickets, food, accommodation and other applicable visit-related expenses.</span></li>
+                        <li><strong>Soil Analysis</strong><span>Soil assessment and analysis are performed through the KisanSAT application.</span></li>
+                        <li><strong>Visit Scheduling</strong><span>Visits may be rescheduled due to operational, weather or other unavoidable reasons. Our team will confirm the final date with you.</span></li>
+                        <li><strong>Advance Confirmation</strong><span>Your visit is confirmed after registration and payment confirmation.</span></li>
+                        <li><strong>Additional Visits</strong><span>Any visit beyond the agreed scope is charged separately at actual expenses.</span></li>
+                        <li><strong>Coordination</strong><span>Please provide necessary field information and ensure access to the farm on the scheduled date.</span></li>
+                    </ol>
+                </section>
+            </aside>
+        </div>
+    </div>
+
+    <template id="farm-address-template">
+        <fieldset class="expert-registration__farm" data-farm-index="__INDEX__">
+            <legend>Land Address __NUMBER__</legend>
+            <button class="expert-registration__remove-farm" type="button" aria-label="Remove land address">
+                <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+            <div class="expert-registration__fields expert-registration__fields--three">
+                <label class="expert-registration__field">Village *
+                    <input name="farms[__INDEX__][village]" maxlength="120" required>
+                </label>
+                <label class="expert-registration__field">Taluka *
+                    <input name="farms[__INDEX__][taluka]" maxlength="120" required>
+                </label>
+                <label class="expert-registration__field">District *
+                    <input name="farms[__INDEX__][district]" maxlength="120" required>
+                </label>
+                <label class="expert-registration__field">State *
+                    <select name="farms[__INDEX__][state]" class="farm-state" required>
+                        <option value="">Select state</option>
+                        @foreach ($states as $state)
+                            <option value="{{ $state }}">{{ $state }}</option>
+                        @endforeach
+                    </select>
+                </label>
+                <label class="expert-registration__field">Pincode *
+                    <input name="farms[__INDEX__][pincode]" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required>
+                </label>
+                <label class="expert-registration__field">Mobile Number *
+                    <input name="farms[__INDEX__][mobile]" type="tel" inputmode="numeric"
+                        pattern="[6-9][0-9]{9}" maxlength="10" required>
+                </label>
+                <label class="expert-registration__field">Land Area (acres) *
+                    <input name="farms[__INDEX__][area_acres]" class="farm-area" type="number"
+                        min="0.01" max="100000" step="0.01" inputmode="decimal" required>
+                </label>
+            </div>
+        </fieldset>
+    </template>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        (() => {
+            const form = document.getElementById('expert-visit-form');
+            const farmList = document.getElementById('farm-address-list');
+            const farmTemplate = document.getElementById('farm-address-template');
+            const addFarmButton = document.getElementById('add-farm-address');
+            const feeOutput = document.getElementById('registration-fee');
+            const feeNote = document.getElementById('registration-fee-note');
+            const totalAreaOutput = document.getElementById('total-land-area');
+            const submitButton = document.getElementById('pay-registration');
+            const message = document.getElementById('registration-message');
+            const stateRates = @json($stateRates);
+            let nextFarmIndex = 1;
+
+            const money = amount => new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR',
+                maximumFractionDigits: 0
+            }).format(amount);
+
+            const updateFee = () => {
+                const rates = [...farmList.querySelectorAll('.farm-state')]
+                    .map(select => stateRates[select.value] || 0)
+                    .filter(rate => rate > 0);
+                const days = 1;
+                const perDay = rates.length ? Math.max(...rates) : 0;
+
+                feeOutput.textContent = perDay ? money(perDay * days) : 'Select farm state';
+                feeNote.textContent = perDay
+                    ? `${money(perDay)} for one visit day`
+                    : 'The fee is based on the highest-rate farm state for one visit day.';
+            };
+
+            const updateTotalArea = () => {
+                const total = [...farmList.querySelectorAll('.farm-area')]
+                    .reduce((sum, input) => sum + (Number(input.value) || 0), 0);
+                totalAreaOutput.textContent = `${total.toLocaleString('en-IN', {
+                    maximumFractionDigits: 2
+                })} ${total === 1 ? 'acre' : 'acres'}`;
+            };
+
+            addFarmButton.addEventListener('click', () => {
+                if (farmList.children.length >= 5) {
+                    message.textContent = 'You can add up to five farm addresses per registration.';
+                    return;
+                }
+
+                const markup = farmTemplate.innerHTML
+                    .replaceAll('__INDEX__', String(nextFarmIndex))
+                    .replaceAll('__NUMBER__', String(farmList.children.length + 1));
+                farmList.insertAdjacentHTML('beforeend', markup);
+                nextFarmIndex += 1;
+                message.textContent = '';
+            });
+
+            farmList.addEventListener('click', event => {
+                const removeButton = event.target.closest('.expert-registration__remove-farm');
+                if (!removeButton || farmList.children.length <= 1) return;
+                removeButton.closest('.expert-registration__farm').remove();
+                [...farmList.children].forEach((farm, index) => {
+                    farm.querySelector('legend').textContent = `Land Address ${index + 1}`;
+                });
+                updateFee();
+                updateTotalArea();
+            });
+
+            farmList.addEventListener('change', event => {
+                if (event.target.matches('.farm-state')) updateFee();
+            });
+            farmList.addEventListener('input', event => {
+                if (event.target.matches('.farm-area')) updateTotalArea();
+            });
+            form.addEventListener('submit', async event => {
+                event.preventDefault();
+                if (!form.reportValidity()) return;
+
+                submitButton.disabled = true;
+                submitButton.dataset.label = submitButton.innerHTML;
+                submitButton.textContent = 'Submitting registration…';
+                message.className = 'expert-registration__message';
+                message.textContent = '';
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': form.querySelector('[name="_token"]').value
+                        },
+                        body: new FormData(form)
+                    });
+                    const order = await response.json();
+                    if (!response.ok) {
+                        const validationErrors = Object.values(order.errors || {}).flat();
+                        throw new Error(validationErrors[0] || order.message || 'Unable to submit registration.');
+                    }
+
+                    if (order.test_mode) {
+                        message.className = 'expert-registration__message is-success';
+                        message.textContent = `${order.message} Reference: ${order.reference}`;
+                        form.reset();
+                        farmList.innerHTML = farmTemplate.innerHTML
+                            .replaceAll('__INDEX__', '0')
+                            .replaceAll('__NUMBER__', '1');
+                        farmList.querySelector('.expert-registration__remove-farm').disabled = true;
+                        nextFarmIndex = 1;
+                        updateFee();
+                        updateTotalArea();
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = submitButton.dataset.label;
+                        return;
+                    }
+
+                    if (!window.Razorpay) throw new Error('Secure checkout could not be loaded. Please refresh and try again.');
+
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = submitButton.dataset.label;
+                    const checkout = new Razorpay({
+                        key: order.key,
+                        amount: order.amount,
+                        currency: order.currency,
+                        name: 'Click-N-Grow Agroventures',
+                        description: 'Expert farm visit registration',
+                        order_id: order.order_id,
+                        prefill: {
+                            name: order.name,
+                            contact: order.mobile
+                        },
+                        notes: {
+                            registration_reference: order.reference
+                        },
+                        theme: {
+                            color: '#08733d'
+                        },
+                        handler: async payment => {
+                            submitButton.disabled = true;
+                            submitButton.textContent = 'Verifying payment…';
+                            try {
+                                const verification = await fetch(@json(route('expert-visit-registration.payment.verify')), {
+                                    method: 'POST',
+                                    headers: {
+                                        'Accept': 'application/json',
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': form.querySelector('[name="_token"]').value
+                                    },
+                                    body: JSON.stringify({
+                                        reference: order.reference,
+                                        razorpay_order_id: payment.razorpay_order_id,
+                                        razorpay_payment_id: payment.razorpay_payment_id,
+                                        razorpay_signature: payment.razorpay_signature
+                                    })
+                                });
+                                const result = await verification.json();
+                                if (!verification.ok) throw new Error(result.message || 'Payment verification failed.');
+
+                                message.className = 'expert-registration__message is-success';
+                                message.textContent = `${result.message} Reference: ${result.reference}`;
+                                form.reset();
+                                farmList.innerHTML = farmTemplate.innerHTML
+                                    .replaceAll('__INDEX__', '0')
+                                    .replaceAll('__NUMBER__', '1');
+                                farmList.querySelector('.expert-registration__remove-farm').disabled = true;
+                                nextFarmIndex = 1;
+                                updateFee();
+                                updateTotalArea();
+                            } catch (error) {
+                                message.className = 'expert-registration__message is-error';
+                                message.textContent = error.message;
+                            } finally {
+                                submitButton.disabled = false;
+                                submitButton.innerHTML = submitButton.dataset.label;
+                            }
+                        },
+                        modal: {
+                            ondismiss: () => {
+                                submitButton.disabled = false;
+                                submitButton.innerHTML = submitButton.dataset.label;
+                            }
+                        }
+                    });
+                    checkout.on('payment.failed', failure => {
+                        message.className = 'expert-registration__message is-error';
+                        message.textContent = failure.error.description || 'Payment failed. Your registration is saved as pending.';
+                    });
+                    checkout.open();
+                } catch (error) {
+                    message.className = 'expert-registration__message is-error';
+                    message.textContent = error.message;
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = submitButton.dataset.label;
+                }
+            });
+
+            updateFee();
+            updateTotalArea();
+        })();
+    </script>
+</x-guest-layout>
+
+
+================================================================================
+FINAL STEP: TERMINAL COMMAND TO RUN ON THE SERVER
+================================================================================
+php artisan migrate
