@@ -25,17 +25,12 @@ class ExpertVisitRegistrationController extends Controller
             'stateRates' => ExpertVisitPricing::stateRates(),
             'feeGroups' => ExpertVisitPricing::feeGroups(),
             'checkoutReady' => $this->checkoutIsConfigured(),
+            'hasRazorpay' => $this->hasRazorpay(),
         ]);
     }
 
     public function store(Request $request): JsonResponse
     {
-        if (!$this->checkoutIsConfigured()) {
-            return response()->json([
-                'message' => 'Registration checkout is not configured yet. Please try again later.',
-            ], 503);
-        }
-
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:100'],
             'father_name' => ['required', 'string', 'max:100'],
@@ -72,7 +67,7 @@ class ExpertVisitRegistrationController extends Controller
         $reference = (string) Str::uuid();
 
         try {
-            $registration = DB::connection('expert_visits')->transaction(function () use (
+            $registration = DB::transaction(function () use (
                 $validated,
                 $feePerDay,
                 $totalFee,
@@ -102,75 +97,85 @@ class ExpertVisitRegistrationController extends Controller
 
                 return $registration;
             });
-        } catch (\PDOException $exception) {
+        } catch (\Throwable $exception) {
             Log::error('Expert visit registration could not be saved.', [
                 'error' => $exception->getMessage(),
             ]);
 
             return response()->json([
                 'message' => 'We could not save your registration. Please try again later.',
-            ], 503);
+            ], 500);
         }
 
-        $receipt = 'evr_' . Str::lower(Str::random(20));
+        // Live Mode: If Razorpay keys are configured, create online order
+        if ($this->hasRazorpay()) {
+            $receipt = 'evr_' . Str::lower(Str::random(20));
 
-        try {
-            $order = (new Api(
-                config('services.razorpay.key_id'),
-                config('services.razorpay.key_secret')
-            ))->order->create([
-                'receipt' => $receipt,
-                'amount' => $totalFee * 100,
-                'currency' => 'INR',
-                'notes' => [
+            try {
+                $order = (new Api(
+                    config('services.razorpay.key_id'),
+                    config('services.razorpay.key_secret')
+                ))->order->create([
+                    'receipt' => $receipt,
+                    'amount' => $totalFee * 100,
+                    'currency' => 'INR',
+                    'notes' => [
+                        'registration_reference' => $reference,
+                        'purpose' => 'Expert farm visit registration',
+                    ],
+                ]);
+            } catch (RazorpayError|RequestException $exception) {
+                Log::error('Razorpay expert visit order creation failed.', [
                     'registration_reference' => $reference,
-                    'purpose' => 'Expert farm visit registration',
-                ],
-            ]);
-        } catch (RazorpayError|RequestException $exception) {
-            Log::error('Razorpay expert visit order creation failed.', [
-                'registration_reference' => $reference,
-                'error' => $exception->getMessage(),
-            ]);
+                    'error' => $exception->getMessage(),
+                ]);
 
-            $registration->update(['payment_status' => 'order_failed']);
+                $registration->update(['payment_status' => 'order_failed']);
+
+                return response()->json([
+                    'message' => 'Your registration details were saved, but payment could not be started. Please retry or contact us.',
+                ], 502);
+            }
+
+            try {
+                $registration->update([
+                    'razorpay_order_id' => $order->id,
+                    'payment_status' => 'pending',
+                ]);
+            } catch (QueryException $exception) {
+                Log::critical('Razorpay order could not be linked to expert visit registration.', [
+                    'registration_reference' => $reference,
+                    'razorpay_order_id' => $order->id,
+                    'error' => $exception->getMessage(),
+                ]);
+
+                return response()->json([
+                    'message' => 'Payment was created but could not be linked to your registration. Please contact us before retrying.',
+                    ], 503);
+            }
 
             return response()->json([
-                'message' => 'Your registration details were saved, but payment could not be started. Please retry or contact us.',
-            ], 502);
+                'key' => config('services.razorpay.key_id'),
+                'order_id' => $order->id,
+                'amount' => $order->amount,
+                'currency' => 'INR',
+                'reference' => $reference,
+                'name' => trim($validated['name'] . ' ' . $validated['surname']),
+                'mobile' => $validated['mobile'],
+            ]);
         }
 
-        try {
-            $registration->update([
-                'razorpay_order_id' => $order->id,
-                'payment_status' => 'pending',
-            ]);
-        } catch (QueryException $exception) {
-            Log::critical('Razorpay order could not be linked to expert visit registration.', [
-                'registration_reference' => $reference,
-                'razorpay_order_id' => $order->id,
-                'error' => $exception->getMessage(),
-            ]);
-
-            return response()->json([
-                'message' => 'Payment was created but could not be linked to your registration. Please contact us before retrying.',
-            ], 503);
-        }
-
+        // Test/Offline Mode: Razorpay not configured yet, registration saved as pending directly
         return response()->json([
-            'key' => config('services.razorpay.key_id'),
-            'order_id' => $order->id,
-            'amount' => $order->amount,
-            'currency' => 'INR',
+            'test_mode' => true,
             'reference' => $reference,
-            'name' => trim($validated['name'] . ' ' . $validated['surname']),
-            'mobile' => $validated['mobile'],
+            'message' => 'Registration saved successfully! (Test Mode / Payment Pending)',
         ]);
     }
 
     public function verifyPayment(Request $request): JsonResponse
     {
-        if (!$this->checkoutIsConfigured()) {
+        if (!$this->hasRazorpay()) {
             return response()->json(['message' => 'Payment verification is unavailable.'], 503);
         }
 
@@ -236,7 +241,7 @@ class ExpertVisitRegistrationController extends Controller
         }
 
         try {
-            DB::connection('expert_visits')->transaction(function () use ($registration, $validated) {
+            DB::transaction(function () use ($registration, $validated) {
                 $registration->update([
                     'razorpay_payment_id' => $validated['razorpay_payment_id'],
                     'payment_status' => 'paid',
@@ -262,15 +267,12 @@ class ExpertVisitRegistrationController extends Controller
 
     private function checkoutIsConfigured(): bool
     {
-        $connection = config('database.connections.expert_visits');
-        $databaseReady = filled($connection['url'] ?? null) || (
-            filled($connection['host'] ?? null) &&
-            filled($connection['database'] ?? null) &&
-            filled($connection['username'] ?? null)
-        );
+        return true;
+    }
 
-        return $databaseReady &&
-            filled(config('services.razorpay.key_id')) &&
+    private function hasRazorpay(): bool
+    {
+        return filled(config('services.razorpay.key_id')) &&
             filled(config('services.razorpay.key_secret'));
     }
 }

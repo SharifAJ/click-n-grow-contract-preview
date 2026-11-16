@@ -6,7 +6,7 @@
         <div class="mb-6 flex flex-wrap items-center justify-between gap-4">
             <div>
                 <h3 class="text-lg font-semibold text-gray-800">Pre-Sowing Expert Visit Registrations</h3>
-                <p class="text-sm text-gray-500">Track farmer registrations, visit requests, farm details, and Razorpay payment status.</p>
+                <p class="text-sm text-gray-500">Track farmer registrations, visit requests, farm details, and payment status.</p>
             </div>
         </div>
 
@@ -28,18 +28,15 @@
                 <div class="flex items-start gap-3">
                     <i class="fa-solid fa-triangle-exclamation mt-0.5 text-amber-600"></i>
                     <div>
-                        <p class="font-semibold">Expert Visits Database Notice</p>
+                        <p class="font-semibold">Notice</p>
                         <p class="text-sm">{{ $dbError }}</p>
-                        @if (!$connectionConfigured)
-                            <p class="mt-1 text-xs text-amber-700">Set <code>REGISTRATION_DB_HOST</code>, <code>REGISTRATION_DB_DATABASE</code>, and <code>REGISTRATION_DB_USERNAME</code> in your environment / Render configuration.</p>
-                        @endif
                     </div>
                 </div>
             </div>
         @endif
 
         {{-- Filter and Search Controls --}}
-        @if ($connectionConfigured && empty($dbError))
+        @if (empty($dbError))
             <div class="mb-6 flex flex-col gap-4 border-b border-gray-200 pb-5 lg:flex-row lg:items-center lg:justify-between">
                 {{-- Status Pills --}}
                 <div class="flex flex-wrap items-center gap-2">
@@ -174,7 +171,7 @@
             <div class="mt-5">
                 {{ $registrations->links() }}
             </div>
-        @elseif ($connectionConfigured && empty($dbError))
+        @elseif (empty($dbError))
             <div class="py-12 text-center text-gray-500">
                 <i class="fa-solid fa-clipboard-question mb-3 text-4xl text-gray-300"></i>
                 <p class="text-base font-medium">No expert visit registrations found.</p>

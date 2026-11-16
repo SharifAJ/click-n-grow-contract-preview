@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ExpertVisitFarm extends Model
 {
-    protected $connection = 'expert_visits';
-
     protected $fillable = [
         'village',
         'taluka',

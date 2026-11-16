@@ -143,15 +143,13 @@
                             <strong class="expert-registration__fee" id="registration-fee" aria-live="polite">Select farm state</strong>
                             <small id="registration-fee-note">The fee is based on the highest-rate farm state for one visit day.</small>
                         </div>
-                        <button class="expert-registration__pay-button" id="pay-registration" type="submit"
-                            @disabled(!$checkoutReady)>
-                            Proceed to Pay <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        <button class="expert-registration__pay-button" id="pay-registration" type="submit">
+                            {{ !empty($hasRazorpay) ? 'Proceed to Pay' : 'Submit Registration' }} <i class="fas fa-arrow-right" aria-hidden="true"></i>
                         </button>
                     </div>
-                    @unless ($checkoutReady)
-                        <p class="expert-registration__setup-note">
-                            Online registration is not available yet. The site owner must configure the registration
-                            database and Razorpay credentials in Render.
+                    @unless (!empty($hasRazorpay))
+                        <p class="expert-registration__setup-note" style="color: #0d9488;">
+                            <i class="fas fa-info-circle"></i> Test mode: Submissions are saved directly to the database without online payment.
                         </p>
                     @endunless
                     <p class="expert-registration__secure"><i class="fas fa-lock" aria-hidden="true"></i> Secure online payment</p>
@@ -324,7 +322,7 @@
 
                 submitButton.disabled = true;
                 submitButton.dataset.label = submitButton.innerHTML;
-                submitButton.textContent = 'Preparing secure payment…';
+                submitButton.textContent = 'Submitting registration…';
                 message.className = 'expert-registration__message';
                 message.textContent = '';
 
@@ -340,8 +338,25 @@
                     const order = await response.json();
                     if (!response.ok) {
                         const validationErrors = Object.values(order.errors || {}).flat();
-                        throw new Error(validationErrors[0] || order.message || 'Unable to start payment.');
+                        throw new Error(validationErrors[0] || order.message || 'Unable to submit registration.');
                     }
+
+                    if (order.test_mode) {
+                        message.className = 'expert-registration__message is-success';
+                        message.textContent = `${order.message} Reference: ${order.reference}`;
+                        form.reset();
+                        farmList.innerHTML = farmTemplate.innerHTML
+                            .replaceAll('__INDEX__', '0')
+                            .replaceAll('__NUMBER__', '1');
+                        farmList.querySelector('.expert-registration__remove-farm').disabled = true;
+                        nextFarmIndex = 1;
+                        updateFee();
+                        updateTotalArea();
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = submitButton.dataset.label;
+                        return;
+                    }
+
                     if (!window.Razorpay) throw new Error('Secure checkout could not be loaded. Please refresh and try again.');
 
                     submitButton.disabled = false;

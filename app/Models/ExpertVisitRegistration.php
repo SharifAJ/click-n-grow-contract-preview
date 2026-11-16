@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ExpertVisitRegistration extends Model
 {
-    protected $connection = 'expert_visits';
-
     protected $fillable = [
         'reference',
         'name',

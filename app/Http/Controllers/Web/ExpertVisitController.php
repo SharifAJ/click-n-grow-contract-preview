@@ -7,6 +7,7 @@ use App\Models\ExpertVisitRegistration;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\View\View;
 use Throwable;
 
@@ -14,7 +15,6 @@ class ExpertVisitController extends Controller
 {
     public function index(Request $request): View
     {
-        $connectionConfigured = $this->isDatabaseConfigured();
         $dbError = null;
         $registrations = null;
         $statusCounts = [
@@ -24,8 +24,10 @@ class ExpertVisitController extends Controller
             'order_failed' => 0,
         ];
 
-        if ($connectionConfigured) {
-            try {
+        try {
+            if (!Schema::hasTable('expert_visit_registrations')) {
+                $dbError = 'The expert_visit_registrations table does not exist in the database. Please run: php artisan migrate';
+            } else {
                 $query = ExpertVisitRegistration::with('farms');
 
                 if ($request->filled('status') && in_array($request->status, ['paid', 'pending', 'order_failed'], true)) {
@@ -51,15 +53,13 @@ class ExpertVisitController extends Controller
                 $statusCounts['order_failed'] = ExpertVisitRegistration::where('payment_status', 'order_failed')->count();
 
                 $registrations = $query->latest()->paginate(15)->withQueryString();
-            } catch (Throwable $e) {
-                Log::error('Could not load expert visit registrations in admin', ['error' => $e->getMessage()]);
-                $dbError = 'Database connection error: ' . $e->getMessage();
             }
-        } else {
-            $dbError = 'The expert_visits database connection is not configured yet (REGISTRATION_DB_* environment variables).';
+        } catch (Throwable $e) {
+            Log::error('Could not load expert visit registrations in admin', ['error' => $e->getMessage()]);
+            $dbError = 'Database error: ' . $e->getMessage();
         }
 
-        return view('dashboard.expert_visits.index', compact('registrations', 'statusCounts', 'connectionConfigured', 'dbError'));
+        return view('dashboard.expert_visits.index', compact('registrations', 'statusCounts', 'dbError'));
     }
 
     public function show(int $id): View|RedirectResponse
@@ -88,16 +88,5 @@ class ExpertVisitController extends Controller
                 ->route('admin.expert-visits.index')
                 ->with('error', 'Unable to delete registration: ' . $e->getMessage());
         }
-    }
-
-    private function isDatabaseConfigured(): bool
-    {
-        $connection = config('database.connections.expert_visits');
-
-        return filled($connection['url'] ?? null) || (
-            filled($connection['host'] ?? null) &&
-            filled($connection['database'] ?? null) &&
-            filled($connection['username'] ?? null)
-        );
     }
 }
