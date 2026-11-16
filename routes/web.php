@@ -11,6 +11,7 @@ use App\Http\Controllers\Web\ContactUsController;
 use App\Http\Controllers\Web\BlogPostController;
 use App\Http\Controllers\Web\GalleryItemController;
 use App\Http\Controllers\Web\DashboardController;
+use App\Http\Controllers\Web\ExpertVisitController;
 use App\Http\Controllers\Web\FarmerController;
 use App\Http\Controllers\Web\PackageMasterController;
 use App\Http\Controllers\Web\PaymentController;
@@ -149,6 +150,11 @@ Route::middleware(['auth:admin'])->group(function () {
 
     Route::get('/admin/careers', [CareerController::class, 'applications'])->name('admin.careers.index');
     Route::get('/admin/careers/{careerApplication}/resume', [CareerController::class, 'resume'])->name('admin.careers.resume');
+
+    // ============For Expert Visit Registrations (Admin) ================
+    Route::get('/admin/expert-visits', [ExpertVisitController::class, 'index'])->name('admin.expert-visits.index');
+    Route::get('/admin/expert-visits/{id}', [ExpertVisitController::class, 'show'])->name('admin.expert-visits.show');
+    Route::delete('/admin/expert-visits/{id}', [ExpertVisitController::class, 'destroy'])->name('admin.expert-visits.destroy');
 
     /* ---------------------------------------------------------------- GENERAL SETTING --------------------------------------------------------------- */
     Route::get('/settings/application', [SettingController::class, 'index'])->name('setting.index');

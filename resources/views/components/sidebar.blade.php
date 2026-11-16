@@ -22,6 +22,7 @@
             <x-sidebar-link :href="route('admin.blogs.index')" :active="request()->routeIs('admin.blogs.*')" icon="fa-solid fa-newspaper" text="Blog Posts" />
             <x-sidebar-link :href="route('admin.gallery.index')" :active="request()->routeIs('admin.gallery.*')" icon="fa-solid fa-images" text="Image Gallery" />
             <x-sidebar-link :href="route('admin.careers.index')" :active="request()->routeIs('admin.careers.*')" icon="fa-solid fa-briefcase" text="Career Applications" />
+            <x-sidebar-link :href="route('admin.expert-visits.index')" :active="request()->routeIs('admin.expert-visits.*')" icon="fa-solid fa-calendar-check" text="Expert Visits" />
             {{--
             <x-sidebar-link :href="route('farmer.index')" :active="request()->routeIs('farmer.*')" icon="fa-solid fa-users" text="Farmers" />
             <x-sidebar-link :href="route('subscription.index')" :active="request()->routeIs('subscription.index')" icon="fa-solid fa-money-check-alt"
