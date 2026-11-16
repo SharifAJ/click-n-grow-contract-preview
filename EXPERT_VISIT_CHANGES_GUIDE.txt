@@ -1,0 +1,400 @@
+================================================================================
+EXPERT VISIT REGISTRATION - ADMIN PANEL & SINGLE DATABASE INTEGRATION
+DEVELOPER CHANGELOG AND DEPLOYMENT GUIDE
+================================================================================
+
+OVERVIEW:
+This update:
+1. Adds an Admin Panel interface under /admin/expert-visits to list, filter,
+   search, view full details, and manage Expert Visit submissions.
+2. Unifies all Expert Visit tables into the application's single primary
+   database (removes the requirement for a separate 'expert_visits' connection).
+3. Adds support for both live payment (Razorpay) and test/offline registration
+   modes if Razorpay credentials are not yet configured in .env.
+
+--------------------------------------------------------------------------------
+TABLE OF CONTENTS:
+1. Summary of Changed and New Files
+2. Migration Instructions
+3. Exact Code Changes by File
+--------------------------------------------------------------------------------
+
+================================================================================
+1. SUMMARY OF CHANGED AND NEW FILES
+================================================================================
+
+NEW FILES TO ADD:
+- app/Http/Controllers/Web/ExpertVisitController.php
+- resources/views/dashboard/expert_visits/index.blade.php
+- resources/views/dashboard/expert_visits/show.blade.php
+- database/migrations/2026_10_06_000001_create_expert_visit_registrations_table.php
+
+EXISTING FILES MODIFIED:
+- routes/web.php
+- resources/views/components/sidebar.blade.php
+- app/Models/ExpertVisitRegistration.php
+- app/Models/ExpertVisitFarm.php
+- app/Http/Controllers/ExpertVisitRegistrationController.php
+- resources/views/pages/expert-visit-registration.blade.php
+
+FILES / FOLDERS DELETED (OR REPLACED):
+- database/migrations/expert_visits/ (the migration inside it was moved to standard database/migrations/)
+
+================================================================================
+2. MIGRATION INSTRUCTIONS FOR THE SERVER
+================================================================================
+
+On the server, run the following Artisan command:
+
+    php artisan migrate
+
+This will create `expert_visit_registrations` and `expert_visit_farms` tables in
+your main database. The migration file has `if (!Schema::hasTable(...))` checks,
+so if the tables already exist in your database, it will safely skip without errors.
+
+================================================================================
+3. EXACT CODE CHANGES BY FILE
+================================================================================
+
+--------------------------------------------------------------------------------
+FILE 1: routes/web.php
+--------------------------------------------------------------------------------
+ACTION: Add controller import at the top, and add 3 admin routes inside the
+`Route::middleware(['auth:admin'])->group(function () { ... });` block.
+
+1. Top of routes/web.php:
+   Add:
+   use App\Http\Controllers\Web\ExpertVisitController;
+
+2. Inside `Route::middleware(['auth:admin'])->group(...)`:
+   Add:
+   // ============For Expert Visit Registrations (Admin) ================
+   Route::get('/admin/expert-visits', [ExpertVisitController::class, 'index'])->name('admin.expert-visits.index');
+   Route::get('/admin/expert-visits/{id}', [ExpertVisitController::class, 'show'])->name('admin.expert-visits.show');
+   Route::delete('/admin/expert-visits/{id}', [ExpertVisitController::class, 'destroy'])->name('admin.expert-visits.destroy');
+
+--------------------------------------------------------------------------------
+FILE 2: resources/views/components/sidebar.blade.php
+--------------------------------------------------------------------------------
+ACTION: Add the "Expert Visits" menu link in the sidebar menu items list.
+
+Add this line under the existing admin links (e.g. after Career Applications):
+
+    <x-sidebar-link :href="route('admin.expert-visits.index')" :active="request()->routeIs('admin.expert-visits.*')" icon="fa-solid fa-calendar-check" text="Expert Visits" />
+
+--------------------------------------------------------------------------------
+FILE 3: app/Models/ExpertVisitRegistration.php
+--------------------------------------------------------------------------------
+ACTION: Remove the `$connection = 'expert_visits'` property so the model uses
+the application's default database connection.
+
+REMOVE THIS LINE:
+    protected $connection = 'expert_visits';
+
+Full model code:
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class ExpertVisitRegistration extends Model
+{
+    protected $fillable = [
+        'reference',
+        'name',
+        'father_name',
+        'surname',
+        'mobile',
+        'residential_village',
+        'residential_taluka',
+        'residential_district',
+        'residential_state',
+        'residential_pincode',
+        'nearest_railway_station',
+        'preferred_visit_date',
+        'visit_days',
+        'fee_per_day',
+        'total_fee',
+        'payment_status',
+        'razorpay_order_id',
+        'razorpay_payment_id',
+        'terms_accepted_at',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'preferred_visit_date' => 'date',
+            'terms_accepted_at' => 'datetime',
+            'fee_per_day' => 'integer',
+            'total_fee' => 'integer',
+            'visit_days' => 'integer',
+        ];
+    }
+
+    public function farms(): HasMany
+    {
+        return $this->hasMany(ExpertVisitFarm::class, 'registration_id');
+    }
+}
+
+--------------------------------------------------------------------------------
+FILE 4: app/Models/ExpertVisitFarm.php
+--------------------------------------------------------------------------------
+ACTION: Remove the `$connection = 'expert_visits'` property so the model uses
+the application's default database connection.
+
+REMOVE THIS LINE:
+    protected $connection = 'expert_visits';
+
+Full model code:
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class ExpertVisitFarm extends Model
+{
+    protected $fillable = [
+        'village',
+        'taluka',
+        'district',
+        'state',
+        'pincode',
+        'mobile',
+        'area_acres',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'area_acres' => 'decimal:2',
+        ];
+    }
+
+    public function registration(): BelongsTo
+    {
+        return $this->belongsTo(ExpertVisitRegistration::class, 'registration_id');
+    }
+}
+
+--------------------------------------------------------------------------------
+FILE 5: app/Http/Controllers/ExpertVisitRegistrationController.php
+--------------------------------------------------------------------------------
+ACTION:
+1. In `create()`: pass `'hasRazorpay' => $this->hasRazorpay()`.
+2. In `store()` and `verifyPayment()`: replace `DB::connection('expert_visits')->transaction(...)`
+   with `DB::transaction(...)`.
+3. In `store()`: if Razorpay credentials are not configured, gracefully save
+   as pending and return a test_mode response rather than failing.
+4. Replace `checkoutIsConfigured()` to return `true` (since the main database is always available).
+5. Add helper `hasRazorpay()` to check if RAZORPAY_KEY_ID & RAZORPAY_KEY_SECRET exist in config.
+
+Key updated methods:
+    private function checkoutIsConfigured(): bool
+    {
+        return true;
+    }
+
+    private function hasRazorpay(): bool
+    {
+        return filled(config('services.razorpay.key_id')) &&
+            filled(config('services.razorpay.key_secret'));
+    }
+
+--------------------------------------------------------------------------------
+FILE 6: app/Http/Controllers/Web/ExpertVisitController.php (NEW FILE)
+--------------------------------------------------------------------------------
+ACTION: Create this controller to manage the admin listing and detail views.
+
+Content:
+<?php
+
+namespace App\Http\Controllers\Web;
+
+use App\Http\Controllers\Controller;
+use App\Models\ExpertVisitRegistration;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\View\View;
+use Throwable;
+
+class ExpertVisitController extends Controller
+{
+    public function index(Request $request): View
+    {
+        $dbError = null;
+        $registrations = null;
+        $statusCounts = [
+            'all' => 0,
+            'paid' => 0,
+            'pending' => 0,
+            'order_failed' => 0,
+        ];
+
+        try {
+            if (!Schema::hasTable('expert_visit_registrations')) {
+                $dbError = 'The expert_visit_registrations table does not exist in the database. Please run: php artisan migrate';
+            } else {
+                $query = ExpertVisitRegistration::with('farms');
+
+                if ($request->filled('status') && in_array($request->status, ['paid', 'pending', 'order_failed'], true)) {
+                    $query->where('payment_status', $request->status);
+                }
+
+                if ($request->filled('search')) {
+                    $search = trim((string) $request->search);
+                    $query->where(function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%")
+                            ->orWhere('father_name', 'like', "%{$search}%")
+                            ->orWhere('surname', 'like', "%{$search}%")
+                            ->orWhere('mobile', 'like', "%{$search}%")
+                            ->orWhere('reference', 'like', "%{$search}%")
+                            ->orWhere('razorpay_order_id', 'like', "%{$search}%")
+                            ->orWhere('razorpay_payment_id', 'like', "%{$search}%");
+                    });
+                }
+
+                $statusCounts['all'] = ExpertVisitRegistration::count();
+                $statusCounts['paid'] = ExpertVisitRegistration::where('payment_status', 'paid')->count();
+                $statusCounts['pending'] = ExpertVisitRegistration::where('payment_status', 'pending')->count();
+                $statusCounts['order_failed'] = ExpertVisitRegistration::where('payment_status', 'order_failed')->count();
+
+                $registrations = $query->latest()->paginate(15)->withQueryString();
+            }
+        } catch (Throwable $e) {
+            Log::error('Could not load expert visit registrations in admin', ['error' => $e->getMessage()]);
+            $dbError = 'Database error: ' . $e->getMessage();
+        }
+
+        return view('dashboard.expert_visits.index', compact('registrations', 'statusCounts', 'dbError'));
+    }
+
+    public function show(int $id): View|RedirectResponse
+    {
+        try {
+            $registration = ExpertVisitRegistration::with('farms')->findOrFail($id);
+            return view('dashboard.expert_visits.show', compact('registration'));
+        } catch (Throwable $e) {
+            return redirect()
+                ->route('admin.expert-visits.index')
+                ->with('error', 'Unable to load registration: ' . $e->getMessage());
+        }
+    }
+
+    public function destroy(int $id): RedirectResponse
+    {
+        try {
+            $registration = ExpertVisitRegistration::findOrFail($id);
+            $registration->delete();
+
+            return redirect()
+                ->route('admin.expert-visits.index')
+                ->with('success', 'Registration removed successfully.');
+        } catch (Throwable $e) {
+            return redirect()
+                ->route('admin.expert-visits.index')
+                ->with('error', 'Unable to delete registration: ' . $e->getMessage());
+        }
+    }
+}
+
+--------------------------------------------------------------------------------
+FILE 7: database/migrations/2026_10_06_000001_create_expert_visit_registrations_table.php (NEW)
+--------------------------------------------------------------------------------
+ACTION: Place directly in `database/migrations/` so standard `php artisan migrate`
+creates both tables in the main database.
+
+Content:
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        if (!Schema::hasTable('expert_visit_registrations')) {
+            Schema::create('expert_visit_registrations', function (Blueprint $table) {
+                $table->id();
+                $table->uuid('reference')->unique();
+                $table->string('name', 100);
+                $table->string('father_name', 100);
+                $table->string('surname', 100);
+                $table->string('mobile', 15);
+                $table->string('residential_village', 120);
+                $table->string('residential_taluka', 120);
+                $table->string('residential_district', 120);
+                $table->string('residential_state', 100);
+                $table->string('residential_pincode', 10);
+                $table->string('nearest_railway_station', 150);
+                $table->date('preferred_visit_date');
+                $table->unsignedTinyInteger('visit_days');
+                $table->unsignedInteger('fee_per_day');
+                $table->unsignedInteger('total_fee');
+                $table->string('payment_status', 30)->default('pending')->index();
+                $table->string('razorpay_order_id', 100)->nullable()->unique();
+                $table->string('razorpay_payment_id', 100)->nullable()->unique();
+                $table->timestamp('terms_accepted_at')->nullable();
+                $table->timestamps();
+            });
+        }
+
+        if (!Schema::hasTable('expert_visit_farms')) {
+            Schema::create('expert_visit_farms', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('registration_id')
+                    ->constrained('expert_visit_registrations')
+                    ->cascadeOnDelete();
+                $table->string('village', 120);
+                $table->string('taluka', 120);
+                $table->string('district', 120);
+                $table->string('state', 100);
+                $table->string('pincode', 10);
+                $table->string('mobile', 15);
+                $table->decimal('area_acres', 10, 2);
+                $table->timestamps();
+                $table->index(['state', 'district']);
+            });
+        }
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('expert_visit_farms');
+        Schema::dropIfExists('expert_visit_registrations');
+    }
+};
+
+--------------------------------------------------------------------------------
+FILE 8: resources/views/dashboard/expert_visits/index.blade.php (NEW FILE)
+--------------------------------------------------------------------------------
+ACTION: Create this view in `resources/views/dashboard/expert_visits/`.
+Displays the registrations table with status badges, filters, search, and pagination.
+
+--------------------------------------------------------------------------------
+FILE 9: resources/views/dashboard/expert_visits/show.blade.php (NEW FILE)
+--------------------------------------------------------------------------------
+ACTION: Create this view in `resources/views/dashboard/expert_visits/`.
+Displays full registration details, applicant information, residential address,
+visit date/station, fee, Razorpay IDs, and the table of all registered farms.
+
+--------------------------------------------------------------------------------
+FILE 10: resources/views/pages/expert-visit-registration.blade.php
+--------------------------------------------------------------------------------
+ACTION:
+1. In the submit button area:
+   Display `Proceed to Pay` when `$hasRazorpay` is true, or `Submit Registration`
+   when testing without Razorpay.
+2. In the JavaScript `form.addEventListener('submit', ...)`:
+   Handle `order.test_mode` by showing the success message with the reference UUID
+   and resetting the form.
+================================================================================
